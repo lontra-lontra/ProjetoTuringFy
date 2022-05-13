@@ -6,5 +6,12 @@
 </head>
 <body th:each = "musica : ${musicas}">
     <p th:text=" ${musica.getName()} + '-' +${musica.getArtists()[0].getName()}" />
+
+<form action="http://localhost:8080/pesquisa">
+  <label for="pesquisa">Pesquisa:</label><br>
+  <input type="text" id="pesquisa" name="pesquisa" value="pesquie musicas"><br>
+  <input type="submit" value="Submit">
+</form> 
+
 </body>
 </html>
