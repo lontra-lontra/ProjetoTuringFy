@@ -1,0 +1,10 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body th:each = "musica : ${musicas}">
+    <p th:text=" ${musica.getName()} + '-' +${musica.getArtists()[0].getName()}" />
+</body>
+</html>
