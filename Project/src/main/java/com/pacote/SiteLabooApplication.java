@@ -9,6 +9,7 @@ import com.pacote.controllers.comunicadorDoSpotify;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import se.michaelthelin.spotify.model_objects.special.SearchResult;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
 @SpringBootApplication
@@ -26,17 +27,20 @@ public class SiteLabooApplication {
 			String palavras_chave = entrada.next();
 			
 			if(palavras_chave != null) {
-				Track[] musicas_pesquisadas = comunicadorDoSpotify.PesquisaMúsicas(palavras_chave);
+				SearchResult itens_pesquisados = comunicadorDoSpotify.PesquisaItens(palavras_chave);
 				
-				if(musicas_pesquisadas != null) {
+				if(itens_pesquisados != null) {
 					System.out.println("Resultados da busca: ");
 					
-					for(Track musica : musicas_pesquisadas) {
-						System.out.println(musica);
-					}
+					System.out.println(itens_pesquisados.getTracks().getItems());
+					System.out.println(itens_pesquisados.getAlbums().getItems());
+					System.out.println(itens_pesquisados.getArtists().getItems());
+					System.out.println(itens_pesquisados.getEpisodes().getItems());
+					System.out.println(itens_pesquisados.getPlaylists().getItems());
+					System.out.println(itens_pesquisados.getShows().getItems());
 				}
 				
-				musicas_pesquisadas = null;
+				itens_pesquisados = null;
 			}
 			
 			System.out.println("Realizar nova busca?");
