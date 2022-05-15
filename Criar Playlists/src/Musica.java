@@ -33,8 +33,7 @@ public class Musica {
 		return duracaoSegundos;
 	}
 
-	@Override
-	public String toString() {
+	public String transformaEmString() {
 		return "Musica [nome=" + nome + ", artistas=" + Arrays.toString(artistas) + ", ano="
 				+ ano + ", duracao " + duracaoSegundos/60 + " min " + duracaoSegundos%60 + " seg]\n";
 	}
