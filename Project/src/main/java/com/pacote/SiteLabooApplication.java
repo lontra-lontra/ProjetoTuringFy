@@ -1,8 +1,8 @@
-//package com.pacote;
+package com.pacote;
 
 
-import java.util.Arrays;
-import java.util.Objects;
+//import java.util.Arrays;
+//import java.util.Objects;
 import java.util.Scanner;
 import com.pacote.controllers.comunicadorDoSpotify;
 
@@ -10,7 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import se.michaelthelin.spotify.model_objects.special.SearchResult;
-import se.michaelthelin.spotify.model_objects.specification.Track;
+//import se.michaelthelin.spotify.model_objects.specification.Track;
 
 @SpringBootApplication
 public class SiteLabooApplication {
@@ -58,8 +58,9 @@ public class SiteLabooApplication {
 			
 			palavras_chave = null;
 			resposta = null;
+			entrada.close();
+			saida.close();
 		}
-		
 		
 	}
 

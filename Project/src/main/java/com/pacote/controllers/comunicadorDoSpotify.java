@@ -1,4 +1,4 @@
-package src.main.java.com.pacote.controllers;
+package com.pacote.controllers;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeRequest;
 
 import se.michaelthelin.spotify.SpotifyApi;
@@ -7,22 +7,22 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 import se.michaelthelin.spotify.model_objects.credentials.AuthorizationCodeCredentials;
 
 import java.net.URI;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
+//import java.util.concurrent.CancellationException;
+//import java.util.concurrent.CompletableFuture;
+//import java.util.concurrent.CompletionException;
 
-import se.michaelthelin.spotify.SpotifyHttpManager;
-import se.michaelthelin.spotify.SpotifyApi;
+//import se.michaelthelin.spotify.SpotifyHttpManager;
+//import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
-import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
+//import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
 // PARA PESQUISAR ALBUNS
-import se.michaelthelin.spotify.model_objects.specification.Album;
+//import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
 
@@ -32,7 +32,7 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchArtistsReq
 
 // PARA PESQUISAR PLAYLISTS
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
-import se.michaelthelin.spotify.model_objects.specification.Show;
+//import se.michaelthelin.spotify.model_objects.specification.Show;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
 
 // PARA EPISODIOS
@@ -52,7 +52,7 @@ import java.util.*;
 import org.apache.hc.core5.http.ParseException;
 
 import java.io.IOException;
-import java.net.URI;
+//import java.net.URI;
 
 
 
@@ -91,7 +91,7 @@ public static Track[] PesquisaMusicas(String textoDePesquisa) {
   } catch (IOException | SpotifyWebApiException | ParseException e) {
    System.out.println("Error: " + e.getMessage());
   }
-  /
+  
    final SearchTracksRequest RequestDasMusicasPesquisadas = spotifyApi.searchTracks(textoDePesquisa)
          .limit(10)
    .build();
@@ -121,7 +121,7 @@ public static AlbumSimplified[] PesquisAlbuns(String nomeDoAlbum) {
 	  } catch (IOException | SpotifyWebApiException | ParseException e) {
 	   System.out.println("Error: " + e.getMessage());
 	  }
-	  /
+
 	   final SearchAlbumsRequest RequestDosAlbunsPesquisados = spotifyApi.searchAlbums(nomeDoAlbum)
 	         .limit(20)
 	   .build();
@@ -151,7 +151,7 @@ public static Artist[] PesquisaArtistas(String nomeDoArtista) {
 	  } catch (IOException | SpotifyWebApiException | ParseException e) {
 	   System.out.println("Error: " + e.getMessage());
 	  }
-	  /
+	
 	   final SearchArtistsRequest RequestDosArtistasPesquisados = spotifyApi.searchArtists(nomeDoArtista)
 	         .limit(20)
 	   .build();
@@ -181,7 +181,7 @@ public static PlaylistSimplified[] PesquisaPlaylists(String nomeDaPlaylist) {
 	  } catch (IOException | SpotifyWebApiException | ParseException e) {
 	   System.out.println("Error: " + e.getMessage());
 	  }
-	  /
+	 
 	   final SearchPlaylistsRequest RequestDasPlaylistsPesquisadas = spotifyApi.searchPlaylists(nomeDaPlaylist)
 	         .limit(20)
 	   .build();
@@ -211,7 +211,7 @@ public static EpisodeSimplified[] PesquisaEpisodios(String nomeDoEpisodio) {
 	  } catch (IOException | SpotifyWebApiException | ParseException e) {
 	   System.out.println("Error: " + e.getMessage());
 	  }
-	  /
+	  
 	   final SearchEpisodesRequest RequestDosEpisodiosPesquisados = spotifyApi.searchEpisodes(nomeDoEpisodio)
 	         .limit(20)
 	   .build();
@@ -241,7 +241,7 @@ public static ShowSimplified[] PesquisaShows(String nomeDoShow) {
 	  } catch (IOException | SpotifyWebApiException | ParseException e) {
 	   System.out.println("Error: " + e.getMessage());
 	  }
-	  /
+	  
 	   final SearchShowsRequest RequestDosShowsPesquisados = spotifyApi.searchShows(nomeDoShow)
 	         .limit(20)
 	   .build();
@@ -271,7 +271,7 @@ public static SearchResult PesquisaItens(String chaveDePesquisa) {
 	  } catch (IOException | SpotifyWebApiException | ParseException e) {
 	   System.out.println("Error: " + e.getMessage());
 	  }
-	  /
+	  
 	  final List <String> lista_tipo = new ArrayList <String> (Arrays.asList(ModelObjectType.ARTIST.getType(), ModelObjectType.ALBUM.getType(),
 	                                      ModelObjectType.PLAYLIST.getType(), ModelObjectType.TRACK.getType(),
 	                                      ModelObjectType.SHOW.getType(), ModelObjectType.EPISODE.getType()));
