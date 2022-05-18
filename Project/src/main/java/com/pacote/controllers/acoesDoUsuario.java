@@ -70,7 +70,7 @@ public class AcoesDoUsuario {
 		int indiceDaPlaylist = sc.nextInt();
 		System.out.println("Insira o novo nome:");
 		sc.nextLine();
-		listaComNome.get(indiceDaPlaylist - 1).nome = sc.nextLine();
+		listaComNome.get(indiceDaPlaylist - 1).alteraNome(sc.nextLine());
 		System.out.println("Nome alterado com sucesso!");
     	
     }
