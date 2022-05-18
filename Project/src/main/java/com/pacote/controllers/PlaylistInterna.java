@@ -50,7 +50,7 @@ public class PlaylistInterna {
 	}
 	
 	public void imprimeTrack(Track musica) {
-		System.out.printf("Musica: %s, Album: %s \n Duração: %d ms, Primeiro Artista: %s", musica.getName(), musica.getAlbum().getName(), musica.getDurationMs(), musica.getArtists()[0].getName());		
+		System.out.printf("Musica: %s, Album: %s \n Duração: %d ms, Primeiro Artista: %s \n", musica.getName(), musica.getAlbum().getName(), musica.getDurationMs(), musica.getArtists()[0].getName());		
 	}
 
 }

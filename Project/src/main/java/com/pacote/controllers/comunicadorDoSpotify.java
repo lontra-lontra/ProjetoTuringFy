@@ -307,7 +307,7 @@ private static final AuthorizationCodeUriRequest requestDoLinkParaAutorização 
 public static URI geraLink() {
 final URI linkParaAutorização = requestDoLinkParaAutorização.execute();
 
-System.out.println("URI: " + linkParaAutorização.toString());
+//System.out.println("URI: " + linkParaAutorização.toString());
 return linkParaAutorização;
 }
 
@@ -329,12 +329,6 @@ try {
   System.out.println("Error: " + e.getMessage());
 }
 }
-
-
-public static void main(String[] args) {
-	//PesquisaMúsicas("ALO");
-}
-
 
 
 public static ClientCredentialsRequest getRequestdasnossascredenciais() {
