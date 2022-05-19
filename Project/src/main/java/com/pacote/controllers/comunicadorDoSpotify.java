@@ -56,7 +56,7 @@ import java.io.IOException;
 
 
 
-public class comunicadorDoSpotify {
+public class ComunicadorDoSpotify {
 private static final String clientId = "5b1ca7af0e4d44349dc5e7691cb31f9e";
 private static final String clientSecret = "a97ac799a878484998b7876f28ec46b9";
 private static final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/red");
@@ -66,7 +66,7 @@ private static String codigoDeAutorização = "";
 
 
 public static void setCodigoDeAutorização(String codigoDeAutorização) {
-	comunicadorDoSpotify.codigoDeAutorização = codigoDeAutorização;
+	ComunicadorDoSpotify.codigoDeAutorização = codigoDeAutorização;
 }
 
 private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
@@ -100,7 +100,7 @@ public static Track[] PesquisaMusicas(String textoDePesquisa) {
   try {
       final Paging<Track> MusicasPesquisadas = RequestDasMusicasPesquisadas.execute();
 
-      System.out.println("Total: " + MusicasPesquisadas.getTotal());
+      //System.out.println("Total: " + MusicasPesquisadas.getTotal());
       return MusicasPesquisadas.getItems();
     } catch (IOException | SpotifyWebApiException | ParseException e) {
       System.out.println("Error: " + e.getMessage());
@@ -130,7 +130,7 @@ public static AlbumSimplified[] PesquisAlbuns(String nomeDoAlbum) {
 	  try {//VER OQ EH MELHOR DEPOIS - ALBUMSIMPLIFIED OU ALBUM
 	      final Paging<AlbumSimplified> AlbunsPesquisados = RequestDosAlbunsPesquisados.execute();
 
-	      System.out.println("Total: " + AlbunsPesquisados.getTotal());
+	      //System.out.println("Total: " + AlbunsPesquisados.getTotal());
 	      return AlbunsPesquisados.getItems();
 	    } catch (IOException | SpotifyWebApiException | ParseException e) {
 	      System.out.println("Error: " + e.getMessage());
@@ -160,7 +160,7 @@ public static Artist[] PesquisaArtistas(String nomeDoArtista) {
 	  try {
 	      final Paging<Artist> ArtistasPesquisados = RequestDosArtistasPesquisados.execute();
 
-	      System.out.println("Total: " + ArtistasPesquisados.getTotal());
+	      //System.out.println("Total: " + ArtistasPesquisados.getTotal());
 	      return ArtistasPesquisados.getItems();
 	    } catch (IOException | SpotifyWebApiException | ParseException e) {
 	      System.out.println("Error: " + e.getMessage());
@@ -190,7 +190,7 @@ public static PlaylistSimplified[] PesquisaPlaylists(String nomeDaPlaylist) {
 	  try {
 	      final Paging<PlaylistSimplified> PlaylistsPesquisadas = RequestDasPlaylistsPesquisadas.execute();
 
-	      System.out.println("Total: " + PlaylistsPesquisadas.getTotal());
+	      //System.out.println("Total: " + PlaylistsPesquisadas.getTotal());
 	      return PlaylistsPesquisadas.getItems();
 	    } catch (IOException | SpotifyWebApiException | ParseException e) {
 	      System.out.println("Error: " + e.getMessage());
@@ -220,7 +220,7 @@ public static EpisodeSimplified[] PesquisaEpisodios(String nomeDoEpisodio) {
 	  try {
 	      final Paging<EpisodeSimplified> EpisodiosPesquisados = RequestDosEpisodiosPesquisados.execute();
 
-	      System.out.println("Total: " + EpisodiosPesquisados.getTotal());
+	      //System.out.println("Total: " + EpisodiosPesquisados.getTotal());
 	      return EpisodiosPesquisados.getItems();
 	    } catch (IOException | SpotifyWebApiException | ParseException e) {
 	      System.out.println("Error: " + e.getMessage());
@@ -250,7 +250,7 @@ public static ShowSimplified[] PesquisaShows(String nomeDoShow) {
 	  try {
 	      final Paging<ShowSimplified> ShowsPesquisados = RequestDosShowsPesquisados.execute();
 
-	      System.out.println("Total: " + ShowsPesquisados.getTotal());
+	      //System.out.println("Total: " + ShowsPesquisados.getTotal());
 	      return ShowsPesquisados.getItems();
 	    } catch (IOException | SpotifyWebApiException | ParseException e) {
 	      System.out.println("Error: " + e.getMessage());
@@ -284,7 +284,7 @@ public static SearchResult PesquisaItens(String chaveDePesquisa) {
 	  try {
 	      final SearchResult ItensPesquisados = RequestDosItensPesquisados.execute();
 
-	      System.out.println("Total: " + ItensPesquisados.getTracks().getTotal());
+	      //System.out.println("Total: " + ItensPesquisados.getTracks().getTotal());
 	      return ItensPesquisados; //getAlbuns, getArtists, get...
 	    } catch (IOException | SpotifyWebApiException | ParseException e) {
 	      System.out.println("Error: " + e.getMessage());
@@ -324,7 +324,7 @@ try {
   spotifyApi.setAccessToken(authorizationCodeCredentials.getAccessToken());
   spotifyApi.setRefreshToken(authorizationCodeCredentials.getRefreshToken());
 
-  System.out.println("Expires in: " + authorizationCodeCredentials.getExpiresIn());
+  //System.out.println("Expires in: " + authorizationCodeCredentials.getExpiresIn());
 } catch (IOException | SpotifyWebApiException | ParseException e) {
   System.out.println("Error: " + e.getMessage());
 }

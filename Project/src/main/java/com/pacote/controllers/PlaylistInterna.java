@@ -11,6 +11,11 @@ public class PlaylistInterna {
 	List<Track> playlist;
 	String nome;
 	
+	public PlaylistInterna(String nomeDaPlaylist) {
+		this.playlist = new ArrayList<Track>();
+		this.nome = nomeDaPlaylist;
+	}
+
 	public void adicionaMusica(Track musica) {
 		this.playlist.add(musica);
 	}
@@ -50,7 +55,7 @@ public class PlaylistInterna {
 	}
 	
 	public void imprimeTrack(Track musica) {
-		System.out.printf("Musica: %s, Album: %s \n Duração: %d ms, Primeiro Artista: %s \n", musica.getName(), musica.getAlbum().getName(), musica.getDurationMs(), musica.getArtists()[0].getName());		
+		System.out.printf("Musica: %s, Album: %s \nDuração: %d ms, Primeiro Artista: %s \n", musica.getName(), musica.getAlbum().getName(), musica.getDurationMs(), musica.getArtists()[0].getName());		
 	}
 
 }
