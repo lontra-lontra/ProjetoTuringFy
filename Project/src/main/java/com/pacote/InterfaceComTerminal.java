@@ -29,17 +29,18 @@ public class InterfaceComTerminal {
 			opcaoDoUsuario = entrada.nextInt();
 			
 			if(opcaoDoUsuario == 1)
-				executor.pesquisarMusica(bibliotecaDoUsuario);
+				executor.pesquisarMusica(bibliotecaDoUsuario, entrada);
 			else if(opcaoDoUsuario == 2)
-				executor.visualizarPlaylists(bibliotecaDoUsuario);
+				executor.visualizarPlaylists(bibliotecaDoUsuario, entrada);
 			else if(opcaoDoUsuario == 3)
-				bibliotecaDoUsuario = executor.criarPlaylist(bibliotecaDoUsuario);
+				bibliotecaDoUsuario = executor.criarPlaylist(bibliotecaDoUsuario, entrada);
 			else if(opcaoDoUsuario == 4)
-				executor.deletarPlaylist(bibliotecaDoUsuario);
+				executor.deletarPlaylist(bibliotecaDoUsuario, entrada);
 			else if(opcaoDoUsuario == 5)
-				executor.pesquisarEmPlaylist(bibliotecaDoUsuario);
+				executor.pesquisarEmPlaylist(bibliotecaDoUsuario, entrada);
 				
 		}
+		entrada.close();
 		
 	}
 

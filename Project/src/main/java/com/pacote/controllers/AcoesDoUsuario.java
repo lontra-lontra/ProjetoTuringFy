@@ -2,15 +2,15 @@ package com.pacote.controllers;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import se.michaelthelin.spotify.model_objects.special.SearchResult;
+//import se.michaelthelin.spotify.model_objects.special.SearchResult;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
 public class AcoesDoUsuario {
  
 
-    public void pesquisarMusica(BibliotecaDePlaylists bibliotecaMaster){
-        Scanner sc = new Scanner(System.in);
-        String nomeMusica = this.nomeDesejado("Música");
+    public void pesquisarMusica(BibliotecaDePlaylists bibliotecaMaster, Scanner sc){
+
+        String nomeMusica = this.nomeDesejado("Música", sc);
         Track[] itens_pesquisados = ComunicadorDoSpotify.PesquisaMusicas(nomeMusica);
     	System.out.println(" ");
         if(itens_pesquisados.length == 0) {
@@ -27,16 +27,16 @@ public class AcoesDoUsuario {
 	public void decisorAposBuscaDeMusicas(Scanner sc, PlaylistInterna listaDeBusca, BibliotecaDePlaylists bibliotecaMaster, String nomeMusica) {
 		System.out.println("Quer adicionar música(1) ou voltar para o Menu Principal(2)");
     	if(sc.nextInt() == 1)
-    		this.adicionarMusicaAPlaylist(listaDeBusca, bibliotecaMaster, nomeMusica);
+    		this.adicionarMusicaAPlaylist(listaDeBusca, bibliotecaMaster, nomeMusica, sc);
     	return;
     }
     
-    private void adicionarMusicaAPlaylist(PlaylistInterna listaDeBusca, BibliotecaDePlaylists bibliotecaMaster, String nomeMusica){   	
-    	String nomeDaPlaylist = this.nomeDesejado("Playlist");
-    	bibliotecaMaster.AdicionaMusicaAPlaylist(nomeDaPlaylist, nomeMusica, listaDeBusca);    	
+    private void adicionarMusicaAPlaylist(PlaylistInterna listaDeBusca, BibliotecaDePlaylists bibliotecaMaster, String nomeMusica, Scanner sc){   	
+    	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
+    	bibliotecaMaster.AdicionaMusicaAPlaylist(nomeDaPlaylist, nomeMusica, listaDeBusca, sc);    	
     }
 
-    public void visualizarPlaylists(BibliotecaDePlaylists bibliotecaMaster){
+    public void visualizarPlaylists(BibliotecaDePlaylists bibliotecaMaster, Scanner sc){
         if(bibliotecaMaster.biblioteca.isEmpty()){
             System.out.println("Não há nenhuma playlist salva");
         }
@@ -46,27 +46,27 @@ public class AcoesDoUsuario {
 	            System.out.println(listaDeMusicas.nome);
 	        }
 	        System.out.println("Deseja ver as músicas de uma playlist(1), criar uma playlist(2), alterar o nome de uma playlist(3) ou voltar ao Menu Pricipal(4)?");
-	        Scanner sc = new Scanner(System.in);
+	        
 	        int escolha = sc.nextInt();
 	        if(escolha == 1)
-	        	this.visualizarMúsicasDePlaylist(bibliotecaMaster);
+	        	this.visualizarMúsicasDePlaylist(bibliotecaMaster, sc);
 	        else if (escolha == 2)
-	        	bibliotecaMaster = this.criarPlaylist(bibliotecaMaster);
+	        	bibliotecaMaster = this.criarPlaylist(bibliotecaMaster, sc);
 	        else if (escolha == 3)
-	        	this.mudarNomeDePlaylist(bibliotecaMaster);
+	        	this.mudarNomeDePlaylist(bibliotecaMaster, sc);
         }
        return; 
     }
     
-    private void mudarNomeDePlaylist(BibliotecaDePlaylists bibliotecaMaster) {
-    	String nomeDaPlaylist = this.nomeDesejado("Playlist");
+    private void mudarNomeDePlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc) {
+    	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
     	List<PlaylistInterna> listaComNome = bibliotecaMaster.achaPlaylistsCompatíveisComBusca(nomeDaPlaylist);
     	if(listaComNome.isEmpty()) {
     		System.out.println("Não há playlist compatível, cancelando operação");
     		return;
     	}
     	System.out.println("Insira o índice da Playlist");
-		Scanner sc = new Scanner(System.in);
+		
 		int indiceDaPlaylist = sc.nextInt();
 		System.out.println("Insira o novo nome:");
 		sc.nextLine();
@@ -75,27 +75,27 @@ public class AcoesDoUsuario {
     	
     }
 
-    public BibliotecaDePlaylists criarPlaylist(BibliotecaDePlaylists bibliotecaMaster){
-    	String nomeDaPlaylist = this.nomeDesejado("Playlist");
+    public BibliotecaDePlaylists criarPlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc){
+    	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
     	PlaylistInterna novaPlaylist = new PlaylistInterna(nomeDaPlaylist);
     	bibliotecaMaster.biblioteca.add(novaPlaylist);
     	System.out.println("Playlist " + nomeDaPlaylist + " criada com sucesso!");
     	return bibliotecaMaster;
     }
 
-    public BibliotecaDePlaylists deletarPlaylist(BibliotecaDePlaylists bibliotecaMaster){
-    	String nomeDaPlaylist = this.nomeDesejado("Playlist");
-    	boolean removeu = bibliotecaMaster.removePlaylist(nomeDaPlaylist);
+    public BibliotecaDePlaylists deletarPlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc){
+    	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
+    	boolean removeu = bibliotecaMaster.removePlaylist(nomeDaPlaylist, sc);
     	if (removeu) {
         	System.out.println("Playlist removida com sucesso!");
     	}
     	return bibliotecaMaster;
     }
 
-    public void visualizarMúsicasDePlaylist(BibliotecaDePlaylists bibliotecaMaster) {
-    	String nomeDaPlaylist = this.nomeDesejado("Playlist");
-    	Scanner sc = new Scanner(System.in);
-    	PlaylistInterna playlistDesejada = bibliotecaMaster.visualizaPlaylist(nomeDaPlaylist);
+    public void visualizarMúsicasDePlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc) {
+    	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
+    	
+    	PlaylistInterna playlistDesejada = bibliotecaMaster.visualizaPlaylist(nomeDaPlaylist, sc);
     	if(playlistDesejada == null)
     		return;
     	if(playlistDesejada.playlist.isEmpty()) {
@@ -104,35 +104,36 @@ public class AcoesDoUsuario {
     	}
     	System.out.println("Gostaria de Remover uma música(1) ou retornar ao Menu(2)?");
     	if(sc.nextInt() == 1)
-	    	this.acaoRemoveMusica(playlistDesejada, bibliotecaMaster);
+	    	this.acaoRemoveMusica(playlistDesejada, bibliotecaMaster, sc);
     	return;
     }
     
-    private void acaoRemoveMusica(PlaylistInterna playlistDesejada, BibliotecaDePlaylists bibliotecaMaster) {
-    	String nomeDaMusica = this.nomeDesejado("Música");
-    	bibliotecaMaster.RemoveMusicaDePlaylist(nomeDaMusica, playlistDesejada);
+    private void acaoRemoveMusica(PlaylistInterna playlistDesejada, 
+    		BibliotecaDePlaylists bibliotecaMaster, Scanner sc) {
+    	String nomeDaMusica = this.nomeDesejado("Música", sc);
+    	bibliotecaMaster.RemoveMusicaDePlaylist(nomeDaMusica, playlistDesejada, sc);
     	
     }
     
-    public void pesquisarEmPlaylist(BibliotecaDePlaylists bibliotecaMaster) {
-    	Scanner sc = new Scanner(System.in);
-    	String nomeDaPlaylist = this.nomeDesejado("Playlist");
-    	PlaylistInterna playlistDesejada = bibliotecaMaster.visualizaPlaylist(nomeDaPlaylist);
+    public void pesquisarEmPlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc) {
+    	
+    	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
+    	PlaylistInterna playlistDesejada = bibliotecaMaster.visualizaPlaylist(nomeDaPlaylist, sc);
     	if(playlistDesejada == null)
     		return;
-    	String nomeDaMusica = this.nomeDesejado("Música");
-    	int [] listaDeIndices = bibliotecaMaster.buscaMusicaEmPlaylist(nomeDaMusica, playlistDesejada);
+    	String nomeDaMusica = this.nomeDesejado("Música", sc);
+    	int [] listaDeIndices = bibliotecaMaster.buscaMusicaEmPlaylist(nomeDaMusica, playlistDesejada, sc);
     	for(int i = 0; listaDeIndices[i] != -2; i++)
     		playlistDesejada.imprimeTrack(playlistDesejada.playlist.get(listaDeIndices[i]));
     	System.out.println(" ");
     	System.out.println("Gostaria de Remover uma música(1) ou retornar ao Menu(2)?");
     	if(sc.nextInt() == 1)
-	    	this.acaoRemoveMusica(playlistDesejada, bibliotecaMaster);
+	    	this.acaoRemoveMusica(playlistDesejada, bibliotecaMaster, sc);
     	return;    	
     }
     
-    private String nomeDesejado(String tipo) {
-    	Scanner sc = new Scanner(System.in);
+    private String nomeDesejado(String tipo, Scanner sc) {
+    	sc.nextLine();
     	System.out.println("Insira o nome da " + tipo);
     	String nome = sc.nextLine();
     	return nome;
