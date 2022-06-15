@@ -9,7 +9,7 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 
 import java.net.URI;
 
-public class geradorDoLinkDeAutorização {
+public class GeradorDoLinkDeAutorização {
   private static final String clientId = "zyuxhfo1c51b5hxjk09x2uhv5n0svgd6g";
   private static final String clientSecret = "zudknyqbh3wunbhcvg9uyvo7uwzeu6nne";
   private static final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/red");

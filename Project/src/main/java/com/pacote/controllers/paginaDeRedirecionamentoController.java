@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
 @Controller
-public class paginaDeRedirecionamentoController {
+public class PaginaDeRedirecionamentoController {
 
 	@GetMapping("/red")
 	public String greeting(@RequestParam(name="code", required=false, defaultValue="") String code, Model model) {
 		System.out.println(code);
-		comunicadorDoSpotify.setCodigoDeAutorização(code);
-		comunicadorDoSpotify.pegaAutorizaçãoDeTabela();
+		ComunicadorDoSpotify.setCodigoDeAutorização(code);
+		ComunicadorDoSpotify.pegaAutorizaçãoDeTabela();
 		return "paginaDeRedirecionamentoView";	
 	}
 
