@@ -18,7 +18,7 @@ public class AcoesDoUsuario {
         	return;
         }
         PlaylistInterna listaDeBusca = new PlaylistInterna("Resultado De Busca");
-        listaDeBusca.playlist = Arrays.asList(itens_pesquisados);
+        listaDeBusca.setPlaylist(Arrays.asList(itens_pesquisados));
         listaDeBusca.imprimePlaylist();
     	decisorAposBuscaDeMusicas(sc, listaDeBusca, bibliotecaMaster, nomeMusica);
     	return;
@@ -32,8 +32,7 @@ public class AcoesDoUsuario {
     }
     
     private void adicionarMusicaAPlaylist(PlaylistInterna listaDeBusca, BibliotecaDePlaylists bibliotecaMaster, String nomeMusica, Scanner sc){   	
-    	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
-    	bibliotecaMaster.AdicionaMusicaAPlaylist(nomeDaPlaylist, nomeMusica, listaDeBusca, sc);    	
+    	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);    	
     }
 
     public void visualizarPlaylists(BibliotecaDePlaylists bibliotecaMaster, Scanner sc){
@@ -108,11 +107,9 @@ public class AcoesDoUsuario {
     	return;
     }
     
-    private void acaoRemoveMusica(PlaylistInterna playlistDesejada, 
-    		BibliotecaDePlaylists bibliotecaMaster, Scanner sc) {
+    private void acaoRemoveMusica(PlaylistInterna playlistDesejada, BibliotecaDePlaylists bibliotecaMaster, Scanner sc) {
     	String nomeDaMusica = this.nomeDesejado("Música", sc);
-    	bibliotecaMaster.RemoveMusicaDePlaylist(nomeDaMusica, playlistDesejada, sc);
-    	
+    	playlistDesejada.RemoveMusicaDePlaylist(nomeDaMusica, sc);
     }
     
     public void pesquisarEmPlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc) {
@@ -122,7 +119,8 @@ public class AcoesDoUsuario {
     	if(playlistDesejada == null)
     		return;
     	String nomeDaMusica = this.nomeDesejado("Música", sc);
-    	int [] listaDeIndices = bibliotecaMaster.buscaMusicaEmPlaylist(nomeDaMusica, playlistDesejada, sc);
+    	List<Track> resultadoDeBusca = playlistDesejada.BuscaPorNome(nomeDaMusica);
+    	playlistDesejada
     	for(int i = 0; listaDeIndices[i] != -2; i++)
     		playlistDesejada.imprimeTrack(playlistDesejada.playlist.get(listaDeIndices[i]));
     	System.out.println(" ");
