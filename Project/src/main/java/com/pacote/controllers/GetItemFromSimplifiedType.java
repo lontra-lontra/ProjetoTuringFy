@@ -18,7 +18,7 @@ import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 
 public class GetItemFromSimplifiedType {
 	
-	public List<Playlist> getFromSimplified (PlaylistSimplified[] listaDePlaylistsSimpl) {
+	public List<Playlist> getFromDifferentType (PlaylistSimplified[] listaDePlaylistsSimpl) {
 		List<Playlist> listaDePlaylists = new ArrayList<>();
 		try {
 		for(PlaylistSimplified playlist : listaDePlaylistsSimpl) {
@@ -32,7 +32,7 @@ public class GetItemFromSimplifiedType {
 		return listaDePlaylists;
 	}
 	
-	public List<Album> getFromSimplified (AlbumSimplified[] listaDeAlbunsSimpl){
+	public List<Album> getFromDifferentType (AlbumSimplified[] listaDeAlbunsSimpl){
 		List<Album> listaDeAlbuns = new ArrayList<>();
 		try {
 			for(AlbumSimplified album : listaDeAlbunsSimpl) {
@@ -47,7 +47,7 @@ public class GetItemFromSimplifiedType {
 		
 	}
 	
-	public List<Track> getFromSimplified(PlaylistTrack[] listaDeMusicas){
+	public List<Track> getFromDifferentType(PlaylistTrack[] listaDeMusicas){
 		List<Track> listaConvertida = new ArrayList<>();
 		for(PlaylistTrack musica : listaDeMusicas) {
 			listaConvertida.add((Track) musica.getTrack());	

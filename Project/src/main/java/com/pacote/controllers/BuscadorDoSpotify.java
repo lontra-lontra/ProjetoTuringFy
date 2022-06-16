@@ -18,6 +18,7 @@ import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.ShowSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.search.SearchItemRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchArtistsRequest;
@@ -226,10 +227,43 @@ public class BuscadorDoSpotify {
 			    } catch (IOException | SpotifyWebApiException | ParseException e) {
 			      System.out.println("Error: " + e.getMessage());
 			    }
-			  	return null;
-			  
-			  
+			  	return null;  
 			}
+		
+		
+		 public static PlaylistSimplified[] getListOfCurrentUsersPlaylists_Sync() {
+			 try {
+				    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
+
+				  
+			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
+				    
+				    
+				  } catch (IOException | SpotifyWebApiException | ParseException e) {
+				   System.out.println("Error: " + e.getMessage());
+				  }
+			 
+			 Paging<PlaylistSimplified> playlistSimplifiedPaging = null;
+			 
+			 System.out.println("AuthCode: " + ComunicadorDoSpotify.getSpotifyapi().getAccessToken());		 
+			 GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = ComunicadorDoSpotify.getSpotifyapi()
+					    .getListOfCurrentUsersPlaylists()
+					    .build();
+			    try {
+			    	playlistSimplifiedPaging  = getListOfCurrentUsersPlaylistsRequest.execute();
+
+			    	System.out.println("Total: " + playlistSimplifiedPaging.getTotal());
+			    } catch (ParseException e) {
+			      System.out.println("ErrorP: " + e.getMessage());
+			    } catch (SpotifyWebApiException e) {
+			    	 System.out.println("ErrorS: " + e.getMessage());
+			    } catch (IOException e) {
+			    	 System.out.println("ErrorI: " + e.getMessage());
+				}
+			    
+			  return playlistSimplifiedPaging.getItems();
+			    
+			  }
 
 
 

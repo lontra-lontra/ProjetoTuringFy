@@ -57,8 +57,8 @@ import java.net.URI;
 
 
 public class ComunicadorDoSpotify {
-private static final String clientId = "5b1ca7af0e4d44349dc5e7691cb31f9e";
-private static final String clientSecret = "a97ac799a878484998b7876f28ec46b9";
+private static final String clientId = "996174542561436ead6fda89541d0083";
+private static final String clientSecret = "cffbb71c871d4a2088f069137c43064f";
 private static final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/red");
 private static String codigoDeAutorização = "";
 
@@ -77,12 +77,7 @@ private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
 static final ClientCredentialsRequest RequestDasNossasCredenciais = getSpotifyapi().clientCredentials()
   .build();
 
-// OUTROS MÉTODOS
-
 private static final AuthorizationCodeUriRequest requestDoLinkParaAutorização = getSpotifyapi().authorizationCodeUri()
-//      .state("x4xkmn9pu3j6ukrs8n")
-//      .scope("user-read-birthdate,user-read-email")
-//      .show_dialog(true)
 .build();
 
 public static URI geraLink() {
@@ -109,11 +104,6 @@ try {
 } catch (IOException | SpotifyWebApiException | ParseException e) {
   System.out.println("Error: " + e.getMessage());
 }
-}
-
-
-public static void main(String[] args) {
-	//PesquisaMúsicas("ALO");
 }
 
 

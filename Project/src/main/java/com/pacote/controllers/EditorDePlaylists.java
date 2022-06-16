@@ -29,7 +29,7 @@ public class EditorDePlaylists {
 		GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = ComunicadorDoSpotify.getSpotifyapi()
 			    .getListOfCurrentUsersPlaylists().build();
 		try {
-			playlistsDoUsuário = conversor.getFromSimplified(getListOfCurrentUsersPlaylistsRequest.execute().getItems());
+			playlistsDoUsuário = conversor.getFromDifferentType(getListOfCurrentUsersPlaylistsRequest.execute().getItems());
 		} catch (ParseException | SpotifyWebApiException | IOException e) {
 			System.out.println("Playlist não encontrada: " + e);
 		}
@@ -86,7 +86,7 @@ public class EditorDePlaylists {
 			System.out.println("Playlist Vazia");
 			return;
 		}
-		for(Track musica : conversor.getFromSimplified(lista.getTracks().getItems())) {
+		for(Track musica : conversor.getFromDifferentType(lista.getTracks().getItems())) {
 			System.out.println("Nome: " + musica.getName() + ". Primeiro Artista: " + musica.getArtists()[0]);
 		}
 		
