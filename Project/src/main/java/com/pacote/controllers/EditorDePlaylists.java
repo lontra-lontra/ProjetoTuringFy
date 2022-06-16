@@ -22,7 +22,7 @@ public class EditorDePlaylists {
 		GetItemFromSimplifiedType conversor = new GetItemFromSimplifiedType();
 		List<Playlist> playlistsDoUsuário = new ArrayList<>();
 		
-		GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = ComunicadorDoSpotify.spotifyApi
+		GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = ComunicadorDoSpotify.getSpotifyapi()
 			    .getListOfCurrentUsersPlaylists().build();
 		try {
 			playlistsDoUsuário = conversor.getFromSimplified(getListOfCurrentUsersPlaylistsRequest.execute().getItems());
@@ -37,7 +37,7 @@ public class EditorDePlaylists {
 		try {
 		    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 		    UnfollowPlaylistRequest.Builder construtor = new UnfollowPlaylistRequest.Builder(nossasCredenciais.getAccessToken());
-		    construtor.owner_id(ComunicadorDoSpotify.spotifyApi.getClientId());
+		    construtor.owner_id(ComunicadorDoSpotify.getSpotifyapi().getClientId());
 		    construtor.playlist_id(playlistID);
 		    UnfollowPlaylistRequest removePlaylist = construtor.build();
 		    removePlaylist.execute();		    
@@ -47,7 +47,7 @@ public class EditorDePlaylists {
 	}
 	
 	public void createUsersPlaylist(String playlistName) {
-		CreatePlaylistRequest createPlaylistRequest = ComunicadorDoSpotify.spotifyApi.createPlaylist(ComunicadorDoSpotify.spotifyApi.getClientId(), playlistName).build();
+		CreatePlaylistRequest createPlaylistRequest = ComunicadorDoSpotify.getSpotifyapi().createPlaylist(ComunicadorDoSpotify.getSpotifyapi().getClientId(), playlistName).build();
 		 try {
 		      createPlaylistRequest.execute();
 		    } catch (IOException | SpotifyWebApiException | ParseException e) {
@@ -56,7 +56,7 @@ public class EditorDePlaylists {
 	}
 	
 	public void changePlaylistName(String newName, String playlistID) {
-		ChangePlaylistsDetailsRequest changePlaylistsDetailsRequest = ComunicadorDoSpotify.spotifyApi
+		ChangePlaylistsDetailsRequest changePlaylistsDetailsRequest = ComunicadorDoSpotify.getSpotifyapi()
 			    .changePlaylistsDetails(playlistID).name(newName).build();
 		try {
 		      changePlaylistsDetailsRequest.execute();

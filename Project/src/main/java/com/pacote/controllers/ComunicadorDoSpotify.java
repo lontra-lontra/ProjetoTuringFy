@@ -69,17 +69,17 @@ public static void setCodigoDeAutorização(String codigoDeAutorização) {
 	ComunicadorDoSpotify.codigoDeAutorização = codigoDeAutorização;
 }
 
-static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
+private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
   .setClientId(clientId)
   .setClientSecret(clientSecret)
   .setRedirectUri(redirectUri)
   .build();
-static final ClientCredentialsRequest RequestDasNossasCredenciais = spotifyApi.clientCredentials()
+static final ClientCredentialsRequest RequestDasNossasCredenciais = getSpotifyapi().clientCredentials()
   .build();
 
 // OUTROS MÉTODOS
 
-private static final AuthorizationCodeUriRequest requestDoLinkParaAutorização = spotifyApi.authorizationCodeUri()
+private static final AuthorizationCodeUriRequest requestDoLinkParaAutorização = getSpotifyapi().authorizationCodeUri()
 //      .state("x4xkmn9pu3j6ukrs8n")
 //      .scope("user-read-birthdate,user-read-email")
 //      .show_dialog(true)
@@ -95,15 +95,15 @@ return linkParaAutorização;
 
 
 public static void pegaAutorizaçãoDeTabela() {
-	final AuthorizationCodeRequest requestDoCodigoDeAutorização = spotifyApi.authorizationCode(codigoDeAutorização)
+	final AuthorizationCodeRequest requestDoCodigoDeAutorização = getSpotifyapi().authorizationCode(codigoDeAutorização)
 			.build();
 
 try {
   final AuthorizationCodeCredentials authorizationCodeCredentials =  requestDoCodigoDeAutorização.execute();
 
   
-  spotifyApi.setAccessToken(authorizationCodeCredentials.getAccessToken());
-  spotifyApi.setRefreshToken(authorizationCodeCredentials.getRefreshToken());
+  getSpotifyapi().setAccessToken(authorizationCodeCredentials.getAccessToken());
+  getSpotifyapi().setRefreshToken(authorizationCodeCredentials.getRefreshToken());
 
   System.out.println("Expires in: " + authorizationCodeCredentials.getExpiresIn());
 } catch (IOException | SpotifyWebApiException | ParseException e) {
@@ -120,5 +120,11 @@ public static void main(String[] args) {
 
 public static ClientCredentialsRequest getRequestdasnossascredenciais() {
 	return RequestDasNossasCredenciais;
+}
+
+
+
+public static SpotifyApi getSpotifyapi() {
+	return spotifyApi;
 }
 }

@@ -33,13 +33,13 @@ public class BuscadorDoSpotify {
 		    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
 		  
-		    ComunicadorDoSpotify.spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+		    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
 		    
 		    
 		  } catch (IOException | SpotifyWebApiException | ParseException e) {
 		   System.out.println("Error: " + e.getMessage());
 		  }
-		   final SearchTracksRequest RequestDasMusicasPesquisadas = ComunicadorDoSpotify.spotifyApi.searchTracks(textoDePesquisa)
+		   final SearchTracksRequest RequestDasMusicasPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchTracks(textoDePesquisa)
 		         .limit(10)
 		   .build();
 		  
@@ -62,13 +62,13 @@ public class BuscadorDoSpotify {
 			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
 			  
-			    ComunicadorDoSpotify.spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
 			    
 			    
 			  } catch (IOException | SpotifyWebApiException | ParseException e) {
 			   System.out.println("Error: " + e.getMessage());
 			  }
-			   final SearchAlbumsRequest RequestDosAlbunsPesquisados = ComunicadorDoSpotify.spotifyApi.searchAlbums(nomeDoAlbum)
+			   final SearchAlbumsRequest RequestDosAlbunsPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchAlbums(nomeDoAlbum)
 			         .limit(20)
 			   .build();
 			  
@@ -91,13 +91,13 @@ public class BuscadorDoSpotify {
 			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
 			  
-			    ComunicadorDoSpotify.spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
 			    
 			    
 			  } catch (IOException | SpotifyWebApiException | ParseException e) {
 			   System.out.println("Error: " + e.getMessage());
 			  }
-			   final SearchArtistsRequest RequestDosArtistasPesquisados = ComunicadorDoSpotify.spotifyApi.searchArtists(nomeDoArtista)
+			   final SearchArtistsRequest RequestDosArtistasPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchArtists(nomeDoArtista)
 			         .limit(20)
 			   .build();
 			  
@@ -120,13 +120,13 @@ public class BuscadorDoSpotify {
 			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
 			  
-			    ComunicadorDoSpotify.spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
 			    
 			    
 			  } catch (IOException | SpotifyWebApiException | ParseException e) {
 			   System.out.println("Error: " + e.getMessage());
 			  }
-			   final SearchPlaylistsRequest RequestDasPlaylistsPesquisadas = ComunicadorDoSpotify.spotifyApi.searchPlaylists(nomeDaPlaylist)
+			   final SearchPlaylistsRequest RequestDasPlaylistsPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchPlaylists(nomeDaPlaylist)
 			         .limit(20)
 			   .build();
 			  
@@ -149,13 +149,13 @@ public class BuscadorDoSpotify {
 			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
 			  
-			    ComunicadorDoSpotify.spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
 			    
 			    
 			  } catch (IOException | SpotifyWebApiException | ParseException e) {
 			   System.out.println("Error: " + e.getMessage());
 			  }
-			   final SearchEpisodesRequest RequestDosEpisodiosPesquisados = ComunicadorDoSpotify.spotifyApi.searchEpisodes(nomeDoEpisodio)
+			   final SearchEpisodesRequest RequestDosEpisodiosPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchEpisodes(nomeDoEpisodio)
 			         .limit(20)
 			   .build();
 			  
@@ -178,13 +178,13 @@ public class BuscadorDoSpotify {
 			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
 			  
-			    ComunicadorDoSpotify.spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
 			    
 			    
 			  } catch (IOException | SpotifyWebApiException | ParseException e) {
 			   System.out.println("Error: " + e.getMessage());
 			  }
-			   final SearchShowsRequest RequestDosShowsPesquisados = ComunicadorDoSpotify.spotifyApi.searchShows(nomeDoShow)
+			   final SearchShowsRequest RequestDosShowsPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchShows(nomeDoShow)
 			         .limit(20)
 			   .build();
 			  
@@ -207,7 +207,7 @@ public class BuscadorDoSpotify {
 			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
 			  
-			    ComunicadorDoSpotify.spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
 			    
 			    
 			  } catch (IOException | SpotifyWebApiException | ParseException e) {
@@ -217,7 +217,7 @@ public class BuscadorDoSpotify {
 			                                      ModelObjectType.PLAYLIST.getType(), ModelObjectType.TRACK.getType(),
 			                                      ModelObjectType.SHOW.getType(), ModelObjectType.EPISODE.getType()));
 			  final String tipo = String.join(",", lista_tipo);
-			   final SearchItemRequest RequestDosItensPesquisados = ComunicadorDoSpotify.spotifyApi.searchItem(chaveDePesquisa, tipo)
+			   final SearchItemRequest RequestDosItensPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchItem(chaveDePesquisa, tipo)
 			         .limit(20)
 			   .build();
 			  

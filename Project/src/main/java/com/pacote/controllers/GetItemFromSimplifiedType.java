@@ -22,7 +22,7 @@ public class GetItemFromSimplifiedType {
 		List<Playlist> listaDePlaylists = new ArrayList<>();
 		try {
 		for(PlaylistSimplified playlist : listaDePlaylistsSimpl) {
-			GetPlaylistRequest getPlaylistRequest = ComunicadorDoSpotify.spotifyApi.getPlaylist(playlist.getId()).build();
+			GetPlaylistRequest getPlaylistRequest = ComunicadorDoSpotify.getSpotifyapi().getPlaylist(playlist.getId()).build();
 			listaDePlaylists.add(getPlaylistRequest.execute());
 		}
 		
@@ -36,7 +36,7 @@ public class GetItemFromSimplifiedType {
 		List<Album> listaDeAlbuns = new ArrayList<>();
 		try {
 			for(AlbumSimplified album : listaDeAlbunsSimpl) {
-				GetAlbumRequest getAlbumRequest = ComunicadorDoSpotify.spotifyApi.getAlbum(album.getId()).build();
+				GetAlbumRequest getAlbumRequest = ComunicadorDoSpotify.getSpotifyapi().getAlbum(album.getId()).build();
 				listaDeAlbuns.add(getAlbumRequest.execute());
 			}
 			
