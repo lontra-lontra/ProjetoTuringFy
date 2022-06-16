@@ -8,6 +8,7 @@ import org.apache.hc.core5.http.ParseException;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
+import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.requests.data.playlists.ChangePlaylistsDetailsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
@@ -62,6 +63,29 @@ public class EditorDePlaylists {
 		    } catch (IOException | SpotifyWebApiException | ParseException e) {
 		      System.out.println("Error: " + e.getMessage());
 		    }
+		
+	}
+	
+	public void visualizaPlaylists(List<Playlist> playlistsDoUsuário) {
+		if(playlistsDoUsuário.isEmpty()) {
+			System.out.println("Sem Playlists Salvas!");
+		}
+		for(Playlist lista : playlistsDoUsuário) {
+			System.out.println("Nome: " + lista.getName() + ".");
+		}
+		
+	}
+	
+	public void vizualizaPlaylist(Playlist lista) {
+		GetItemFromSimplifiedType conversor = new GetItemFromSimplifiedType();
+		System.out.println("Playlist: " + lista.getName());
+		if(lista.getTracks().getItems().length == 0) {
+			System.out.println("Playlist Vazia");
+			return;
+		}
+		for(Track musica : conversor.getFromSimplified(lista.getTracks().getItems())) {
+			System.out.println("Nome: " + musica.getName() + ". Primeiro Artista: " + musica.getArtists()[0]);
+		}
 		
 	}
 

@@ -11,6 +11,8 @@ import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
+import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 
@@ -41,7 +43,16 @@ public class GetItemFromSimplifiedType {
 			} catch (ParseException | SpotifyWebApiException | IOException e) {
 					System.out.println("Não foi possível encontrar o Album: " + e);
 		    }		
-		return listaDeAlbuns;
+		return listaDeAlbuns;		
+		
+	}
+	
+	public List<Track> getFromSimplified(PlaylistTrack[] listaDeMusicas){
+		List<Track> listaConvertida = new ArrayList<>();
+		for(PlaylistTrack musica : listaDeMusicas) {
+			listaConvertida.add((Track) musica.getTrack());	
+		}
+		return listaConvertida;
 	}
 
 }
