@@ -5,14 +5,18 @@ import java.util.List;
 
 import org.apache.hc.core5.http.ParseException;
 
+import com.google.gson.JsonArray;
+
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.requests.data.playlists.AddItemsToPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.ChangePlaylistsDetailsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
-import se.michaelthelin.spotify.requests.data.follow.legacy.UnfollowPlaylistRequest;
+import se.michaelthelin.spotify.requests.data.playlists.RemoveItemsFromPlaylistRequest;
+import se.michaelthelin.spotify.requests.data.follow.UnfollowPlaylistRequest;
 
 
 
@@ -37,7 +41,6 @@ public class EditorDePlaylists {
 		try {
 		    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 		    UnfollowPlaylistRequest.Builder construtor = new UnfollowPlaylistRequest.Builder(nossasCredenciais.getAccessToken());
-		    construtor.owner_id(ComunicadorDoSpotify.getSpotifyapi().getClientId());
 		    construtor.playlist_id(playlistID);
 		    UnfollowPlaylistRequest removePlaylist = construtor.build();
 		    removePlaylist.execute();		    
@@ -87,6 +90,29 @@ public class EditorDePlaylists {
 			System.out.println("Nome: " + musica.getName() + ". Primeiro Artista: " + musica.getArtists()[0]);
 		}
 		
+	}
+	
+	public void removeMusica(Playlist lista, JsonArray tracks) {	
+		RemoveItemsFromPlaylistRequest removeItemsFromPlaylistRequest = ComunicadorDoSpotify.getSpotifyapi()
+			    .removeItemsFromPlaylist(lista.getId(), tracks)
+			    .build();
+		
+		try {
+		      removeItemsFromPlaylistRequest.execute();
+		    } catch (IOException | SpotifyWebApiException | ParseException e) {
+		      System.out.println("Não foi possível remover a música: " + e);
+		    }
+		
+	}
+	
+	public void adicionaMusica(Playlist lista, String[] musicas) {
+		AddItemsToPlaylistRequest addItemsToPlaylistRequest = ComunicadorDoSpotify.getSpotifyapi()
+			    .addItemsToPlaylist(lista.getId(), musicas).build();
+		
+		 try {
+		      addItemsToPlaylistRequest.execute();
+		    } catch (IOException | SpotifyWebApiException | ParseException e) {
+			  System.out.println("Não foi possível adicionar a música: " + e);		    }
 	}
 
 }
