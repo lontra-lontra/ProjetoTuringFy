@@ -12,7 +12,7 @@ public class PaginaUmController {
 
 	@GetMapping("/pesquisa")
 	public String greeting(@RequestParam(name="pesquisa", required=false, defaultValue="") String name, Model model) {
-		Track[] Músicas =  BuscadorDoSpotify.PesquisaMusicas(name);
+		Track[] Músicas =  BuscadorDoSpotify.pesquisaMusicas(name);
 		model.addAttribute("musicas", Músicas);
 		//System.out.println();
 		return "paginaUmView";

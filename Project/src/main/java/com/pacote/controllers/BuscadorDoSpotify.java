@@ -28,7 +28,7 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequ
 
 public class BuscadorDoSpotify {
 	
-	public static Track[] PesquisaMusicas(String textoDePesquisa) {
+	public static Track[] pesquisaMusicas(String textoDePesquisa) {
 		  try {
 		    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
@@ -40,7 +40,6 @@ public class BuscadorDoSpotify {
 		   System.out.println("Error: " + e.getMessage());
 		  }
 		   final SearchTracksRequest RequestDasMusicasPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchTracks(textoDePesquisa)
-		         .limit(10)
 		   .build();
 		  
 		  
@@ -57,7 +56,7 @@ public class BuscadorDoSpotify {
 		  
 		}
 
-		public static AlbumSimplified[] PesquisAlbuns(String nomeDoAlbum) {
+		public static AlbumSimplified[] pesquisaAlbuns(String nomeDoAlbum) {
 			  try {
 			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
@@ -69,11 +68,10 @@ public class BuscadorDoSpotify {
 			   System.out.println("Error: " + e.getMessage());
 			  }
 			   final SearchAlbumsRequest RequestDosAlbunsPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchAlbums(nomeDoAlbum)
-			         .limit(20)
 			   .build();
 			  
 			  
-			  try {//VER OQ EH MELHOR DEPOIS - ALBUMSIMPLIFIED OU ALBUM
+			  try {
 			      final Paging<AlbumSimplified> AlbunsPesquisados = RequestDosAlbunsPesquisados.execute();
 
 			      System.out.println("Total: " + AlbunsPesquisados.getTotal());
@@ -86,7 +84,7 @@ public class BuscadorDoSpotify {
 			  
 			}
 
-		public static Artist[] PesquisaArtistas(String nomeDoArtista) {
+		public static Artist[] pesquisaArtistas(String nomeDoArtista) {
 			  try {
 			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
@@ -115,7 +113,7 @@ public class BuscadorDoSpotify {
 			  
 			}
 
-		public static PlaylistSimplified[] PesquisaPlaylists(String nomeDaPlaylist) {
+		public static PlaylistSimplified[] pesquisaPlaylists(String nomeDaPlaylist) {
 			  try {
 			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
@@ -127,7 +125,6 @@ public class BuscadorDoSpotify {
 			   System.out.println("Error: " + e.getMessage());
 			  }
 			   final SearchPlaylistsRequest RequestDasPlaylistsPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchPlaylists(nomeDaPlaylist)
-			         .limit(20)
 			   .build();
 			  
 			  
@@ -144,7 +141,7 @@ public class BuscadorDoSpotify {
 			  
 			}
 
-		public static EpisodeSimplified[] PesquisaEpisodios(String nomeDoEpisodio) {
+		public static EpisodeSimplified[] pesquisaEpisodios(String nomeDoEpisodio) {
 			  try {
 			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
@@ -173,7 +170,7 @@ public class BuscadorDoSpotify {
 			  
 			}
 
-		public static ShowSimplified[] PesquisaShows(String nomeDoShow) {
+		public static ShowSimplified[] pesquisaShows(String nomeDoShow) {
 			  try {
 			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
@@ -202,7 +199,7 @@ public class BuscadorDoSpotify {
 			  
 			}
 
-		public static SearchResult PesquisaItens(String chaveDePesquisa) {
+		public static SearchResult pesquisaItens(String chaveDePesquisa, String tipo) {
 			  try {
 			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
 
@@ -213,12 +210,11 @@ public class BuscadorDoSpotify {
 			  } catch (IOException | SpotifyWebApiException | ParseException e) {
 			   System.out.println("Error: " + e.getMessage());
 			  }
-			  final List <String> lista_tipo = new ArrayList <String> (Arrays.asList(ModelObjectType.ARTIST.getType(), ModelObjectType.ALBUM.getType(),
-			                                      ModelObjectType.PLAYLIST.getType(), ModelObjectType.TRACK.getType(),
-			                                      ModelObjectType.SHOW.getType(), ModelObjectType.EPISODE.getType()));
-			  final String tipo = String.join(",", lista_tipo);
+//			  final List <String> lista_tipo = new ArrayList <String> (Arrays.asList(ModelObjectType.ARTIST.getType(), ModelObjectType.ALBUM.getType(),
+//			                                      ModelObjectType.PLAYLIST.getType(), ModelObjectType.TRACK.getType(),
+//			                                      ModelObjectType.SHOW.getType(), ModelObjectType.EPISODE.getType()));
+//			  final String tipo = String.join(",", lista_tipo);
 			   final SearchItemRequest RequestDosItensPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchItem(chaveDePesquisa, tipo)
-			         .limit(20)
 			   .build();
 			  
 			  
