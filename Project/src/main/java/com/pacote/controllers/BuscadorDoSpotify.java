@@ -223,7 +223,7 @@ public class BuscadorDoSpotify {
 			      final SearchResult ItensPesquisados = RequestDosItensPesquisados.execute();
 
 			      System.out.println("Total: " + ItensPesquisados.getTracks().getTotal());
-			      return ItensPesquisados; //getAlbuns, getArtists, get...
+			      return ItensPesquisados;
 			    } catch (IOException | SpotifyWebApiException | ParseException e) {
 			      System.out.println("Error: " + e.getMessage());
 			    }

@@ -17,6 +17,7 @@ public class SiteLabooApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SiteLabooApplication.class, args);
 		
+		
 		EditorDePlaylists editorMaster = new EditorDePlaylists();
 		GetItemFromSimplifiedType conversor = new GetItemFromSimplifiedType();
 		Scanner sc = new Scanner(System.in);
