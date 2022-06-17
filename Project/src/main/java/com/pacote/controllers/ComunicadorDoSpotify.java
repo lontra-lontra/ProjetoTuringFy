@@ -74,10 +74,12 @@ private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
   .setClientSecret(clientSecret)
   .setRedirectUri(redirectUri)
   .build();
-static final ClientCredentialsRequest RequestDasNossasCredenciais = getSpotifyapi().clientCredentials()
+static final ClientCredentialsRequest RequestDasNossasCredenciais = getSpotifyapi()
+  .clientCredentials()
   .build();
 
 private static final AuthorizationCodeUriRequest requestDoLinkParaAutorização = getSpotifyapi().authorizationCodeUri()
+.scope("playlist-read-private, playlist-read-collaborative")
 .build();
 
 public static URI geraLink() {

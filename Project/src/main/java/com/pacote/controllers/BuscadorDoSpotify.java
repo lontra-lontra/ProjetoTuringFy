@@ -234,18 +234,13 @@ public class BuscadorDoSpotify {
 		 public static PlaylistSimplified[] getListOfCurrentUsersPlaylists_Sync() {
 			 try {
 				    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
-
-				  
-			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
-				    
+			        ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());  
 				    
 				  } catch (IOException | SpotifyWebApiException | ParseException e) {
 				   System.out.println("Error: " + e.getMessage());
 				  }
 			 
 			 Paging<PlaylistSimplified> playlistSimplifiedPaging = null;
-			 
-			 System.out.println("AuthCode: " + ComunicadorDoSpotify.getSpotifyapi().getAccessToken());		 
 			 GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = ComunicadorDoSpotify.getSpotifyapi()
 					    .getListOfCurrentUsersPlaylists()
 					    .build();
@@ -262,7 +257,6 @@ public class BuscadorDoSpotify {
 				}
 			    
 			  return playlistSimplifiedPaging.getItems();
-			    
 			  }
 
 
