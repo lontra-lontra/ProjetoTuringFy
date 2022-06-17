@@ -38,8 +38,7 @@ public class EditorDePlaylists {
 	
 	public void deleteUsersPlaylist(String playlistID) {
 		try {
-		    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
-		    UnfollowPlaylistRequest.Builder construtor = new UnfollowPlaylistRequest.Builder(nossasCredenciais.getAccessToken());
+		    UnfollowPlaylistRequest.Builder construtor = new UnfollowPlaylistRequest.Builder(ComunicadorDoSpotify.getSpotifyapi().getAccessToken());
 		    construtor.playlist_id(playlistID);
 		    UnfollowPlaylistRequest removePlaylist = construtor.build();
 		    removePlaylist.execute();		    

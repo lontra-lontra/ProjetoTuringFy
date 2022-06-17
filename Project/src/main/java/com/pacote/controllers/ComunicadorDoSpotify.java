@@ -1,4 +1,5 @@
 package com.pacote.controllers;
+import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeRefreshRequest;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeRequest;
 
 import se.michaelthelin.spotify.SpotifyApi;
@@ -81,6 +82,7 @@ static final ClientCredentialsRequest RequestDasNossasCredenciais = getSpotifyap
 
 private static final AuthorizationCodeUriRequest requestDoLinkParaAutorização = getSpotifyapi().authorizationCodeUri()
 .scope(AuthorizationScope.values())
+.show_dialog(true)
 .build();
 
 public static URI geraLink() {
@@ -118,5 +120,21 @@ public static ClientCredentialsRequest getRequestdasnossascredenciais() {
 
 public static SpotifyApi getSpotifyapi() {
 	return spotifyApi;
+}
+
+private static final AuthorizationCodeRefreshRequest authorizationCodeRefreshRequest = spotifyApi.authorizationCodeRefresh()
+.build();
+
+public static void authorizationCodeRefresh_Sync() {
+try {
+  final AuthorizationCodeCredentials authorizationCodeCredentials = authorizationCodeRefreshRequest.execute();
+
+  // Set access and refresh token for further "spotifyApi" object usage
+  spotifyApi.setAccessToken(authorizationCodeCredentials.getAccessToken());
+
+  System.out.println("Expires in: " + authorizationCodeCredentials.getExpiresIn());
+} catch (IOException | SpotifyWebApiException | ParseException e) {
+  System.out.println("Error: " + e.getMessage());
+}
 }
 }

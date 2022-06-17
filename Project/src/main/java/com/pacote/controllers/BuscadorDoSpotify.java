@@ -9,6 +9,7 @@ import org.apache.hc.core5.http.ParseException;
 
 import se.michaelthelin.spotify.enums.ModelObjectType;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
+import se.michaelthelin.spotify.exceptions.detailed.UnauthorizedException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.model_objects.special.SearchResult;
 import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
@@ -20,6 +21,7 @@ import se.michaelthelin.spotify.model_objects.specification.ShowSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.User;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
+import se.michaelthelin.spotify.requests.data.playlists.GetListOfUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.search.SearchItemRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchArtistsRequest;
@@ -233,34 +235,21 @@ public class BuscadorDoSpotify {
 			}
 		
 		
-		 public static PlaylistSimplified[] getListOfCurrentUsersPlaylists_Sync() {
-			 try {
-				    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
-			        ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());  
-				    
-				  } catch (IOException | SpotifyWebApiException | ParseException e) {
-				   System.out.println("Error: " + e.getMessage());
-				  }
+		 public static PlaylistSimplified[] getListOfUsersPlaylists(String userId) {
+			 GetListOfUsersPlaylistsRequest getListOfUsersPlaylistsRequest = ComunicadorDoSpotify.getSpotifyapi()
+					    .getListOfUsersPlaylists(userId)
+					    .build();
 			 
 			 Paging<PlaylistSimplified> playlistSimplifiedPaging = null;
-			 GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = ComunicadorDoSpotify.getSpotifyapi()
-					    .getListOfCurrentUsersPlaylists()
-					    .build();
-			    try {
-			    	playlistSimplifiedPaging  = getListOfCurrentUsersPlaylistsRequest.execute();
+			 try {
+			      playlistSimplifiedPaging = getListOfUsersPlaylistsRequest.execute();
 
-			    	System.out.println("Total: " + playlistSimplifiedPaging.getTotal());
-			    } catch (ParseException e) {
-			      System.out.println("ErrorP: " + e.getMessage());
-			    } catch (SpotifyWebApiException e) {
-			    	 System.out.println("ErrorS: " + e.getMessage());
-			    } catch (IOException e) {
-			    	 System.out.println("ErrorI: " + e.getMessage());
-				}
-			    
-			  return playlistSimplifiedPaging.getItems();
-			  }
-		 
+			      System.out.println("Total: " + playlistSimplifiedPaging.getTotal());
+			    } catch (IOException | SpotifyWebApiException | ParseException e) {
+			      System.out.println("Error: " + e.getMessage());
+			    }
+			 return playlistSimplifiedPaging.getItems();
+		 }
 		 
 		 public static User getCurrentUsersProfile() {
 			 GetCurrentUsersProfileRequest getCurrentUsersProfileRequest = ComunicadorDoSpotify.getSpotifyapi().getCurrentUsersProfile()
