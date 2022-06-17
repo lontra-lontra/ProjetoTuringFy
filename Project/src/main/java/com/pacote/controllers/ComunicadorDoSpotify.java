@@ -46,6 +46,7 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchShowsReque
 // PARA ITENS
 import se.michaelthelin.spotify.model_objects.special.SearchResult;
 import se.michaelthelin.spotify.requests.data.search.SearchItemRequest;
+import se.michaelthelin.spotify.enums.AuthorizationScope;
 import se.michaelthelin.spotify.enums.ModelObjectType;
 import java.util.*;
 
@@ -79,7 +80,7 @@ static final ClientCredentialsRequest RequestDasNossasCredenciais = getSpotifyap
   .build();
 
 private static final AuthorizationCodeUriRequest requestDoLinkParaAutorização = getSpotifyapi().authorizationCodeUri()
-.scope("playlist-read-private, playlist-read-collaborative")
+.scope(AuthorizationScope.values())
 .build();
 
 public static URI geraLink() {

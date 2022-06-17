@@ -16,7 +16,7 @@ import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 
-public class GetItemFromSimplifiedType {
+public class CoversorDeTipo {
 	
 	public List<Playlist> getFromDifferentType (PlaylistSimplified[] listaDePlaylistsSimpl) {
 		List<Playlist> listaDePlaylists = new ArrayList<>();

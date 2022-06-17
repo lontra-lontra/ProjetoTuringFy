@@ -18,6 +18,7 @@ import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.ShowSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.User;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.search.SearchItemRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
@@ -26,6 +27,7 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchEpisodesRe
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchShowsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
+import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 
 public class BuscadorDoSpotify {
 	
@@ -258,6 +260,22 @@ public class BuscadorDoSpotify {
 			    
 			  return playlistSimplifiedPaging.getItems();
 			  }
+		 
+		 
+		 public static User getCurrentUsersProfile() {
+			 GetCurrentUsersProfileRequest getCurrentUsersProfileRequest = ComunicadorDoSpotify.getSpotifyapi().getCurrentUsersProfile()
+					    .build();
+			 User user = null;
+			  try {
+			      user = getCurrentUsersProfileRequest.execute();
+
+			      System.out.println("Display name: " + user.getDisplayName());
+			    } catch (IOException | SpotifyWebApiException | ParseException e) {
+			      System.out.println("Error: " + e.getMessage());
+			    }
+			  
+			  return user;
+		 }
 
 
 

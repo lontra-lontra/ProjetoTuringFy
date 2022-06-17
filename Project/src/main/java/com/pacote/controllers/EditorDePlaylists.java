@@ -23,7 +23,7 @@ import se.michaelthelin.spotify.requests.data.follow.UnfollowPlaylistRequest;
 public class EditorDePlaylists {
 	
 	public List<Playlist> getUsersPlaylists(){
-		GetItemFromSimplifiedType conversor = new GetItemFromSimplifiedType();
+		CoversorDeTipo conversor = new CoversorDeTipo();
 		List<Playlist> playlistsDoUsuário = new ArrayList<>();
 		
 		GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = ComunicadorDoSpotify.getSpotifyapi()
@@ -34,7 +34,6 @@ public class EditorDePlaylists {
 			System.out.println("Playlist não encontrada: " + e);
 		}
 		return playlistsDoUsuário;
-		
 	}
 	
 	public void deleteUsersPlaylist(String playlistID) {
@@ -49,8 +48,8 @@ public class EditorDePlaylists {
 		  }		
 	}
 	
-	public void createUsersPlaylist(String playlistName) {
-		CreatePlaylistRequest createPlaylistRequest = ComunicadorDoSpotify.getSpotifyapi().createPlaylist(ComunicadorDoSpotify.getSpotifyapi().getClientId(), playlistName).build();
+	public void createUsersPlaylist(String playlistName, String userID) {
+		CreatePlaylistRequest createPlaylistRequest = ComunicadorDoSpotify.getSpotifyapi().createPlaylist(userID, playlistName).build();
 		 try {
 		      createPlaylistRequest.execute();
 		    } catch (IOException | SpotifyWebApiException | ParseException e) {
@@ -80,7 +79,7 @@ public class EditorDePlaylists {
 	}
 	
 	public void vizualizaPlaylist(Playlist lista) {
-		GetItemFromSimplifiedType conversor = new GetItemFromSimplifiedType();
+		CoversorDeTipo conversor = new CoversorDeTipo();
 		System.out.println("Playlist: " + lista.getName());
 		if(lista.getTracks().getItems().length == 0) {
 			System.out.println("Playlist Vazia");
