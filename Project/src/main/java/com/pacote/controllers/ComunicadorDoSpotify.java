@@ -100,8 +100,6 @@ public static void pegaAutorizaçãoDeTabela() {
 
 try {
   final AuthorizationCodeCredentials authorizationCodeCredentials =  requestDoCodigoDeAutorização.execute();
-
-  
   getSpotifyapi().setAccessToken(authorizationCodeCredentials.getAccessToken());
   getSpotifyapi().setRefreshToken(authorizationCodeCredentials.getRefreshToken());
 
@@ -116,20 +114,16 @@ public static ClientCredentialsRequest getRequestdasnossascredenciais() {
 	return RequestDasNossasCredenciais;
 }
 
-
-
 public static SpotifyApi getSpotifyapi() {
 	return spotifyApi;
 }
 
-private static final AuthorizationCodeRefreshRequest authorizationCodeRefreshRequest = spotifyApi.authorizationCodeRefresh()
-.build();
-
 public static void authorizationCodeRefresh_Sync() {
+AuthorizationCodeRefreshRequest authorizationCodeRefreshRequest = spotifyApi.authorizationCodeRefresh()
+			.build();
 try {
+	
   final AuthorizationCodeCredentials authorizationCodeCredentials = authorizationCodeRefreshRequest.execute();
-
-  // Set access and refresh token for further "spotifyApi" object usage
   spotifyApi.setAccessToken(authorizationCodeCredentials.getAccessToken());
 
   System.out.println("Expires in: " + authorizationCodeCredentials.getExpiresIn());

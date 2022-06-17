@@ -34,20 +34,8 @@ import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfi
 public class BuscadorDoSpotify {
 	
 	public static Track[] pesquisaMusicas(String textoDePesquisa) {
-		  try {
-		    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
-
-		  
-		    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
-		    
-		    
-		  } catch (IOException | SpotifyWebApiException | ParseException e) {
-		   System.out.println("Error: " + e.getMessage());
-		  }
-		   final SearchTracksRequest RequestDasMusicasPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchTracks(textoDePesquisa)
+		   SearchTracksRequest RequestDasMusicasPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchTracks(textoDePesquisa)
 		   .build();
-		  
-		  
 		  try {
 		      final Paging<Track> MusicasPesquisadas = RequestDasMusicasPesquisadas.execute();
 
@@ -57,25 +45,11 @@ public class BuscadorDoSpotify {
 		      System.out.println("Error: " + e.getMessage());
 		    }
 		  	return null;
-		  
-		  
 		}
 
 		public static AlbumSimplified[] pesquisaAlbuns(String nomeDoAlbum) {
-			  try {
-			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
-
-			  
-			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
-			    
-			    
-			  } catch (IOException | SpotifyWebApiException | ParseException e) {
-			   System.out.println("Error: " + e.getMessage());
-			  }
-			   final SearchAlbumsRequest RequestDosAlbunsPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchAlbums(nomeDoAlbum)
+			  SearchAlbumsRequest RequestDosAlbunsPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchAlbums(nomeDoAlbum)
 			   .build();
-			  
-			  
 			  try {
 			      final Paging<AlbumSimplified> AlbunsPesquisados = RequestDosAlbunsPesquisados.execute();
 
@@ -84,27 +58,12 @@ public class BuscadorDoSpotify {
 			    } catch (IOException | SpotifyWebApiException | ParseException e) {
 			      System.out.println("Error: " + e.getMessage());
 			    }
-			  	return null;
-			  
-			  
+			  	return null;  
 			}
 
 		public static Artist[] pesquisaArtistas(String nomeDoArtista) {
-			  try {
-			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
-
-			  
-			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
-			    
-			    
-			  } catch (IOException | SpotifyWebApiException | ParseException e) {
-			   System.out.println("Error: " + e.getMessage());
-			  }
-			   final SearchArtistsRequest RequestDosArtistasPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchArtists(nomeDoArtista)
-			         .limit(20)
+			 SearchArtistsRequest RequestDosArtistasPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchArtists(nomeDoArtista)
 			   .build();
-			  
-			  
 			  try {
 			      final Paging<Artist> ArtistasPesquisados = RequestDosArtistasPesquisados.execute();
 
@@ -114,25 +73,11 @@ public class BuscadorDoSpotify {
 			      System.out.println("Error: " + e.getMessage());
 			    }
 			  	return null;
-			  
-			  
 			}
 
 		public static PlaylistSimplified[] pesquisaPlaylists(String nomeDaPlaylist) {
-			  try {
-			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
-
-			  
-			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
-			    
-			    
-			  } catch (IOException | SpotifyWebApiException | ParseException e) {
-			   System.out.println("Error: " + e.getMessage());
-			  }
-			   final SearchPlaylistsRequest RequestDasPlaylistsPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchPlaylists(nomeDaPlaylist)
+			  SearchPlaylistsRequest RequestDasPlaylistsPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchPlaylists(nomeDaPlaylist)
 			   .build();
-			  
-			  
 			  try {
 			      final Paging<PlaylistSimplified> PlaylistsPesquisadas = RequestDasPlaylistsPesquisadas.execute();
 
@@ -142,26 +87,11 @@ public class BuscadorDoSpotify {
 			      System.out.println("Error: " + e.getMessage());
 			    }
 			  	return null;
-			  
-			  
 			}
 
 		public static EpisodeSimplified[] pesquisaEpisodios(String nomeDoEpisodio) {
-			  try {
-			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
-
-			  
-			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
-			    
-			    
-			  } catch (IOException | SpotifyWebApiException | ParseException e) {
-			   System.out.println("Error: " + e.getMessage());
-			  }
-			   final SearchEpisodesRequest RequestDosEpisodiosPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchEpisodes(nomeDoEpisodio)
-			         .limit(20)
+			  SearchEpisodesRequest RequestDosEpisodiosPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchEpisodes(nomeDoEpisodio)
 			   .build();
-			  
-			  
 			  try {
 			      final Paging<EpisodeSimplified> EpisodiosPesquisados = RequestDosEpisodiosPesquisados.execute();
 
@@ -171,26 +101,11 @@ public class BuscadorDoSpotify {
 			      System.out.println("Error: " + e.getMessage());
 			    }
 			  	return null;
-			  
-			  
 			}
 
 		public static ShowSimplified[] pesquisaShows(String nomeDoShow) {
-			  try {
-			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
-
-			  
-			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
-			    
-			    
-			  } catch (IOException | SpotifyWebApiException | ParseException e) {
-			   System.out.println("Error: " + e.getMessage());
-			  }
-			   final SearchShowsRequest RequestDosShowsPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchShows(nomeDoShow)
-			         .limit(20)
-			   .build();
-			  
-			  
+			  SearchShowsRequest RequestDosShowsPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchShows(nomeDoShow)
+			   .build();  
 			  try {
 			      final Paging<ShowSimplified> ShowsPesquisados = RequestDosShowsPesquisados.execute();
 
@@ -200,29 +115,11 @@ public class BuscadorDoSpotify {
 			      System.out.println("Error: " + e.getMessage());
 			    }
 			  	return null;
-			  
-			  
 			}
 
 		public static SearchResult pesquisaItens(String chaveDePesquisa, String tipo) {
-			  try {
-			    final ClientCredentials nossasCredenciais = ComunicadorDoSpotify.RequestDasNossasCredenciais.execute();
-
-			  
-			    ComunicadorDoSpotify.getSpotifyapi().setAccessToken(nossasCredenciais.getAccessToken());
-			    
-			    
-			  } catch (IOException | SpotifyWebApiException | ParseException e) {
-			   System.out.println("Error: " + e.getMessage());
-			  }
-//			  final List <String> lista_tipo = new ArrayList <String> (Arrays.asList(ModelObjectType.ARTIST.getType(), ModelObjectType.ALBUM.getType(),
-//			                                      ModelObjectType.PLAYLIST.getType(), ModelObjectType.TRACK.getType(),
-//			                                      ModelObjectType.SHOW.getType(), ModelObjectType.EPISODE.getType()));
-//			  final String tipo = String.join(",", lista_tipo);
-			   final SearchItemRequest RequestDosItensPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchItem(chaveDePesquisa, tipo)
+			   SearchItemRequest RequestDosItensPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchItem(chaveDePesquisa, tipo)
 			   .build();
-			  
-			  
 			  try {
 			      final SearchResult ItensPesquisados = RequestDosItensPesquisados.execute();
 
@@ -262,10 +159,6 @@ public class BuscadorDoSpotify {
 			    } catch (IOException | SpotifyWebApiException | ParseException e) {
 			      System.out.println("Error: " + e.getMessage());
 			    }
-			  
 			  return user;
 		 }
-
-
-
 }
