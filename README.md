@@ -1,7 +1,6 @@
 **Projeto Turingfy**
 1. Informação sobre as Classes do Projeto
-    \n
-    -com.pacote \n
+    - com.pacote
         - Classes que contêm a main para executar o projeto.
         - 18/06/2022 : Como rodar o projeto: 
             1. Abra o arquivo no eclipse/programa de sua preferência;
@@ -13,7 +12,7 @@
             5. Volte para o terminal e insira 1, confirmando a mensagem;
             6. Navegue normalmente pelo sistema.
 
-    -com.pacote.controllers
+    - com.pacote.controllers
         - Classes de Execução dos Procedimentos do projeto.
         - ComunicadorDoSpotify: Classe com métodos de autenticação e autorização para coleta e envio de dados na API do ComunicadorDoSpotify;
         - BuscadorDoSpotify: Classe com métodos que recolhem informação do Spotify;
