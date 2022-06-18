@@ -22,7 +22,7 @@
         - ConversorDeTipo: Classe Adaptadora entre os métodos nativos da library e os formatos usados no sistema;
         - XXXXController: Classes que definem o comportamento das páginas web inseridas diretamente no sistema;
 
-    -com.pacote.customComparator
+    - com.pacote.customComparator
         - Classes para implementação da tabela de músicas, a qual pode ser reorganizada de acordo com os atributos de AudioFeatures;
         - Cada uma delas contém um Comparator<Track> para cada feature e possui um único método para executar um sort de uma List<Track>        
         implementado na Classe OperacoesDoUsuario;
