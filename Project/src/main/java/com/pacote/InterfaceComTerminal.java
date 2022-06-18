@@ -26,7 +26,7 @@ public class InterfaceComTerminal {
 			opcaoDoUsuario = entrada.nextInt();
 			
 			if(opcaoDoUsuario == 1)
-				executor.pesquisarMusica( entrada);
+				executor.pesquisarMusicaPorNome(entrada);
 			else if(opcaoDoUsuario == 2)
 				executor.visualizarPlaylists(entrada);
 			else if(opcaoDoUsuario == 3)
