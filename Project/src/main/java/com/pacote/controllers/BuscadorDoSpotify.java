@@ -28,7 +28,8 @@ public class BuscadorDoSpotify {
 	
 	public static Track[] pesquisaMusicas(String textoDePesquisa) {
 		   SearchTracksRequest RequestDasMusicasPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchTracks(textoDePesquisa)
-		   .build();
+				   .limit(100)
+				   .build();
 		  try {
 		      final Paging<Track> MusicasPesquisadas = RequestDasMusicasPesquisadas.execute();
 		      return MusicasPesquisadas.getItems();
@@ -68,7 +69,8 @@ public class BuscadorDoSpotify {
 
 		public static PlaylistSimplified[] pesquisaPlaylists(String nomeDaPlaylist) {
 			  SearchPlaylistsRequest RequestDasPlaylistsPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchPlaylists(nomeDaPlaylist)
-			   .build();
+					  .limit(100)
+					  .build();
 			  try {
 			      final Paging<PlaylistSimplified> PlaylistsPesquisadas = RequestDasPlaylistsPesquisadas.execute();
 
@@ -124,6 +126,7 @@ public class BuscadorDoSpotify {
 		 public static PlaylistSimplified[] getListOfUsersPlaylists(String userId) {
 			 GetListOfUsersPlaylistsRequest getListOfUsersPlaylistsRequest = ComunicadorDoSpotify.getSpotifyapi()
 					    .getListOfUsersPlaylists(userId)
+					    .limit(100)
 					    .build();
 			 
 			 Paging<PlaylistSimplified> playlistSimplifiedPaging = null;

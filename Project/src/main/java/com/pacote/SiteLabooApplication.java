@@ -43,10 +43,7 @@ public class SiteLabooApplication {
 					executor.deletarPlaylist(entrada);
 				else if(opcaoDoUsuario == 5)
 					executor.pesquisarEmPlaylist(entrada);
-					
 			}
-			
-			
 		}
 			entrada.close();
 	}

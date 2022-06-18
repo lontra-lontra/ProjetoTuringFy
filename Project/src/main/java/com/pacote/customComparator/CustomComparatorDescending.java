@@ -1,5 +1,6 @@
 package com.pacote.customComparator;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class CustomComparatorDescending {
 	public List<Comparator<Track>> compara;
 	
 	public CustomComparatorDescending() {
+		compara = new ArrayList<Comparator<Track>>();
 		compara.add(comparaPorAcousticness);
 		compara.add(comparaPorDanceability);
 		compara.add(comparaPorEnergy);
