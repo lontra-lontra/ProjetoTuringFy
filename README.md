@@ -1,6 +1,7 @@
 **Projeto Turingfy**
 1. Informação sobre as Classes do Projeto
-    -com.pacote
+    \n
+    -com.pacote \n
         - Classes que contêm a main para executar o projeto.
         - 18/06/2022 : Como rodar o projeto: 
             1. Abra o arquivo no eclipse/programa de sua preferência;
