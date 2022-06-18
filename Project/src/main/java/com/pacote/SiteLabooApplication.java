@@ -15,6 +15,7 @@ import com.pacote.controllers.EditorDePlaylists;
 
 import se.michaelthelin.spotify.enums.AuthorizationScope;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
+import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.User;
 
 import com.pacote.controllers.CoversorDeTipo;
@@ -35,30 +36,47 @@ public class SiteLabooApplication {
 		while(n != 9875) {
 			
 			if(k == 10) {
-			ComunicadorDoSpotify.authorizationCodeRefresh_Sync();
+				ComunicadorDoSpotify.authorizationCodeRefresh_Sync();
 			}
 			if(n == 1) {
-			user = BuscadorDoSpotify.getCurrentUsersProfile();
-			System.out.println("User profile test ....");
-			System.out.println("User: " + user.getDisplayName() + ". ID: " + user.getId());
+				user = BuscadorDoSpotify.getCurrentUsersProfile();
+				System.out.println("User profile test ....");
+				System.out.println("User: " + user.getDisplayName() + ". ID: " + user.getId());
 			}
 			else if(n == 2) {
-			editorMaster.visualizaPlaylists(conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId())));
+				editorMaster.visualizaPlaylists(conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId())));
 			}
 			else if(n == 3) {
-			sc.nextLine();
-			System.out.println("Nome: ");
-			editorMaster.createUsersPlaylist(sc.nextLine(), user.getId());
+				sc.nextLine();
+				System.out.println("Nome: ");
+				editorMaster.createUsersPlaylist(sc.nextLine(), user.getId());
 			}
 			else if(n == 4) {
-			sc.nextLine();
-			System.out.println("Delete Name: ");
-			String name = sc.nextLine();
-			List<Playlist> lista = conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId()));
-			List<Playlist> paraDel = lista.stream().filter(playlist -> playlist.getName().contains(name)).collect(Collectors.toList());
-			for(Playlist list : paraDel) {
-				editorMaster.deleteUsersPlaylist(list.getId());
+				sc.nextLine();
+				System.out.println("Delete Name: ");
+				String name = sc.nextLine();
+				List<Playlist> lista = conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId()));
+				List<Playlist> paraDel = lista.stream().filter(playlist -> playlist.getName().contains(name)).collect(Collectors.toList());
+				for(Playlist list : paraDel) {
+					editorMaster.deleteUsersPlaylist(list.getId());
 			}
+			}
+			else if (n == 5) {
+				System.out.println("Adiciona Música a Playlist");
+				sc.nextLine();
+				System.out.println("Termo de Busca");
+				String palavra = sc.nextLine();
+				Track[] listaDeBusca = BuscadorDoSpotify.pesquisaMusicas(palavra);
+				String[] listaIds = new String[20];
+				for(int i = 0; i < 20; i++ ) {
+					listaIds[i] = listaDeBusca[i].getUri();
+				}
+				List<Playlist> listaP = conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId()));
+				editorMaster.adicionaMusica(listaP.get(0), listaIds);
+			}
+			else if (n == 6) {
+				List<Playlist> listaP = conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId()));
+				editorMaster.vizualizaPlaylist(listaP.get(0));
 			}
 			n = sc.nextInt();
 			k++;
