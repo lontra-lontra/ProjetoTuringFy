@@ -1,7 +1,15 @@
 import React from "react";
 import * as S from "./styles";
+import Filtro from "../Imagens/Filtro.svg"
+import { useNavigate } from "react-router-dom";
 
 function PaginaInicial() {
+
+    let navega = useNavigate();
+    const navegaResultados = () =>{
+        navega("/Resultados")
+    }
+  
 return(
     <>
     <S.CorpoTodo>
@@ -21,6 +29,11 @@ return(
             <S.BlocoDeBusca>
                 <S.Buscar>Buscar</S.Buscar>
                 <S.DescricaoBusca>Pesquise por  título, autor, nome do álbum ou playlist</S.DescricaoBusca>
+                <S.BarraBuscaEFiltro>
+                    <S.BarraBusca></S.BarraBusca>
+                    <S.BotaoFiltro><img src={Filtro}/></S.BotaoFiltro>
+                </S.BarraBuscaEFiltro>
+                <S.BotaoBuscar onClick={navegaResultados}>Buscar</S.BotaoBuscar>
             </S.BlocoDeBusca>
         </S.corpo>
     </S.CorpoTodo>
