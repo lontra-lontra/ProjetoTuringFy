@@ -3,6 +3,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import com.pacote.customComparator.CustomComparatorAscending;
+import com.pacote.customComparator.CustomComparatorDescending;
+
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
@@ -88,7 +91,9 @@ public class OperacoesDoUsuario {
     		System.out.println("Playlist vazia!");
     		return;
     	}
-    	executor.imprimeListaDeMusicas(conversor.getFromDifferentType(playlistDesejada.getTracks().getItems()));
+    	List<Track> listaDesejada = conversor.getFromDifferentType(playlistDesejada.getTracks().getItems());
+    	this.sortListaDeMusica(listaDesejada, "Asc", "Energy");
+    	executor.imprimeListaDeMusicas(listaDesejada);
     	System.out.println("Gostaria de Remover uma música(1) ou retornar ao Menu(2)?");
     	if(sc.nextInt() == 1)
 	    	this.removerMusica(playlistDesejada, sc);
@@ -121,6 +126,21 @@ public class OperacoesDoUsuario {
     	System.out.println("Insira o nome da " + tipo);
     	String nome = sc.nextLine();
     	return nome;
+    }
+    
+    public void sortListaDeMusica (List<Track> listaDeMusicas, String ascOrDesc, String filter) {
+    	if(ascOrDesc.contains("Asc")) {
+    		CustomComparatorAscending comparatorA = new CustomComparatorAscending();
+    		int filtro = Arrays.asList(comparatorA.types).indexOf(filter);
+    		listaDeMusicas.sort(comparatorA.compara.get(filtro));
+    	}
+    	else {
+    		CustomComparatorDescending comparatorD = new CustomComparatorDescending();
+    		int filtro = Arrays.asList(comparatorD.types).indexOf(filter);
+    		listaDeMusicas.sort(comparatorD.compara.get(filtro));
+    	}
+    		
+    
     }
     
 }
