@@ -1,6 +1,7 @@
 package com.pacote.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.hc.core5.http.ParseException;
@@ -8,7 +9,7 @@ import org.apache.hc.core5.http.ParseException;
 import com.google.gson.JsonArray;
 
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
-import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
+import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.requests.data.playlists.AddItemsToPlaylistRequest;
@@ -16,6 +17,7 @@ import se.michaelthelin.spotify.requests.data.playlists.ChangePlaylistsDetailsRe
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.RemoveItemsFromPlaylistRequest;
+import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForSeveralTracksRequest;
 import se.michaelthelin.spotify.requests.data.follow.UnfollowPlaylistRequest;
 
 
@@ -111,6 +113,20 @@ public class EditorDePlaylists {
 		      addItemsToPlaylistRequest.execute();
 		    } catch (IOException | SpotifyWebApiException | ParseException e) {
 			  System.out.println("Não foi possível adicionar a música: " + e);		    }
+	}
+
+	public List<AudioFeatures> getAudioFeatures(String[] ids) {
+		GetAudioFeaturesForSeveralTracksRequest getAudioFeaturesForSeveralTracksRequest = ComunicadorDoSpotify.getSpotifyapi()
+			    .getAudioFeaturesForSeveralTracks(ids)
+			    .build();
+		AudioFeatures[] audioFeatures = null;
+		 try {
+		      audioFeatures = getAudioFeaturesForSeveralTracksRequest.execute();
+		    } catch (IOException | SpotifyWebApiException | ParseException e) {
+		      System.out.println("Não foi possível retornar a feature: " + e.getMessage());
+		    }
+		
+		return Arrays.asList(audioFeatures);
 	}
 
 }

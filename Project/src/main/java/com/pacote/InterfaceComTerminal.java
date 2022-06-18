@@ -1,16 +1,13 @@
 package com.pacote;
+import com.pacote.controllers.OperacoesDoUsuario;
 
 import java.util.Scanner;
-
-import com.pacote.controllers.AcoesDoUsuario;
-import com.pacote.controllers.BibliotecaDePlaylists;
 
 public class InterfaceComTerminal {
 
 	public static void main(String[] args) {
-		BibliotecaDePlaylists bibliotecaDoUsuario = new BibliotecaDePlaylists();
 		int opcaoDoUsuario = 0; //variavel que
-		AcoesDoUsuario executor = new AcoesDoUsuario();
+		OperacoesDoUsuario executor = new OperacoesDoUsuario();
 		
 		Scanner entrada = new Scanner(System.in);
 
@@ -29,15 +26,15 @@ public class InterfaceComTerminal {
 			opcaoDoUsuario = entrada.nextInt();
 			
 			if(opcaoDoUsuario == 1)
-				executor.pesquisarMusica(bibliotecaDoUsuario, entrada);
+				executor.pesquisarMusica( entrada);
 			else if(opcaoDoUsuario == 2)
-				executor.visualizarPlaylists(bibliotecaDoUsuario, entrada);
+				executor.visualizarPlaylists(entrada);
 			else if(opcaoDoUsuario == 3)
-				bibliotecaDoUsuario = executor.criarPlaylist(bibliotecaDoUsuario, entrada);
+				executor.criarPlaylist(entrada);
 			else if(opcaoDoUsuario == 4)
-				executor.deletarPlaylist(bibliotecaDoUsuario, entrada);
+				executor.deletarPlaylist(entrada);
 			else if(opcaoDoUsuario == 5)
-				executor.pesquisarEmPlaylist(bibliotecaDoUsuario, entrada);
+				executor.pesquisarEmPlaylist(entrada);
 				
 		}
 		entrada.close();

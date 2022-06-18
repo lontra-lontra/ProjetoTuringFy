@@ -4,57 +4,16 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.SpotifyHttpManager;
+import se.michaelthelin.spotify.enums.AuthorizationScope;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
 import se.michaelthelin.spotify.model_objects.credentials.AuthorizationCodeCredentials;
 
 import java.net.URI;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
-import se.michaelthelin.spotify.SpotifyHttpManager;
-import se.michaelthelin.spotify.SpotifyApi;
-import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
-import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
-import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
-import se.michaelthelin.spotify.model_objects.specification.Paging;
-import se.michaelthelin.spotify.model_objects.specification.Track;
-
-// PARA PESQUISAR ALBUNS
-import se.michaelthelin.spotify.model_objects.specification.Album;
-import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
-import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
-
-// PARA PESQUISAR ARTISTAS
-import se.michaelthelin.spotify.model_objects.specification.Artist;
-import se.michaelthelin.spotify.requests.data.search.simplified.SearchArtistsRequest;
-
-// PARA PESQUISAR PLAYLISTS
-import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
-import se.michaelthelin.spotify.model_objects.specification.Show;
-import se.michaelthelin.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
-
-// PARA EPISODIOS
-import se.michaelthelin.spotify.model_objects.specification.EpisodeSimplified;
-import se.michaelthelin.spotify.requests.data.search.simplified.SearchEpisodesRequest;
-
-// PARA SHOWS
-import se.michaelthelin.spotify.model_objects.specification.ShowSimplified;
-import se.michaelthelin.spotify.requests.data.search.simplified.SearchShowsRequest;
-
-// PARA ITENS
-import se.michaelthelin.spotify.model_objects.special.SearchResult;
-import se.michaelthelin.spotify.requests.data.search.SearchItemRequest;
-import se.michaelthelin.spotify.enums.AuthorizationScope;
-import se.michaelthelin.spotify.enums.ModelObjectType;
-import java.util.*;
-
 import org.apache.hc.core5.http.ParseException;
-
 import java.io.IOException;
-import java.net.URI;
 
 
 

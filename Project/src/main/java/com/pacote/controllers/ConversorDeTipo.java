@@ -55,4 +55,20 @@ public class ConversorDeTipo {
 		return listaConvertida;
 	}
 
+	public String[] getAttributeArray(List<Track> musicas, String tipo) {
+		List<String> listaDeAtributos = new ArrayList<>();
+		if(tipo.contains("uri")) {
+			for(Track musica : musicas)
+				listaDeAtributos.add(musica.getUri());
+		}
+		else
+			for(Track musica : musicas)
+				listaDeAtributos.add(musica.getId());
+		String[] listaEmArray = new String[listaDeAtributos.size()];
+		for(int i = 0; i < listaDeAtributos.size(); i ++) {
+			listaEmArray[i] = listaDeAtributos.get(i);
+		}
+		return listaEmArray;
+	}
+
 }

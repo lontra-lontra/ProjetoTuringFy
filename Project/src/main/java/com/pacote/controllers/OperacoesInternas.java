@@ -5,107 +5,41 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.User;
 
 public class OperacoesInternas {
 	
-	private static User user = BuscadorDoSpotify.getCurrentUsersProfile();
-	
-	public String getName() {
-		return this.nome;
-	}
-	
-	public void setName(String novoNome) {
-		this.nome = novoNome;
-	}
-	
-	public List<Track> getPlaylist() {
-		return this.playlist;
-	}
-	
-	public void setPlaylist(List<Track> novaPlaylist) {
-		this.playlist = novaPlaylist;
+	private static User user;
+
+	public static void setUser() {
+		OperacoesInternas.user = BuscadorDoSpotify.getCurrentUsersProfile();
 	}
 
-
-	public void adicionaMusica(Track musica) {
-		this.playlist.add(musica);
-	}
+	private static EditorDePlaylists editor = new EditorDePlaylists();
+	private static ConversorDeTipo conversor = new ConversorDeTipo();
 	
-	public void removeMusica(Track musica) {
-		this.playlist.remove(musica);
-	}
-	
-	public List<Track> BuscaPorNome(String nome) {
-		List<Track> listaDeBusca = new ArrayList<>();
-		listaDeBusca = this.playlist.stream().filter(musica-> musica.getName().contains(nome)).collect(Collectors.toList());
-		return listaDeBusca;
-	}
-	
-	public List<Track> BuscaPeloPrimeiroArtista(String nome, Playlist lista) {
-		List<Track> listaDeBusca = new ArrayList<>();
-		listaDeBusca = this.playlist.stream().filter(musica-> (musica.getArtists()[0].getName().contains(nome))).collect(Collectors.toList());
-		return listaDeBusca;
-	}
-	
-	public List<Track> BuscaPorAlbum(String nome, Playlist lista) {
-		List<Track> listaDeBusca = new ArrayList<>();
-		listaDeBusca = this.playlist.stream().filter(musica-> musica.getAlbum().getName().contains(nome)).collect(Collectors.toList());
-		return listaDeBusca;
-	}
-	
-	public void imprimePlaylist() {
-		System.out.println("Playlist: " + this.nome);
-		for(Track musica : this.playlist){
-			this.imprimeTrack(musica);	
+	public void imprimeListaDeMusicas(List<Track> listaDeMusicas) {		
+		List<AudioFeatures> listaDeFt = editor.getAudioFeatures(conversor.getAttributeArray(listaDeMusicas, "id"));
+		for (int i = 0; i < listaDeMusicas.size(); i ++) {
+			System.out.println( (i + 1) + ". Musica: " + listaDeMusicas.get(i).getName() + ". Primeiro Artista: " + listaDeMusicas.get(i).getArtists()[0]);
+			System.out.println("Álbum: " + listaDeMusicas.get(i).getAlbum().getName() + ". Duração: " + listaDeMusicas.get(i).getDurationMs() + " ms.");
+			System.out.println("Acousticness: " + listaDeFt.get(i).getAcousticness() + ". Danceability: " + listaDeFt.get(i).getDanceability());
+			System.out.println("Energy: " + listaDeFt.get(i).getEnergy() + ". Instrumentalness: " + listaDeFt.get(i).getInstrumentalness());
+			System.out.println("Key: " + listaDeFt.get(i).getKey() + ". Liveness: " + listaDeFt.get(i).getLiveness());
+			System.out.println("Loudness: " + listaDeFt.get(i).getLoudness() + ". Mode: " + listaDeFt.get(i).getMode());		
+			System.out.println("Speechiness: " + listaDeFt.get(i).getSpeechiness() + ". Tempo: " + listaDeFt.get(i).getTempo());
+			System.out.println("Positivity: " + listaDeFt.get(i).getValence());
+			System.out.println(" ");			
 		}
 	}
 	
-	private void imprimeTrack(Track musica) {
-		System.out.printf("Musica: %s, Album: %s \nDuração: %d ms, Primeiro Artista: %s \n", musica.getName(), musica.getAlbum().getName(), musica.getDurationMs(), musica.getArtists()[0].getName());		
-	}
-	
-	public OperacoesInternas selecionaPlaylist(String playlist, String musica, List<OperacoesInternas> recebeMusica, Scanner sc){
-		if(recebeMusica.isEmpty()) {
-			System.out.println("Nenhuma playlist encontrada, cancelando operação");
-			return null;
-		}
-		System.out.println("Insira o índice da Playlist a receber a música");
-		int indiceDaPlaylistRecebeMusica = sc.nextInt();
-		return this.escolheMusicaDoResultadoDeBusca(recebeMusica, indiceDaPlaylistRecebeMusica, sc);
-	}
-	
-	private OperacoesInternas escolheMusicaDoResultadoDeBusca(List<OperacoesInternas> recebeMusica, int indiceDaPlaylistRecebeMusica, Scanner sc) {
-		int[] indiceDaMusicaASerAdicionada = new int[this.playlist.size()];
-		for(int i = 0; i < this.playlist.size(); i++)
-			System.out.println((i + 1) + " - " + this.playlist.get(i).getName() + " de " + this.playlist.get(i).getArtists()[0].getName());
-		indiceDaMusicaASerAdicionada = this.escolheIndicesDeMusica(this.playlist.size(), indiceDaMusicaASerAdicionada, sc);
-		for(int i = 0; i < indiceDaMusicaASerAdicionada.length && indiceDaMusicaASerAdicionada[i] != -2; i ++ )
-			recebeMusica.get(indiceDaPlaylistRecebeMusica - 1).adicionaMusica(this.playlist.get(indiceDaMusicaASerAdicionada[i]));
-		return recebeMusica.get(indiceDaPlaylistRecebeMusica - 1);
-	}
-	
-	public void RemoveMusicaDePlaylist(String musica, Scanner sc){
-		int[] indiceDaMusicaASerRemovida = this.buscaMusicaEmPlaylist(musica, sc);
-		for(int i = 0; i < indiceDaMusicaASerRemovida.length && indiceDaMusicaASerRemovida[i] != -2; i ++)
-			this.playlist.remove(indiceDaMusicaASerRemovida[i]);		
-		return;
-	}
-	
-
-	private int[] buscaMusicaEmPlaylist(String nome, Scanner sc) {
-		int i, n = 0;
-		System.out.println("Músicas Compatíveis com o Termo de Busca: ");
-		for(i = 0; i < this.playlist.size(); i++, n++)
-			if(this.playlist.get(i).getName().contains(nome))
-				System.out.println((i + 1) + " - " + this.playlist.get(i).getName() + " de " + this.playlist.get(i).getArtists()[0].getName());
-		int [] indices = new int[n];
-		indices = escolheIndicesDeMusica(n, indices, sc);
-		return indices;	
-	}
-
 	private int[] escolheIndicesDeMusica(int n, int[] indices, Scanner sc) {
 		int i;
 		System.out.println("Insira os índices das Músicas desejadas, terminados por 0");
@@ -118,5 +52,73 @@ public class OperacoesInternas {
 			indices[i] = -2;
 		return indices;
 	}
+
+	public Playlist selecionaPlaylist(String nomeDaPlaylist, Scanner sc) {
+		Playlist selecionada = null;
+		List<Playlist> possiveis = conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId())).stream().filter(playlist -> (playlist.getName().contains(nomeDaPlaylist))).collect(Collectors.toList());
+		this.imprimePlaylists(possiveis);
+		System.out.println("Insira o índice da Playlist desejada: ");
+		selecionada = possiveis.get(sc.nextInt() - 1);		
+		return selecionada;
+	}
+
+	private void imprimePlaylists(List<Playlist> possiveis) {
+		int i = 1;
+		System.out.println("Playlists Encontradas: ");
+		for(Playlist lista : possiveis) {
+			System.out.println(i + ". " + lista.getName());
+			i++;
+		}
+	}
+
+	public List<Track> selecionaMusicas(List<Track> lista, String nomeMusica, Scanner sc) {
+		List<Track> soEscolhidas = new ArrayList<>();
+		this.imprimeListaDeMusicas(lista.stream().filter(musica -> musica.getName().contains(nomeMusica)).collect(Collectors.toList()));
+		int tam = lista.stream().filter(musica -> musica.getName().contains(nomeMusica)).collect(Collectors.toList()).size();
+		int[] indicesDesejados = new int[tam];
+		indicesDesejados = this.escolheIndicesDeMusica(tam, indicesDesejados, sc);
+		soEscolhidas = this.separaMusicasDeLista(lista, indicesDesejados);		
+		return soEscolhidas;
+	}
+
+	private List<Track> separaMusicasDeLista(List<Track> lista, int[] indicesDesejados) {
+		List<Track> auxiliar = new ArrayList<Track>();
+		for(int i = 0; i < indicesDesejados.length && indicesDesejados[i] != -2; i++) {
+			auxiliar.add(lista.get(indicesDesejados[i]));
+		}
+		return auxiliar;
+	}
+
+	public void adicionaMusicaAPlaylist(List<Track> musicasParaAdicionar, Playlist listaDoUsuario) {
+		editor.adicionaMusica(listaDoUsuario, conversor.getAttributeArray(musicasParaAdicionar, "uri"));		
+	}
+
+	public void imprimePlaylistsDoUsuario() {
+		List<Playlist> listasDoUsuario = conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId()));
+		this.imprimePlaylists(listasDoUsuario);		
+	}
+
+	public void alteraNomeDePlaylist(Playlist listaDoUsuario, String nextLine) {
+		editor.changePlaylistName(nextLine, listaDoUsuario.getId());
+	}
+
+	public void criaPlaylistDoUsuario(String nomeDaPlaylist) {
+		editor.createUsersPlaylist(nomeDaPlaylist, user.getId());
+	}
+
+	public void deletaPlaylistDoUsuario(Playlist listaDoUsuario) {
+		editor.deleteUsersPlaylist(listaDoUsuario.getId());
+	}
+
+	public void removeMusicaDaPlaylist(Playlist playlistDesejada, String nomeDaMusica, Scanner sc) {
+		List<Track> escolhidas = this.selecionaMusicas(conversor.getFromDifferentType(playlistDesejada.getTracks().getItems()), nomeDaMusica, sc);
+		JsonArray musicasURI = new JsonArray();
+		for (Track musica : escolhidas) {
+			JsonElement novo = JsonParser.parseString(musica.getUri());
+			musicasURI.add(novo);
+		}
+		editor.removeMusica(playlistDesejada, musicasURI);
+	}
+
 
 }

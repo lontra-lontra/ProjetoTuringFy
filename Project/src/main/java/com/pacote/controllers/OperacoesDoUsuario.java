@@ -4,13 +4,12 @@ import java.util.List;
 import java.util.Scanner;
 
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
-//import se.michaelthelin.spotify.model_objects.special.SearchResult;
 import se.michaelthelin.spotify.model_objects.specification.Track;
-import se.michaelthelin.spotify.model_objects.specification.User;
 
 public class OperacoesDoUsuario {
 	
 	private static OperacoesInternas executor = new OperacoesInternas();
+	private static ConversorDeTipo conversor = new ConversorDeTipo();
  
 
     public void pesquisarMusica(Scanner sc){
@@ -22,7 +21,7 @@ public class OperacoesDoUsuario {
         	return;
         }
         List<Track> listaDeBusca = Arrays.asList(itens_pesquisados);
-        executor.imprimeListaDeMusicas(Arrays.asList(listaDeBusca));
+        executor.imprimeListaDeMusicas(listaDeBusca);
         this.decisorAposBuscaDeMusicas(sc, listaDeBusca, nomeMusica);
     	return;
     }
@@ -37,7 +36,7 @@ public class OperacoesDoUsuario {
     private void adicionarMusicaAPlaylist(List<Track> listaDeBusca, String nomeMusica, Scanner sc){   	
     	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc); 
     	Playlist listaDoUsuario = executor.selecionaPlaylist(nomeDaPlaylist, sc);
-    	List<Track> musicasParaAdicionar = executor.selecionaMusicas(nomeMusica, sc);
+    	List<Track> musicasParaAdicionar = executor.selecionaMusicas(conversor.getFromDifferentType(listaDoUsuario.getTracks().getItems()), nomeMusica, sc);
     	executor.adicionaMusicaAPlaylist(musicasParaAdicionar, listaDoUsuario);    	
     }
 
@@ -46,7 +45,7 @@ public class OperacoesDoUsuario {
   	        System.out.println("Deseja ver as músicas de uma playlist(1), criar uma playlist(2), alterar o nome de uma playlist(3) ou voltar ao Menu Pricipal(4)?");
 	        int escolha = sc.nextInt();
 	        if(escolha == 1)
-	        	this.visualizarMusicasDePlaylist(sc);
+	        	this.visualizarMúsicasDePlaylist(sc);
 	        else if (escolha == 2)
 	        	this.criarPlaylist(sc);
 	        else if (escolha == 3)
@@ -66,12 +65,12 @@ public class OperacoesDoUsuario {
 		executor.alteraNomeDePlaylist(listaDoUsuario, sc.nextLine());
     }
 
-    private void criarPlaylist(Scanner sc){
+    public void criarPlaylist(Scanner sc){
     	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
     	executor.criaPlaylistDoUsuario(nomeDaPlaylist);
     }
 
-    private void deletarPlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc){
+    public void deletarPlaylist(Scanner sc){
     	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
     	Playlist listaDoUsuario = executor.selecionaPlaylist(nomeDaPlaylist, sc);
     	executor.deletaPlaylistDoUsuario(listaDoUsuario);
@@ -89,6 +88,7 @@ public class OperacoesDoUsuario {
     		System.out.println("Playlist vazia!");
     		return;
     	}
+    	executor.imprimeListaDeMusicas(conversor.getFromDifferentType(playlistDesejada.getTracks().getItems()));
     	System.out.println("Gostaria de Remover uma música(1) ou retornar ao Menu(2)?");
     	if(sc.nextInt() == 1)
 	    	this.removerMusica(playlistDesejada, sc);
@@ -97,10 +97,10 @@ public class OperacoesDoUsuario {
     
     private void removerMusica(Playlist playlistDesejada, Scanner sc) {
     	String nomeDaMusica = this.nomeDesejado("Música", sc);
-    	executor.removeMusicaDaPlaylist(playlistDesejada, nomeDaMusica);
+    	executor.removeMusicaDaPlaylist(playlistDesejada, nomeDaMusica, sc);
     }
     
-    public void pesquisarEmPlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc) {
+    public void pesquisarEmPlaylist(Scanner sc) {
     	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
     	Playlist playlistDesejada = executor.selecionaPlaylist(nomeDaPlaylist, sc);
     	if(playlistDesejada == null) {
@@ -108,7 +108,7 @@ public class OperacoesDoUsuario {
     		return;
     	}
     	String nomeDaMusica = this.nomeDesejado("Música", sc);
-    	List<Track> resultadoDeBusca = executor.buscaMusicasEmPlaylistPeloNome(nomeDaMusica);
+    	List<Track> resultadoDeBusca = executor.selecionaMusicas(conversor.getFromDifferentType(playlistDesejada.getTracks().getItems()), nomeDaMusica, sc);
     	executor.imprimeListaDeMusicas(resultadoDeBusca);
     	System.out.println("Gostaria de Remover uma música(1) ou retornar ao Menu(2)?");
     	if(sc.nextInt() == 1)

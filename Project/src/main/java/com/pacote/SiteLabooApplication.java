@@ -1,90 +1,54 @@
 package com.pacote;
-
-
-
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.pacote.controllers.OperacoesDoUsuario;
+import com.pacote.controllers.OperacoesInternas;
 
-import com.pacote.controllers.BuscadorDoSpotify;
-import com.pacote.controllers.ComunicadorDoSpotify;
-import com.pacote.controllers.EditorDePlaylists;
-
-import se.michaelthelin.spotify.enums.AuthorizationScope;
-import se.michaelthelin.spotify.model_objects.specification.Playlist;
-import se.michaelthelin.spotify.model_objects.specification.Track;
-import se.michaelthelin.spotify.model_objects.specification.User;
-
-import com.pacote.controllers.ConversorDeTipo;
 
 @SpringBootApplication
 public class SiteLabooApplication {
-	private static User user;
 	
 	public static void main(String[] args) {
-		int k = 0;
+		
 		SpringApplication.run(SiteLabooApplication.class, args);
-		EditorDePlaylists editorMaster = new EditorDePlaylists();
-		ConversorDeTipo conversor = new ConversorDeTipo();
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Hello, booting system ...");		
-		System.out.println("Pronta para começar?");
-		int n = sc.nextInt();
-		while(n != 9875) {
-			
-			if(k == 10) {
-				ComunicadorDoSpotify.authorizationCodeRefresh_Sync();
+		
+		int opcaoDoUsuario = 0;
+        OperacoesDoUsuario executor = new OperacoesDoUsuario();
+		
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Boot system? Y(1)/N(0)");
+			if(entrada.nextInt() == 1) {
+			System.out.println("Bem-vindo ao Sistema Music Library!");
+			OperacoesInternas.setUser();
+			while(opcaoDoUsuario != 6) {
+				System.out.println(" ");
+				System.out.println("Ações disponíveis:");
+				System.out.println("1. Pesquisar música");
+				System.out.println("2. Visualizar playlists");
+				System.out.println("3. Criar playlist");
+				System.out.println("4. Deletar playlist");
+				System.out.println("5. Pesquisar em playlist");
+				System.out.println("6. Encerrar o sistema");
+						
+				opcaoDoUsuario = entrada.nextInt();
+				
+				if(opcaoDoUsuario == 1)
+					executor.pesquisarMusica( entrada);
+				else if(opcaoDoUsuario == 2)
+					executor.visualizarPlaylists(entrada);
+				else if(opcaoDoUsuario == 3)
+					executor.criarPlaylist(entrada);
+				else if(opcaoDoUsuario == 4)
+					executor.deletarPlaylist(entrada);
+				else if(opcaoDoUsuario == 5)
+					executor.pesquisarEmPlaylist(entrada);
+					
 			}
-			if(n == 1) {
-				user = BuscadorDoSpotify.getCurrentUsersProfile();
-				System.out.println("User profile test ....");
-				System.out.println("User: " + user.getDisplayName() + ". ID: " + user.getId());
-			}
-			else if(n == 2) {
-				editorMaster.visualizaPlaylists(conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId())));
-			}
-			else if(n == 3) {
-				sc.nextLine();
-				System.out.println("Nome: ");
-				editorMaster.createUsersPlaylist(sc.nextLine(), user.getId());
-			}
-			else if(n == 4) {
-				sc.nextLine();
-				System.out.println("Delete Name: ");
-				String name = sc.nextLine();
-				List<Playlist> lista = conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId()));
-				List<Playlist> paraDel = lista.stream().filter(playlist -> playlist.getName().contains(name)).collect(Collectors.toList());
-				for(Playlist list : paraDel) {
-					editorMaster.deleteUsersPlaylist(list.getId());
-			}
-			}
-			else if (n == 5) {
-				System.out.println("Adiciona Música a Playlist");
-				sc.nextLine();
-				System.out.println("Termo de Busca");
-				String palavra = sc.nextLine();
-				Track[] listaDeBusca = BuscadorDoSpotify.pesquisaMusicas(palavra);
-				String[] listaIds = new String[20];
-				for(int i = 0; i < 20; i++ ) {
-					listaIds[i] = listaDeBusca[i].getUri();
-				}
-				List<Playlist> listaP = conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId()));
-				editorMaster.adicionaMusica(listaP.get(0), listaIds);
-			}
-			else if (n == 6) {
-				List<Playlist> listaP = conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId()));
-				editorMaster.vizualizaPlaylist(listaP.get(0));
-			}
-			n = sc.nextInt();
-			k++;
 			
 			
 		}
-		
-		
+			entrada.close();
 	}
 
 }
