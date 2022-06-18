@@ -18,7 +18,7 @@ import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.User;
 
-import com.pacote.controllers.CoversorDeTipo;
+import com.pacote.controllers.ConversorDeTipo;
 
 @SpringBootApplication
 public class SiteLabooApplication {
@@ -28,7 +28,7 @@ public class SiteLabooApplication {
 		int k = 0;
 		SpringApplication.run(SiteLabooApplication.class, args);
 		EditorDePlaylists editorMaster = new EditorDePlaylists();
-		CoversorDeTipo conversor = new CoversorDeTipo();
+		ConversorDeTipo conversor = new ConversorDeTipo();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Hello, booting system ...");		
 		System.out.println("Pronta para começar?");

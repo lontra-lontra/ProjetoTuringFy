@@ -16,7 +16,7 @@ import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 
-public class CoversorDeTipo {
+public class ConversorDeTipo {
 	
 	public List<Playlist> getFromDifferentType (PlaylistSimplified[] listaDePlaylistsSimpl) {
 		List<Playlist> listaDePlaylists = new ArrayList<>();
@@ -50,7 +50,7 @@ public class CoversorDeTipo {
 	public List<Track> getFromDifferentType(PlaylistTrack[] listaDeMusicas){
 		List<Track> listaConvertida = new ArrayList<>();
 		for(PlaylistTrack musica : listaDeMusicas) {
-			listaConvertida.add((Track) musica.getTrack());	
+			listaConvertida.add((Track) musica.getTrack());
 		}
 		return listaConvertida;
 	}

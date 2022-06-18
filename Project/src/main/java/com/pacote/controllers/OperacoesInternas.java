@@ -7,10 +7,11 @@ import java.util.stream.Collectors;
 
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.User;
 
-public class PlaylistInterna {
-	private List<Track> playlist;
-	private String nome;
+public class OperacoesInternas {
+	
+	private static User user = BuscadorDoSpotify.getCurrentUsersProfile();
 	
 	public String getName() {
 		return this.nome;
@@ -27,11 +28,7 @@ public class PlaylistInterna {
 	public void setPlaylist(List<Track> novaPlaylist) {
 		this.playlist = novaPlaylist;
 	}
-	
-	public PlaylistInterna(String nomeDaPlaylist) {
-		this.playlist = new ArrayList<Track>();
-		this.nome = nomeDaPlaylist;
-	}
+
 
 	public void adicionaMusica(Track musica) {
 		this.playlist.add(musica);
@@ -70,7 +67,7 @@ public class PlaylistInterna {
 		System.out.printf("Musica: %s, Album: %s \nDuração: %d ms, Primeiro Artista: %s \n", musica.getName(), musica.getAlbum().getName(), musica.getDurationMs(), musica.getArtists()[0].getName());		
 	}
 	
-	public PlaylistInterna selecionaPlaylist(String playlist, String musica, List<PlaylistInterna> recebeMusica, Scanner sc){
+	public OperacoesInternas selecionaPlaylist(String playlist, String musica, List<OperacoesInternas> recebeMusica, Scanner sc){
 		if(recebeMusica.isEmpty()) {
 			System.out.println("Nenhuma playlist encontrada, cancelando operação");
 			return null;
@@ -80,7 +77,7 @@ public class PlaylistInterna {
 		return this.escolheMusicaDoResultadoDeBusca(recebeMusica, indiceDaPlaylistRecebeMusica, sc);
 	}
 	
-	private PlaylistInterna escolheMusicaDoResultadoDeBusca(List<PlaylistInterna> recebeMusica, int indiceDaPlaylistRecebeMusica, Scanner sc) {
+	private OperacoesInternas escolheMusicaDoResultadoDeBusca(List<OperacoesInternas> recebeMusica, int indiceDaPlaylistRecebeMusica, Scanner sc) {
 		int[] indiceDaMusicaASerAdicionada = new int[this.playlist.size()];
 		for(int i = 0; i < this.playlist.size(); i++)
 			System.out.println((i + 1) + " - " + this.playlist.get(i).getName() + " de " + this.playlist.get(i).getArtists()[0].getName());

@@ -23,7 +23,7 @@ import se.michaelthelin.spotify.requests.data.follow.UnfollowPlaylistRequest;
 public class EditorDePlaylists {
 	
 	public List<Playlist> getUsersPlaylists(){
-		CoversorDeTipo conversor = new CoversorDeTipo();
+		ConversorDeTipo conversor = new ConversorDeTipo();
 		List<Playlist> playlistsDoUsuário = new ArrayList<>();
 		
 		GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = ComunicadorDoSpotify.getSpotifyapi()
@@ -78,7 +78,7 @@ public class EditorDePlaylists {
 	}
 	
 	public void vizualizaPlaylist(Playlist lista) {
-		CoversorDeTipo conversor = new CoversorDeTipo();
+		ConversorDeTipo conversor = new ConversorDeTipo();
 		System.out.println("Playlist: " + lista.getName());
 		if(lista.getTracks().getItems().length == 0) {
 			System.out.println("Playlist Vazia");

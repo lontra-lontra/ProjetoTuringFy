@@ -2,131 +2,117 @@ package com.pacote.controllers;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
+import se.michaelthelin.spotify.model_objects.specification.Playlist;
 //import se.michaelthelin.spotify.model_objects.special.SearchResult;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.User;
 
-public class AcoesDoUsuario {
+public class OperacoesDoUsuario {
+	
+	private static OperacoesInternas executor = new OperacoesInternas();
  
 
-    public void pesquisarMusica(BibliotecaDePlaylists bibliotecaMaster, Scanner sc){
-
+    public void pesquisarMusica(Scanner sc){
         String nomeMusica = this.nomeDesejado("Música", sc);
-        Track[] itens_pesquisados = ComunicadorDoSpotify.PesquisaMusicas(nomeMusica);
+        Track[] itens_pesquisados = BuscadorDoSpotify.pesquisaMusicas(nomeMusica);
     	System.out.println(" ");
         if(itens_pesquisados.length == 0) {
         	System.out.println("Nenhum resultado encontrado, cancelando operação.");
         	return;
         }
-        PlaylistInterna listaDeBusca = new PlaylistInterna("Resultado De Busca");
-        listaDeBusca.setPlaylist(Arrays.asList(itens_pesquisados));
-        listaDeBusca.imprimePlaylist();
-    	decisorAposBuscaDeMusicas(sc, listaDeBusca, bibliotecaMaster, nomeMusica);
+        List<Track> listaDeBusca = Arrays.asList(itens_pesquisados);
+        executor.imprimeListaDeMusicas(Arrays.asList(listaDeBusca));
+        this.decisorAposBuscaDeMusicas(sc, listaDeBusca, nomeMusica);
     	return;
     }
 
-	public void decisorAposBuscaDeMusicas(Scanner sc, PlaylistInterna listaDeBusca, BibliotecaDePlaylists bibliotecaMaster, String nomeMusica) {
+	private void decisorAposBuscaDeMusicas(Scanner sc, List<Track> listaDeBusca, String nomeMusica) {
 		System.out.println("Quer adicionar música(1) ou voltar para o Menu Principal(2)");
     	if(sc.nextInt() == 1)
-    		this.adicionarMusicaAPlaylist(listaDeBusca, bibliotecaMaster, nomeMusica, sc);
+    		this.adicionarMusicaAPlaylist(listaDeBusca, nomeMusica, sc);
     	return;
     }
     
-    private void adicionarMusicaAPlaylist(PlaylistInterna listaDeBusca, BibliotecaDePlaylists bibliotecaMaster, String nomeMusica, Scanner sc){   	
-    	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);    	
+    private void adicionarMusicaAPlaylist(List<Track> listaDeBusca, String nomeMusica, Scanner sc){   	
+    	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc); 
+    	Playlist listaDoUsuario = executor.selecionaPlaylist(nomeDaPlaylist, sc);
+    	List<Track> musicasParaAdicionar = executor.selecionaMusicas(nomeMusica, sc);
+    	executor.adicionaMusicaAPlaylist(musicasParaAdicionar, listaDoUsuario);    	
     }
 
-    public void visualizarPlaylists(BibliotecaDePlaylists bibliotecaMaster, Scanner sc){
-        if(bibliotecaMaster.biblioteca.isEmpty()){
-            System.out.println("Não há nenhuma playlist salva");
-        }
-        else {       
-	        System.out.println("Playlists Salvas: ");
-	        for(PlaylistInterna listaDeMusicas : bibliotecaMaster.biblioteca){
-	            System.out.println(listaDeMusicas.nome);
-	        }
-	        System.out.println("Deseja ver as músicas de uma playlist(1), criar uma playlist(2), alterar o nome de uma playlist(3) ou voltar ao Menu Pricipal(4)?");
-	        
+    public void visualizarPlaylists(Scanner sc){
+    		executor.imprimePlaylistsDoUsuario();
+  	        System.out.println("Deseja ver as músicas de uma playlist(1), criar uma playlist(2), alterar o nome de uma playlist(3) ou voltar ao Menu Pricipal(4)?");
 	        int escolha = sc.nextInt();
 	        if(escolha == 1)
-	        	this.visualizarMúsicasDePlaylist(bibliotecaMaster, sc);
+	        	this.visualizarMusicasDePlaylist(sc);
 	        else if (escolha == 2)
-	        	bibliotecaMaster = this.criarPlaylist(bibliotecaMaster, sc);
+	        	this.criarPlaylist(sc);
 	        else if (escolha == 3)
-	        	this.mudarNomeDePlaylist(bibliotecaMaster, sc);
-        }
+	        	this.mudarNomeDePlaylist(sc);
        return; 
     }
     
-    private void mudarNomeDePlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc) {
+    private void mudarNomeDePlaylist(Scanner sc) {
     	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
-    	List<PlaylistInterna> listaComNome = bibliotecaMaster.achaPlaylistsCompatíveisComBusca(nomeDaPlaylist);
-    	if(listaComNome.isEmpty()) {
+    	Playlist listaDoUsuario = executor.selecionaPlaylist(nomeDaPlaylist, sc);
+    	if(listaDoUsuario == null) {
     		System.out.println("Não há playlist compatível, cancelando operação");
     		return;
     	}
-    	System.out.println("Insira o índice da Playlist");
-		
-		int indiceDaPlaylist = sc.nextInt();
 		System.out.println("Insira o novo nome:");
 		sc.nextLine();
-		listaComNome.get(indiceDaPlaylist - 1).nome = sc.nextLine();
-		System.out.println("Nome alterado com sucesso!");
-    	
+		executor.alteraNomeDePlaylist(listaDoUsuario, sc.nextLine());
     }
 
-    public BibliotecaDePlaylists criarPlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc){
+    private void criarPlaylist(Scanner sc){
     	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
-    	PlaylistInterna novaPlaylist = new PlaylistInterna(nomeDaPlaylist);
-    	bibliotecaMaster.biblioteca.add(novaPlaylist);
-    	System.out.println("Playlist " + nomeDaPlaylist + " criada com sucesso!");
-    	return bibliotecaMaster;
+    	executor.criaPlaylistDoUsuario(nomeDaPlaylist);
     }
 
-    public BibliotecaDePlaylists deletarPlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc){
+    private void deletarPlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc){
     	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
-    	boolean removeu = bibliotecaMaster.removePlaylist(nomeDaPlaylist, sc);
-    	if (removeu) {
-        	System.out.println("Playlist removida com sucesso!");
-    	}
-    	return bibliotecaMaster;
+    	Playlist listaDoUsuario = executor.selecionaPlaylist(nomeDaPlaylist, sc);
+    	executor.deletaPlaylistDoUsuario(listaDoUsuario);
+    	return ;
     }
 
-    public void visualizarMúsicasDePlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc) {
-    	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
-    	
-    	PlaylistInterna playlistDesejada = bibliotecaMaster.visualizaPlaylist(nomeDaPlaylist, sc);
-    	if(playlistDesejada == null)
+    public void visualizarMúsicasDePlaylist(Scanner sc) {
+    	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc); 	
+    	Playlist playlistDesejada = executor.selecionaPlaylist(nomeDaPlaylist, sc);
+    	if(playlistDesejada == null) {
+    		System.out.println("Não há playlist compatível, cancelando operação!");
     		return;
-    	if(playlistDesejada.playlist.isEmpty()) {
+    	}
+    	if(playlistDesejada.getTracks().getItems().length == 0) {
     		System.out.println("Playlist vazia!");
     		return;
     	}
     	System.out.println("Gostaria de Remover uma música(1) ou retornar ao Menu(2)?");
     	if(sc.nextInt() == 1)
-	    	this.acaoRemoveMusica(playlistDesejada, bibliotecaMaster, sc);
+	    	this.removerMusica(playlistDesejada, sc);
     	return;
     }
     
-    private void acaoRemoveMusica(PlaylistInterna playlistDesejada, BibliotecaDePlaylists bibliotecaMaster, Scanner sc) {
+    private void removerMusica(Playlist playlistDesejada, Scanner sc) {
     	String nomeDaMusica = this.nomeDesejado("Música", sc);
-    	playlistDesejada.RemoveMusicaDePlaylist(nomeDaMusica, sc);
+    	executor.removeMusicaDaPlaylist(playlistDesejada, nomeDaMusica);
     }
     
     public void pesquisarEmPlaylist(BibliotecaDePlaylists bibliotecaMaster, Scanner sc) {
-    	
     	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc);
-    	PlaylistInterna playlistDesejada = bibliotecaMaster.visualizaPlaylist(nomeDaPlaylist, sc);
-    	if(playlistDesejada == null)
+    	Playlist playlistDesejada = executor.selecionaPlaylist(nomeDaPlaylist, sc);
+    	if(playlistDesejada == null) {
+    		System.out.println("Não há playlist compatível, cancelando operação!");
     		return;
+    	}
     	String nomeDaMusica = this.nomeDesejado("Música", sc);
-    	List<Track> resultadoDeBusca = playlistDesejada.BuscaPorNome(nomeDaMusica);
-    	playlistDesejada
-    	for(int i = 0; listaDeIndices[i] != -2; i++)
-    		playlistDesejada.imprimeTrack(playlistDesejada.playlist.get(listaDeIndices[i]));
-    	System.out.println(" ");
+    	List<Track> resultadoDeBusca = executor.buscaMusicasEmPlaylistPeloNome(nomeDaMusica);
+    	executor.imprimeListaDeMusicas(resultadoDeBusca);
     	System.out.println("Gostaria de Remover uma música(1) ou retornar ao Menu(2)?");
     	if(sc.nextInt() == 1)
-	    	this.acaoRemoveMusica(playlistDesejada, bibliotecaMaster, sc);
+	    	this.removerMusica(playlistDesejada, sc);
     	return;    	
     }
     
