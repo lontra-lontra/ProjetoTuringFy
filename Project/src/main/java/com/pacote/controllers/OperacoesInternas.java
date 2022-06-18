@@ -6,7 +6,6 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
@@ -47,6 +46,7 @@ public class OperacoesInternas {
 		for(i = 0; i < n && j != 0; i++) {
 			indices[i] = j - 1;
 			j = sc.nextInt();
+			System.out.println("indice lido: " + indices[i]);
 		}
 		if(indices.length > i)
 			indices[i] = -2;
@@ -112,12 +112,13 @@ public class OperacoesInternas {
 
 	public void removeMusicaDaPlaylist(Playlist playlistDesejada, String nomeDaMusica, Scanner sc) {
 		List<Track> escolhidas = this.selecionaMusicas(conversor.getFromDifferentType(playlistDesejada.getTracks().getItems()), nomeDaMusica, sc);
-		JsonArray musicasURI = new JsonArray();
 		for (Track musica : escolhidas) {
-			JsonElement novo = JsonParser.parseString(musica.getUri());
-			musicasURI.add(novo);
-		}
-		editor.removeMusica(playlistDesejada, musicasURI);
+			String p1 = "[{\"uri\":\"";
+			String p2 = "\"}]";
+			JsonArray  musicaURI = JsonParser.parseString(p1.concat(musica.getUri().concat(p2))).getAsJsonArray();
+			editor.removeMusica(playlistDesejada, musicaURI);
+		} 
+		
 	}
 
 

@@ -36,7 +36,7 @@ public class OperacoesDoUsuario {
     private void adicionarMusicaAPlaylist(List<Track> listaDeBusca, String nomeMusica, Scanner sc){   	
     	String nomeDaPlaylist = this.nomeDesejado("Playlist", sc); 
     	Playlist listaDoUsuario = executor.selecionaPlaylist(nomeDaPlaylist, sc);
-    	List<Track> musicasParaAdicionar = executor.selecionaMusicas(conversor.getFromDifferentType(listaDoUsuario.getTracks().getItems()), nomeMusica, sc);
+    	List<Track> musicasParaAdicionar = executor.selecionaMusicas(listaDeBusca, nomeMusica, sc);
     	executor.adicionaMusicaAPlaylist(musicasParaAdicionar, listaDoUsuario);    	
     }
 

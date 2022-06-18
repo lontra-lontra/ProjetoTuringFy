@@ -31,8 +31,6 @@ public class BuscadorDoSpotify {
 		   .build();
 		  try {
 		      final Paging<Track> MusicasPesquisadas = RequestDasMusicasPesquisadas.execute();
-
-		      System.out.println("Total: " + MusicasPesquisadas.getTotal());
 		      return MusicasPesquisadas.getItems();
 		    } catch (IOException | SpotifyWebApiException | ParseException e) {
 		      System.out.println("Error: " + e.getMessage());
@@ -115,8 +113,6 @@ public class BuscadorDoSpotify {
 			   .build();
 			  try {
 			      final SearchResult ItensPesquisados = RequestDosItensPesquisados.execute();
-
-			      System.out.println("Total: " + ItensPesquisados.getTracks().getTotal());
 			      return ItensPesquisados;
 			    } catch (IOException | SpotifyWebApiException | ParseException e) {
 			      System.out.println("Error: " + e.getMessage());
