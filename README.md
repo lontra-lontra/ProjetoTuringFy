@@ -4,12 +4,13 @@
         - Classes que contêm a main para executar o projeto.
         - 18/06/2022 : Como rodar o projeto: 
             1. Abra o arquivo no eclipse/programa de sua preferência;
-            2. Execute o arquivo: SiteLabooAplication.java. Junto com a mensagem do springboot, 
-            deve aparecer uma mensadem de Boot do sistema, não responda ainda, apenas siga para
-            o próximo passo ;
-            3. Abra o navegador, no endereço: localhost:8080/aut;
+            2. Execute o arquivo: SiteLabooAplication.java.
+            3. Abra a pasta "Interface Web" no terminal/power shell;
+            4. Execute o comando npm install e depois npm start;
+                - Caso apareça a mensagem de erro: 'react-scripts' is not recognized as an internal or external command
+                Rodar: npm install react-scripts –save
+            5. Após um certo tempo, a página localhost:3000 vai abrir, aperte o botão conectar;
             4. Faça login na conta teste: dummy2spotifylaboo@gmail.com / Dummy123#;
-            5. Volte para o terminal e insira 1, confirmando a mensagem;
             6. Navegue normalmente pelo sistema.
 
     - com.pacote.controllers
