@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export const CorpoPagina = styled.div`
     width: 100vw;
     height: 100vh;
@@ -47,3 +48,4 @@ export const CorpoResultados = styled.div`
     height: 100vh;
     background-color: #1B1B1B;
 `
+

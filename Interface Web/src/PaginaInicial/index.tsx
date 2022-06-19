@@ -11,7 +11,7 @@ function PaginaInicial() {
     }
 
     const [textoPesquisa, setTextoPesquisa] = useState("")
-  
+
 return(
     <>
     <S.CorpoTodo>
@@ -32,6 +32,7 @@ return(
                 <S.Buscar>Buscar</S.Buscar>
                 <S.DescricaoBusca>Pesquise por  título, autor, nome do álbum ou playlist</S.DescricaoBusca>
                 <S.BarraBuscaEFiltro>
+
                     <S.BarraBusca placeholder="Digite sua pesquisa" id="InputBusca"
                      onChange={(e) => {setTextoPesquisa(e.target.value);}}>
 

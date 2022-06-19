@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React, { useState } from "react";
 import ComponenteResultados from "../ComponenteResultados";
@@ -16,6 +17,7 @@ function PaginaResultados(){
             <S.TextoResultados>Resultados</S.TextoResultados>
             <ComponenteResultados TextoBusca={"love"}></ComponenteResultados>
         </S.CorpoPagina>
+
         </>
     )
 }
