@@ -6,7 +6,6 @@ import { BrowserRouter, BrowserRouter as Router,Route,Routes } from 'react-route
 import PaginaResultados from './PaginaResultados';
 import Login from './PaginaLogin';
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -14,7 +13,6 @@ function App() {
         <Routes>
         <Route path='/' element={<Login/>}/>
         <Route path='/PaginaInicial' element={<PaginaInicial/>}/>
-        <Route path='/' element={<PaginaInicial/>}/>
         <Route path="Resultados" element = {<PaginaResultados/>}/>
         </Routes>
       </div>
