@@ -2,15 +2,24 @@
 1. Informação sobre as Classes do Projeto
     - com.pacote
         - Classes que contêm a main para executar o projeto.
-        - 18/06/2022 : Como rodar o projeto: 
-            1. Abra o arquivo no eclipse/programa de sua preferência;
-            2. Execute o arquivo: SiteLabooAplication.java.
-            3. Abra a pasta "Interface Web" no terminal/power shell;
-            4. Execute o comando npm install e depois npm start;
+        - 18/06/2022 : Como rodar o projeto:
+            1.1. Funcionalidades no Terminal:
+                a. Abra a pasta "Projeto" no eclipse/programa de sua preferência.
+                b. Execute o arquivo: SiteLabooAplication.java.
+                c. Espere aparecer a mensagem de Boot no console. Não responda a mensagem ainda.
+                d. Abra no navegador o endereço: [localhost:8080/aut](http://localhost:8080/aut).
+                e. Clique no link disponível na página.
+                f. Após o redirecionamento, faça login usando a conta de teste: dummy2spotifylaboo@gmail.com / Dummy123#
+                g. Retorne ao Console e insira 1 para iniciar o sistema.
+                h. Navegue livremente no sistema.
+            1.2. Visualização da página Web [Incompleta]
+                a. Repita os passos a. e b. do item anterior.
+                b. Abra a pasta "Interface Web" no terminal.
+                c. Execute os comandos `npm install` e `npm start`
                 - Caso apareça a mensagem de erro: 'react-scripts' is not recognized as an internal or external command
-                Rodar: npm install react-scripts –save
-            5. Após um certo tempo, a página localhost:3000 vai abrir, aperte o botão conectar;
-            4. Faça login na conta teste: dummy2spotifylaboo@gmail.com / Dummy123#;
+                Rodar: `npm install react-scripts –save`
+            5. Após um certo tempo, a página localhost:3000 vai abrir, aperte o botão conectar.
+            4. Faça login na conta teste.
             6. Navegue normalmente pelo sistema.
 
     - com.pacote.controllers
