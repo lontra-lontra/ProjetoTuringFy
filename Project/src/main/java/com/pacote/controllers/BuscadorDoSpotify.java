@@ -28,7 +28,7 @@ public class BuscadorDoSpotify {
 	
 	public static Track[] pesquisaMusicas(String textoDePesquisa) {
 		   SearchTracksRequest RequestDasMusicasPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchTracks(textoDePesquisa)
-				   .limit(100)
+				   .limit(20)
 				   .build();
 		  try {
 		      final Paging<Track> MusicasPesquisadas = RequestDasMusicasPesquisadas.execute();
