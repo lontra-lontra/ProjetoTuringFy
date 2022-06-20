@@ -29,7 +29,7 @@
         - EditorDePlaylist: Classe com métodos para criar e deletar playlists, alterar nome, adicionar e remover músicas;
         - OperacoesDoUsuario: Classe que implementa os métodos chamados na Main, as ações do usuário no sistema;
         - OperacoesInternas: Classe que conecta os métodos da OperacoesDoUsuario com os métodos presentes em outras classes;
-        - ConversorDeTipo: Classe Adaptadora entre os métodos nativos da library e os formatos usados no sistema;
+        - ConversorDeTipo: Classe Adaptadora entre os métodos nativos da library Spotify-Web-Api e os formatos usados no sistema;
         - XXXXController: Classes que definem o comportamento das páginas web inseridas diretamente no sistema;
 
     - com.pacote.customComparator
