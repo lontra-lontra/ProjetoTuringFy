@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.ArrayList;
-import java.util.List;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.Album;
 
@@ -15,7 +13,6 @@ import se.michaelthelin.spotify.model_objects.specification.Album;
 @RequestMapping("api/")
 public class APIdePesquisa {
 	@GetMapping("pesquisa")
-	
 	public MusicaParaEnviar[] informacao( @RequestParam(name="pesquisa", required=false, defaultValue="musica") String pesquisa) {
 		Track[] info = new Track[20];
 		info = Comunicador.pesquisaMusicas(pesquisa);

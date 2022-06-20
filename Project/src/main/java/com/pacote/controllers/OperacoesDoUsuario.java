@@ -1,12 +1,8 @@
 package com.pacote.controllers;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
-import com.pacote.customComparator.CustomComparatorAscending;
-import com.pacote.customComparator.CustomComparatorDescending;
 
 import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
@@ -22,18 +18,15 @@ public class OperacoesDoUsuario {
     public void pesquisarMusicaPorNome(Scanner sc){
         String nomeMusica = this.nomeDesejado("a Música", sc);
         Track[] itens_pesquisados = BuscadorDoSpotify.pesquisaMusicas(nomeMusica);
-        System.out.println("Track size: " + itens_pesquisados.length);
     	System.out.println(" ");
         if(itens_pesquisados.length == 0) {
         	System.out.println("Nenhum resultado encontrado, cancelando operação.");
         	return;
         }
         List<Track> listaDeBusca = Arrays.asList(itens_pesquisados);
-        System.out.println("Array size: " + listaDeBusca.size());
         List<Track> listaPesquisa = listaDeBusca.stream().filter(musica -> (musica.getName().contains(nomeMusica))).collect(Collectors.toList());
-        System.out.println("Filtrada : " + listaPesquisa.size());
-        executor.imprimeListaDeMusicas(listaPesquisa);
-        this.decisorAposBuscaDeMusicas(sc, listaDeBusca);
+        executor.imprimeListaDeMusicas(listaPesquisa, sc);
+        this.decisorAposBuscaDeMusicas(sc, listaPesquisa);
     	return;
     }
     
@@ -61,7 +54,7 @@ public class OperacoesDoUsuario {
     	        	return;
     	        }
     	        System.out.println("Album: " + itens_pesquisados.get(indice - 1).getName());
-    			executor.imprimeListaDeMusicas(conversor.getFromDifferentType(itens_pesquisados.get(indice - 1).getTracks().getItems()));
+    			executor.imprimeListaDeMusicas(conversor.getFromDifferentType(itens_pesquisados.get(indice - 1).getTracks().getItems()), sc);
     			this.decisorAposBuscaDeMusicas(sc, conversor.getFromDifferentType(itens_pesquisados.get(indice - 1).getTracks().getItems()));
     		}
 	}
@@ -86,7 +79,7 @@ public class OperacoesDoUsuario {
     	if(escolha == 1) {
     		System.out.println("Insira o indice do Artista desejado: ");
     		int indice = sc.nextInt();
-    		executor.imprimeListaDeMusicas(executor.getArtistsMusics(listaDeBusca.get(indice - 1)));
+    		executor.imprimeListaDeMusicas(executor.getArtistsMusics(listaDeBusca.get(indice - 1)), sc);
     		this.decisorAposBuscaDeMusicas(sc, executor.getArtistsMusics(listaDeBusca.get(indice)));
     	}
     	else if(escolha == 2) {
@@ -116,7 +109,7 @@ public class OperacoesDoUsuario {
 			System.out.println("Insira o indice da Playlist desejada: ");
 			int indice = sc.nextInt();
 			System.out.println("Playlist: " + itens_pesquisados.get(indice).getName());
-			executor.imprimeListaDeMusicas(conversor.getFromDifferentType(itens_pesquisados.get(indice).getTracks().getItems()));
+			executor.imprimeListaDeMusicas(conversor.getFromDifferentType(itens_pesquisados.get(indice).getTracks().getItems()), sc);
 			this.decisorAposBuscaDeMusicas(sc, conversor.getFromDifferentType(itens_pesquisados.get(indice).getTracks().getItems()));
 		}
 	}
@@ -187,7 +180,7 @@ public class OperacoesDoUsuario {
     		return;
     	}
     	List<Track> listaDesejada = conversor.getFromDifferentType(playlistDesejada.getTracks().getItems());
-    	executor.imprimeListaDeMusicas(listaDesejada);
+    	executor.imprimeListaDeMusicas(listaDesejada, sc);
     	System.out.println("Gostaria de Remover uma música(1) ou retornar ao Menu(2)?");
     	if(sc.nextInt() == 1)
 	    	this.removerMusica(playlistDesejada, sc);
@@ -208,7 +201,7 @@ public class OperacoesDoUsuario {
     	}
     	String nomeDaMusica = this.nomeDesejado("a Música", sc);
     	List<Track> resultadoDeBusca = executor.selecionaMusicas(conversor.getFromDifferentType(playlistDesejada.getTracks().getItems()), nomeDaMusica, sc);
-    	executor.imprimeListaDeMusicas(resultadoDeBusca);
+    	executor.imprimeListaDeMusicas(resultadoDeBusca, sc);
     	System.out.println("Gostaria de Remover uma música(1) ou retornar ao Menu(2)?");
     	if(sc.nextInt() == 1)
 	    	this.removerMusica(playlistDesejada, sc);

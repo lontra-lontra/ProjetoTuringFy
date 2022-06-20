@@ -10,7 +10,7 @@ const ComponenteResultados: React.FC<interfacePesquisa> = ({TextoBusca}) => {
 
 const [musicasBusca, setMusicasBusca] = useState({musicas:[]})
 
-axios.get('http://localhost:8080/api/pesquisa', { params: { pesquisa: {TextoBusca} } } ).then (res => {
+axios.get('http://localhost:8080/api/pesquisa', { params: { pesquisa: "Aquarela" } } ).then (res => {
     console.log()
     setMusicasBusca({musicas: res.data});
 });

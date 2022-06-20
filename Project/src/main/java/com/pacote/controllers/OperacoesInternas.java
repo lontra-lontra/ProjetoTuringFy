@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
-import com.neovisionaries.i18n.CountryCode;
 import com.pacote.customComparator.CustomComparatorAscending;
 import com.pacote.customComparator.CustomComparatorDescending;
 
@@ -19,7 +18,6 @@ import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.User;
-import se.michaelthelin.spotify.requests.data.artists.GetArtistsTopTracksRequest;
 
 public class OperacoesInternas {
 	
@@ -32,9 +30,9 @@ public class OperacoesInternas {
 	private static EditorDePlaylists editor = new EditorDePlaylists();
 	private static ConversorDeTipo conversor = new ConversorDeTipo();
 	
-	public void imprimeListaDeMusicas(List<Track> listaDeMusicas) {	
+	public void imprimeListaDeMusicas(List<Track> listaDeMusicas, Scanner sc) {	
+		this.perguntaTipoDeFiltro(listaDeMusicas, sc);
 		List<AudioFeatures> listaDeFt = editor.getAudioFeatures(conversor.getAttributeArray(listaDeMusicas, "id"));
-		this.perguntaTipoDeFiltro(listaDeMusicas);
 		for (int i = 0; i < listaDeMusicas.size(); i ++) {
 			System.out.println( (i + 1) + ". Musica: " + listaDeMusicas.get(i).getName() + ". Primeiro Artista: " + listaDeMusicas.get(i).getArtists()[0].getName());
 			System.out.println("Álbum: " + listaDeMusicas.get(i).getAlbum().getName() + ". Duração: " + listaDeMusicas.get(i).getDurationMs() + " ms.");
@@ -48,27 +46,28 @@ public class OperacoesInternas {
 		}
 	}
 	
-	private void perguntaTipoDeFiltro(List<Track> listaDeMusicas) {
+	private void perguntaTipoDeFiltro(List<Track> listaDeMusicas, Scanner sc) {
 		System.out.println("Gostaria de Ordenar a Busca por AudioFeature? S(1)/N(0)");
-		Scanner sc = new Scanner(System.in);
-		String ordem = null;
-		if(sc.nextInt() == 1) {
-			System.out.println("Ordem Crescente(1) ou Decrescente(2)?");
-			if(sc.nextInt() == 1) {
-				ordem = "Asc";
+		int escolha = sc.nextInt();
+		if(escolha == 1) {
+			String ordem = null;
+				System.out.println("Ordem Crescente(1) ou Decrescente(2)?");
+				if(sc.nextInt() == 1) {
+					ordem = "Asc";
+				}
+				else {ordem = "Desc";}
+				System.out.println("AudioFeatures disponíveis: ");
+				CustomComparatorAscending customComp = new CustomComparatorAscending();
+				for(int i = 0; i < customComp.types.length; i ++) {
+					System.out.println((i + 1) + ". " + customComp.types[i]);
+				}
+				System.out.println("Insira o indice da AudioFeature usada de parâmetro:");
+				this.sortListaDeMusica(listaDeMusicas, ordem, customComp.types[sc.nextInt() - 1]);
 			}
-			else {ordem = "Desc";}
-			System.out.println("AudioFeatures disponíveis: ");
-			CustomComparatorAscending customComp = new CustomComparatorAscending();
-			for(int i = 0; i < customComp.types.length; i ++) {
-				System.out.println((i + 1) + ". " + customComp.types[i]);
-			}
-			System.out.println("Insira o indice da AudioFeature usada de parâmetro:");
-			this.sortListaDeMusica(listaDeMusicas, ordem, customComp.types[sc.nextInt() - 1]);
 		}
-	}
 
 	public void sortListaDeMusica (List<Track> listaDeMusicas, String ascOrDesc, String filter) {
+		System.out.println("Coisas Lidas " + ascOrDesc + " " + filter);
     	if(ascOrDesc.contains("Asc")) {
     		CustomComparatorAscending comparatorA = new CustomComparatorAscending();
     		int filtro = Arrays.asList(comparatorA.types).indexOf(filter);
@@ -118,11 +117,11 @@ public class OperacoesInternas {
 		List<Track> soEscolhidas = new ArrayList<>();
 		int tam = 0;
 		if(nomeMusica != null) {
-			this.imprimeListaDeMusicas(lista.stream().filter(musica -> musica.getName().contains(nomeMusica)).collect(Collectors.toList()));
+			this.imprimeListaDeMusicas(lista.stream().filter(musica -> musica.getName().contains(nomeMusica)).collect(Collectors.toList()), sc);
 			tam = lista.stream().filter(musica -> musica.getName().contains(nomeMusica)).collect(Collectors.toList()).size();
 		}
 		else {
-			this.imprimeListaDeMusicas(lista);
+			this.imprimeListaDeMusicas(lista, sc);
 			tam = lista.size();
 		}
 		int[] indicesDesejados = new int[tam];
