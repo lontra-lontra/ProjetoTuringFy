@@ -1,6 +1,7 @@
 package com.pacote.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -8,6 +9,8 @@ import java.util.stream.Collectors;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.neovisionaries.i18n.CountryCode;
+import com.pacote.customComparator.CustomComparatorAscending;
+import com.pacote.customComparator.CustomComparatorDescending;
 
 import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
@@ -29,8 +32,9 @@ public class OperacoesInternas {
 	private static EditorDePlaylists editor = new EditorDePlaylists();
 	private static ConversorDeTipo conversor = new ConversorDeTipo();
 	
-	public void imprimeListaDeMusicas(List<Track> listaDeMusicas) {		
+	public void imprimeListaDeMusicas(List<Track> listaDeMusicas) {	
 		List<AudioFeatures> listaDeFt = editor.getAudioFeatures(conversor.getAttributeArray(listaDeMusicas, "id"));
+		this.perguntaTipoDeFiltro(listaDeMusicas);
 		for (int i = 0; i < listaDeMusicas.size(); i ++) {
 			System.out.println( (i + 1) + ". Musica: " + listaDeMusicas.get(i).getName() + ". Primeiro Artista: " + listaDeMusicas.get(i).getArtists()[0].getName());
 			System.out.println("Álbum: " + listaDeMusicas.get(i).getAlbum().getName() + ". Duração: " + listaDeMusicas.get(i).getDurationMs() + " ms.");
@@ -43,6 +47,41 @@ public class OperacoesInternas {
 			System.out.println(" ");			
 		}
 	}
+	
+	private void perguntaTipoDeFiltro(List<Track> listaDeMusicas) {
+		System.out.println("Gostaria de Ordenar a Busca por AudioFeature? S(1)/N(0)");
+		Scanner sc = new Scanner(System.in);
+		String ordem = null;
+		if(sc.nextInt() == 1) {
+			System.out.println("Ordem Crescente(1) ou Decrescente(2)?");
+			if(sc.nextInt() == 1) {
+				ordem = "Asc";
+			}
+			else {ordem = "Desc";}
+			System.out.println("AudioFeatures disponíveis: ");
+			CustomComparatorAscending customComp = new CustomComparatorAscending();
+			for(int i = 0; i < customComp.types.length; i ++) {
+				System.out.println((i + 1) + ". " + customComp.types[i]);
+			}
+			System.out.println("Insira o indice da AudioFeature usada de parâmetro:");
+			this.sortListaDeMusica(listaDeMusicas, ordem, customComp.types[sc.nextInt() - 1]);
+		}
+	}
+
+	public void sortListaDeMusica (List<Track> listaDeMusicas, String ascOrDesc, String filter) {
+    	if(ascOrDesc.contains("Asc")) {
+    		CustomComparatorAscending comparatorA = new CustomComparatorAscending();
+    		int filtro = Arrays.asList(comparatorA.types).indexOf(filter);
+    		listaDeMusicas.sort(comparatorA.compara.get(filtro));
+    	}
+    	else {
+    		CustomComparatorDescending comparatorD = new CustomComparatorDescending();
+    		int filtro = Arrays.asList(comparatorD.types).indexOf(filter);
+    		listaDeMusicas.sort(comparatorD.compara.get(filtro));
+    	}
+    		
+    
+    }
 	
 	private int[] escolheIndicesDeMusica(int n, int[] indices, Scanner sc) {
 		int i;
@@ -148,7 +187,7 @@ public class OperacoesInternas {
 	public void imprimeListaDeArtistas(Artist[] itens_pesquisados) {
 		int i = 1;
 		for(Artist artista: itens_pesquisados) {
-			System.out.println(i + ". Artista: " + artista.getName() + ". Seguidores: " + artista.getFollowers());
+			System.out.println(i + ". Artista: " + artista.getName() + ". Seguidores: " + artista.getFollowers().getTotal());
 		}
 		
 	}

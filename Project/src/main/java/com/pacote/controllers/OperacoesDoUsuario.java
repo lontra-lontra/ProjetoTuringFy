@@ -187,7 +187,6 @@ public class OperacoesDoUsuario {
     		return;
     	}
     	List<Track> listaDesejada = conversor.getFromDifferentType(playlistDesejada.getTracks().getItems());
-    	this.sortListaDeMusica(listaDesejada, "Asc", "Energy");
     	executor.imprimeListaDeMusicas(listaDesejada);
     	System.out.println("Gostaria de Remover uma música(1) ou retornar ao Menu(2)?");
     	if(sc.nextInt() == 1)
@@ -222,21 +221,6 @@ public class OperacoesDoUsuario {
     	String nome = sc.nextLine();
     	return nome;
     }
-    
-    public void sortListaDeMusica (List<Track> listaDeMusicas, String ascOrDesc, String filter) {
-    	if(ascOrDesc.contains("Asc")) {
-    		CustomComparatorAscending comparatorA = new CustomComparatorAscending();
-    		int filtro = Arrays.asList(comparatorA.types).indexOf(filter);
-    		listaDeMusicas.sort(comparatorA.compara.get(filtro));
-    	}
-    	else {
-    		CustomComparatorDescending comparatorD = new CustomComparatorDescending();
-    		int filtro = Arrays.asList(comparatorD.types).indexOf(filter);
-    		listaDeMusicas.sort(comparatorD.compara.get(filtro));
-    	}
-    		
-    
-    }
 
 	public void pesquisarMusica(Scanner entrada) {
 		System.out.println("Métodos De Pesquisa Disponíveis: ");
@@ -258,7 +242,9 @@ public class OperacoesDoUsuario {
 		else if(escolha == 4) {
 			this.pesquisarMusicaPorPlaylist(entrada);
 		}
-		System.out.println("Opção inválida, cancelando operação...");
+		else {
+			System.out.println("Opção inválida, cancelando operação...");
+		}
 		
 	}
     
