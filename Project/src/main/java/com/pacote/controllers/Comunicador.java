@@ -73,8 +73,73 @@ public static Track[] pesquisaMusicas(String textoDePesquisa) {
       System.out.println("Error: " + e.getMessage());
     }
   	return null;
-  
-  
+}
+
+public static AlbumSimplified[] pesquisaAlbuns(String nomeDoAlbum) {
+
+  try {
+    final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
+    spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+  } catch (IOException | SpotifyWebApiException | ParseException e) {
+    System.out.println("Error: " + e.getMessage());
+  }
+
+  SearchAlbumsRequest RequestDosAlbunsPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchAlbums(nomeDoAlbum)
+   .build();
+  try {
+      final Paging<AlbumSimplified> AlbunsPesquisados = RequestDosAlbunsPesquisados.execute();
+
+      System.out.println("Total: " + AlbunsPesquisados.getTotal());
+      return AlbunsPesquisados.getItems();
+    } catch (IOException | SpotifyWebApiException | ParseException e) {
+      System.out.println("Error: " + e.getMessage());
+    }
+    return null;  
+}
+
+public static Artist[] pesquisaArtistas(String nomeDoArtista) {
+
+  try {
+    final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
+    spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+  } catch (IOException | SpotifyWebApiException | ParseException e) {
+    System.out.println("Error: " + e.getMessage());
+  }
+
+  SearchArtistsRequest RequestDosArtistasPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchArtists(nomeDoArtista)
+    .build();
+   try {
+       final Paging<Artist> ArtistasPesquisados = RequestDosArtistasPesquisados.execute();
+
+       System.out.println("Total: " + ArtistasPesquisados.getTotal());
+       return ArtistasPesquisados.getItems();
+     } catch (IOException | SpotifyWebApiException | ParseException e) {
+       System.out.println("Error: " + e.getMessage());
+     }
+     return null;
+ }
+
+ public static PlaylistSimplified[] pesquisaPlaylists(String nomeDaPlaylist) {
+
+  try {
+    final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
+    spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+  } catch (IOException | SpotifyWebApiException | ParseException e) {
+    System.out.println("Error: " + e.getMessage());
+  }
+
+  SearchPlaylistsRequest RequestDasPlaylistsPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchPlaylists(nomeDaPlaylist)
+      .limit(100)
+      .build();
+  try {
+      final Paging<PlaylistSimplified> PlaylistsPesquisadas = RequestDasPlaylistsPesquisadas.execute();
+
+      System.out.println("Total: " + PlaylistsPesquisadas.getTotal());
+      return PlaylistsPesquisadas.getItems();
+    } catch (IOException | SpotifyWebApiException | ParseException e) {
+      System.out.println("Error: " + e.getMessage());
+    }
+    return null;
 }
 
 private static final AuthorizationCodeUriRequest requestDoLinkParaAutorização = spotifyApi.authorizationCodeUri()
