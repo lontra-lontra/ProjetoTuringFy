@@ -34,7 +34,7 @@ public class SiteLabooApplication {
 				opcaoDoUsuario = entrada.nextInt();
 				
 				if(opcaoDoUsuario == 1)
-					executor.pesquisarMusicaPorNome(entrada);
+					executor.pesquisarMusica(entrada);
 				else if(opcaoDoUsuario == 2)
 					executor.visualizarPlaylists(entrada);
 				else if(opcaoDoUsuario == 3)

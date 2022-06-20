@@ -1,11 +1,16 @@
 package com.pacote.controllers;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.hc.core5.http.ParseException;
 
+import com.neovisionaries.i18n.CountryCode;
+
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.special.SearchResult;
+import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.EpisodeSimplified;
@@ -14,6 +19,8 @@ import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.ShowSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.User;
+import se.michaelthelin.spotify.requests.data.artists.GetArtistsAlbumsRequest;
+import se.michaelthelin.spotify.requests.data.artists.GetArtistsTopTracksRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.search.SearchItemRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
@@ -22,6 +29,7 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchEpisodesRe
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchShowsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
+import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 
 public class BuscadorDoSpotify {
@@ -41,11 +49,11 @@ public class BuscadorDoSpotify {
 
 		public static AlbumSimplified[] pesquisaAlbuns(String nomeDoAlbum) {
 			  SearchAlbumsRequest RequestDosAlbunsPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchAlbums(nomeDoAlbum)
-			   .build();
+					  .limit(20)
+					  .build();
 			  try {
 			      final Paging<AlbumSimplified> AlbunsPesquisados = RequestDosAlbunsPesquisados.execute();
 
-			      System.out.println("Total: " + AlbunsPesquisados.getTotal());
 			      return AlbunsPesquisados.getItems();
 			    } catch (IOException | SpotifyWebApiException | ParseException e) {
 			      System.out.println("Error: " + e.getMessage());
@@ -55,11 +63,11 @@ public class BuscadorDoSpotify {
 
 		public static Artist[] pesquisaArtistas(String nomeDoArtista) {
 			 SearchArtistsRequest RequestDosArtistasPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchArtists(nomeDoArtista)
-			   .build();
+					 .limit(20)
+					 .build();
 			  try {
 			      final Paging<Artist> ArtistasPesquisados = RequestDosArtistasPesquisados.execute();
 
-			      System.out.println("Total: " + ArtistasPesquisados.getTotal());
 			      return ArtistasPesquisados.getItems();
 			    } catch (IOException | SpotifyWebApiException | ParseException e) {
 			      System.out.println("Error: " + e.getMessage());
@@ -69,12 +77,11 @@ public class BuscadorDoSpotify {
 
 		public static PlaylistSimplified[] pesquisaPlaylists(String nomeDaPlaylist) {
 			  SearchPlaylistsRequest RequestDasPlaylistsPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchPlaylists(nomeDaPlaylist)
-					  .limit(100)
+					  .limit(20)
 					  .build();
 			  try {
 			      final Paging<PlaylistSimplified> PlaylistsPesquisadas = RequestDasPlaylistsPesquisadas.execute();
 
-			      System.out.println("Total: " + PlaylistsPesquisadas.getTotal());
 			      return PlaylistsPesquisadas.getItems();
 			    } catch (IOException | SpotifyWebApiException | ParseException e) {
 			      System.out.println("Error: " + e.getMessage());
@@ -88,7 +95,6 @@ public class BuscadorDoSpotify {
 			  try {
 			      final Paging<EpisodeSimplified> EpisodiosPesquisados = RequestDosEpisodiosPesquisados.execute();
 
-			      System.out.println("Total: " + EpisodiosPesquisados.getTotal());
 			      return EpisodiosPesquisados.getItems();
 			    } catch (IOException | SpotifyWebApiException | ParseException e) {
 			      System.out.println("Error: " + e.getMessage());
@@ -102,7 +108,6 @@ public class BuscadorDoSpotify {
 			  try {
 			      final Paging<ShowSimplified> ShowsPesquisados = RequestDosShowsPesquisados.execute();
 
-			      System.out.println("Total: " + ShowsPesquisados.getTotal());
 			      return ShowsPesquisados.getItems();
 			    } catch (IOException | SpotifyWebApiException | ParseException e) {
 			      System.out.println("Error: " + e.getMessage());
@@ -126,17 +131,20 @@ public class BuscadorDoSpotify {
 		 public static PlaylistSimplified[] getListOfUsersPlaylists(String userId) {
 			 GetListOfUsersPlaylistsRequest getListOfUsersPlaylistsRequest = ComunicadorDoSpotify.getSpotifyapi()
 					    .getListOfUsersPlaylists(userId)
-					    .limit(100)
+					    .limit(20)
 					    .build();
 			 
 			 Paging<PlaylistSimplified> playlistSimplifiedPaging = null;
 			 try {
 			      playlistSimplifiedPaging = getListOfUsersPlaylistsRequest.execute();
-
-			      System.out.println("Total: " + playlistSimplifiedPaging.getTotal());
 			    } catch (IOException | SpotifyWebApiException | ParseException e) {
-			      System.out.println("Error: " + e.getMessage());
+			    	if(!e.getMessage().equals("Invalid limit"))
+			    		System.out.println("Error: " + e.getMessage());
 			    }
+			 if(playlistSimplifiedPaging == null) {
+				 System.out.println("Não há Playlists salvas!");
+				 return null;
+			 }
 			 return playlistSimplifiedPaging.getItems();
 		 }
 		 
@@ -153,5 +161,44 @@ public class BuscadorDoSpotify {
 			    }
 			  return user;
 		 }
+
+		public static Track getMusica(String id) {
+			GetTrackRequest getTrackRequest = ComunicadorDoSpotify.getSpotifyapi().getTrack(id)
+		    .build();
+			try {
+			      final Track track = getTrackRequest.execute();
+			      return track;
+			    } catch (IOException | SpotifyWebApiException | ParseException e) {
+			      System.out.println("Error: " + e.getMessage());
+			    }
+			return null;
+		}
+		
+		public static List<Track> getArtistTopTracks(Artist artist){
+			GetArtistsTopTracksRequest getArtistsTopTracksRequest = ComunicadorDoSpotify.getSpotifyapi()
+				    .getArtistsTopTracks(artist.getId(), CountryCode.BR)
+				    .build();
+			  try {
+			      Track[] tracks = getArtistsTopTracksRequest.execute();
+			      return Arrays.asList(tracks);
+			    } catch (IOException | SpotifyWebApiException | ParseException e) {
+			      System.out.println("Error: " + e.getMessage());
+			    }
+			  
+			  return null;
+		}
+
+		public static AlbumSimplified[] getArtistAlbuns(Artist artist) {
+			GetArtistsAlbumsRequest getArtistsAlbumsRequest = ComunicadorDoSpotify.getSpotifyapi().getArtistsAlbums(artist.getId())
+		          .limit(20)
+		    .build();
+			try {
+			      final Paging<AlbumSimplified> albumSimplifiedPaging = getArtistsAlbumsRequest.execute();
+			      return albumSimplifiedPaging.getItems();
+			    } catch (IOException | SpotifyWebApiException | ParseException e) {
+			      System.out.println("Error: " + e.getMessage());
+			    }			
+			return null;
+		}
 		 
 }

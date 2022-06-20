@@ -116,7 +116,6 @@ public class EditorDePlaylists {
 	}
 
 	public List<AudioFeatures> getAudioFeatures(String[] ids) {
-		System.out.println("AF size: " + ids.length);
 		GetAudioFeaturesForSeveralTracksRequest getAudioFeaturesForSeveralTracksRequest = ComunicadorDoSpotify.getSpotifyapi()
 			    .getAudioFeaturesForSeveralTracks(ids)
 			    .build();

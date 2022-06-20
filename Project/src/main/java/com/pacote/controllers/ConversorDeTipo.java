@@ -13,6 +13,7 @@ import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.TrackSimplified;
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 
@@ -51,6 +52,15 @@ public class ConversorDeTipo {
 		List<Track> listaConvertida = new ArrayList<>();
 		for(PlaylistTrack musica : listaDeMusicas) {
 			listaConvertida.add((Track) musica.getTrack());
+		}
+		return listaConvertida;
+	}
+	
+	public List<Track> getFromDifferentType(TrackSimplified[] listaDeMusicas){
+		List<Track> listaConvertida = new ArrayList<>();
+		for(TrackSimplified musica : listaDeMusicas) {
+			Track mus = BuscadorDoSpotify.getMusica(musica.getId());
+			listaConvertida.add(mus);
 		}
 		return listaConvertida;
 	}

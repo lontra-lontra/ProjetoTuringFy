@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import com.pacote.customComparator.CustomComparatorAscending;
 import com.pacote.customComparator.CustomComparatorDescending;
 
+import se.michaelthelin.spotify.model_objects.specification.Album;
+import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
@@ -18,7 +20,7 @@ public class OperacoesDoUsuario {
  
 
     public void pesquisarMusicaPorNome(Scanner sc){
-        String nomeMusica = this.nomeDesejado("Música", sc);
+        String nomeMusica = this.nomeDesejado("a Música", sc);
         Track[] itens_pesquisados = BuscadorDoSpotify.pesquisaMusicas(nomeMusica);
         System.out.println("Track size: " + itens_pesquisados.length);
     	System.out.println(" ");
@@ -31,39 +33,71 @@ public class OperacoesDoUsuario {
         List<Track> listaPesquisa = listaDeBusca.stream().filter(musica -> (musica.getName().contains(nomeMusica))).collect(Collectors.toList());
         System.out.println("Filtrada : " + listaPesquisa.size());
         executor.imprimeListaDeMusicas(listaPesquisa);
-        this.decisorAposBuscaDeMusicas(sc, listaDeBusca, nomeMusica);
+        this.decisorAposBuscaDeMusicas(sc, listaDeBusca);
     	return;
     }
     
     public void pesquisarMusicaPorAlbum(Scanner sc){
-        String nomeMusica = this.nomeDesejado("o Album", sc);
-        Track[] itens_pesquisados = BuscadorDoSpotify.pesquisaMusicas(nomeMusica);
+        String nomeAlbum = this.nomeDesejado("o Album", sc);
+        List<Album> itens_pesquisados = conversor.getFromDifferentType(BuscadorDoSpotify.pesquisaAlbuns(nomeAlbum));
+    	System.out.println(" ");
+        if(itens_pesquisados.isEmpty()) {
+        	System.out.println("Nenhum resultado encontrado, cancelando operação.");
+        	return;
+        }
+        executor.imprimeListaDeAlbuns(itens_pesquisados);
+        this.decisorAposBuscaDeAlbuns(sc, itens_pesquisados);
+    	return;
+    }
+    
+    private void decisorAposBuscaDeAlbuns(Scanner sc, List<Album> itens_pesquisados) {
+    		System.out.println("Quer visualizar Album(1) ou voltar ao menu principal(2)?");
+    		if(sc.nextInt() == 1) {
+    	        executor.imprimeListaDeAlbuns(itens_pesquisados);
+    	        System.out.println("Insira o indice do Album desejado: ");
+    	        int indice = sc.nextInt();
+    	        if(indice - 1 >= itens_pesquisados.size() || indice - 1 < 0) {
+    	        	System.out.println("Índice inválido, cancelando operação.");
+    	        	return;
+    	        }
+    	        System.out.println("Album: " + itens_pesquisados.get(indice - 1).getName());
+    			executor.imprimeListaDeMusicas(conversor.getFromDifferentType(itens_pesquisados.get(indice - 1).getTracks().getItems()));
+    			this.decisorAposBuscaDeMusicas(sc, conversor.getFromDifferentType(itens_pesquisados.get(indice - 1).getTracks().getItems()));
+    		}
+	}
+
+	public void pesquisarMusicaPorArtista(Scanner sc){
+        String nomeArtista = this.nomeDesejado("o primeiro Artista", sc);
+        Artist[] itens_pesquisados = BuscadorDoSpotify.pesquisaArtistas(nomeArtista);
     	System.out.println(" ");
         if(itens_pesquisados.length == 0) {
         	System.out.println("Nenhum resultado encontrado, cancelando operação.");
         	return;
         }
-        List<Track> listaDeBusca = Arrays.asList(itens_pesquisados);
-        executor.imprimeListaDeMusicas(listaDeBusca.stream().filter(musica -> (musica.getAlbum().getName().contains(nomeMusica))).collect(Collectors.toList()));
-        this.decisorAposBuscaDeMusicas(sc, listaDeBusca, nomeMusica);
+        List<Artist> listaDeBusca = Arrays.asList(itens_pesquisados);
+        executor.imprimeListaDeArtistas(itens_pesquisados);
+        this.decisorAposBuscaDeArtistas(sc, listaDeBusca);
     	return;
     }
     
-    public void pesquisarMusicaPorArtista(Scanner sc){
-        String nomeMusica = this.nomeDesejado("o primeiro Artista", sc);
-        Track[] itens_pesquisados = BuscadorDoSpotify.pesquisaMusicas(nomeMusica);
-    	System.out.println(" ");
-        if(itens_pesquisados.length == 0) {
-        	System.out.println("Nenhum resultado encontrado, cancelando operação.");
-        	return;
-        }
-        List<Track> listaDeBusca = Arrays.asList(itens_pesquisados);
-        executor.imprimeListaDeMusicas(listaDeBusca.stream().filter(musica -> (musica.getArtists()[0].getName().contains(nomeMusica))).collect(Collectors.toList()));
-        this.decisorAposBuscaDeMusicas(sc, listaDeBusca, nomeMusica);
-    	return;
-    }
-    
-    public void pesquisarMusicaPorPlaylist(Scanner sc){
+    private void decisorAposBuscaDeArtistas(Scanner sc, List<Artist> listaDeBusca) {
+    	System.out.println("Gostaria de vizualizar as Musicas Mais Populares de um artista(1), os Álbuns de um artista(2) ou voltar ao menu principal(3)?");
+    	int escolha = sc.nextInt();
+    	if(escolha == 1) {
+    		System.out.println("Insira o indice do Artista desejado: ");
+    		int indice = sc.nextInt();
+    		executor.imprimeListaDeMusicas(executor.getArtistsMusics(listaDeBusca.get(indice - 1)));
+    		this.decisorAposBuscaDeMusicas(sc, executor.getArtistsMusics(listaDeBusca.get(indice)));
+    	}
+    	else if(escolha == 2) {
+    		System.out.println("Insira o indice do Artista desejado: ");
+    		int indice = sc.nextInt();
+    		executor.imprimeListaDeAlbuns(executor.getArtistsAlbuns(listaDeBusca.get(indice - 1)));
+    		this.decisorAposBuscaDeAlbuns(sc, executor.getArtistsAlbuns(listaDeBusca.get(indice - 1)));
+    	}
+	}
+
+	public void pesquisarMusicaPorPlaylist(Scanner sc){
         String nomeMusica = this.nomeDesejado("o primeiro Artista", sc);
         List<Playlist> itens_pesquisados = conversor.getFromDifferentType(BuscadorDoSpotify.pesquisaPlaylists(nomeMusica));
     	System.out.println(" ");
@@ -71,31 +105,41 @@ public class OperacoesDoUsuario {
         	System.out.println("Nenhum resultado encontrado, cancelando operação.");
         	return;
         }
-        List<Track> listaDeBusca = new ArrayList<>();
-        for(Playlist lista : itens_pesquisados) {
-        	listaDeBusca.addAll(conversor.getFromDifferentType(lista.getTracks().getItems()));
-        }
-        executor.imprimeListaDeMusicas(listaDeBusca.stream().filter(musica -> (musica.getArtists()[0].getName().contains(nomeMusica))).collect(Collectors.toList()));
-        this.decisorAposBuscaDeMusicas(sc, listaDeBusca, nomeMusica);
+        executor.imprimePlaylists(itens_pesquisados);
+        this.decisorAposBuscaDePlaylist(sc, itens_pesquisados);
     	return;
     }
     
-	private void decisorAposBuscaDeMusicas(Scanner sc, List<Track> listaDeBusca, String nomeMusica) {
+	private void decisorAposBuscaDePlaylist(Scanner sc, List<Playlist> itens_pesquisados) {
+		System.out.println("Gostaria de vizualizar as músicas de uma playlist(1) ou voltar ao menu principal(2)?");
+		if(sc.nextInt() == 1) {
+			System.out.println("Insira o indice da Playlist desejada: ");
+			int indice = sc.nextInt();
+			System.out.println("Playlist: " + itens_pesquisados.get(indice).getName());
+			executor.imprimeListaDeMusicas(conversor.getFromDifferentType(itens_pesquisados.get(indice).getTracks().getItems()));
+			this.decisorAposBuscaDeMusicas(sc, conversor.getFromDifferentType(itens_pesquisados.get(indice).getTracks().getItems()));
+		}
+	}
+
+	private void decisorAposBuscaDeMusicas(Scanner sc, List<Track> listaDeBusca) {
 		System.out.println("Quer adicionar música(1) ou voltar para o Menu Principal(2)");
     	if(sc.nextInt() == 1)
-    		this.adicionarMusicaAPlaylist(listaDeBusca, nomeMusica, sc);
+    		this.adicionarMusicaAPlaylist(listaDeBusca, sc);
     	return;
     }
     
-    private void adicionarMusicaAPlaylist(List<Track> listaDeBusca, String nomeMusica, Scanner sc){   	
+    private void adicionarMusicaAPlaylist(List<Track> listaDeBusca, Scanner sc){   	
     	String nomeDaPlaylist = this.nomeDesejado("a Playlist", sc); 
     	Playlist listaDoUsuario = executor.selecionaPlaylist(nomeDaPlaylist, sc);
-    	List<Track> musicasParaAdicionar = executor.selecionaMusicas(listaDeBusca, nomeMusica, sc);
+    	List<Track> musicasParaAdicionar = executor.selecionaMusicas(listaDeBusca, null, sc);
     	executor.adicionaMusicaAPlaylist(musicasParaAdicionar, listaDoUsuario);    	
     }
 
     public void visualizarPlaylists(Scanner sc){
-    		executor.imprimePlaylistsDoUsuario();
+    		boolean funcionou = executor.imprimePlaylistsDoUsuario();
+    		if(!funcionou) {
+    			return;
+    		}
   	        System.out.println("Deseja ver as músicas de uma playlist(1), criar uma playlist(2), alterar o nome de uma playlist(3) ou voltar ao Menu Pricipal(4)?");
 	        int escolha = sc.nextInt();
 	        if(escolha == 1)
@@ -193,5 +237,29 @@ public class OperacoesDoUsuario {
     		
     
     }
+
+	public void pesquisarMusica(Scanner entrada) {
+		System.out.println("Métodos De Pesquisa Disponíveis: ");
+		System.out.println("1. Por Nome ");
+		System.out.println("2. Por Artista ");
+		System.out.println("3. Por Álbum ");
+		System.out.println("4. Por Playlist ");
+		System.out.println("Qual o método escolhido?");
+		int escolha = entrada.nextInt();
+		if(escolha == 1) {
+			this.pesquisarMusicaPorNome(entrada);
+		}
+		else if(escolha == 2) {
+			this.pesquisarMusicaPorArtista(entrada);
+		}
+		else if(escolha == 3) {
+			this.pesquisarMusicaPorAlbum(entrada);
+		}
+		else if(escolha == 4) {
+			this.pesquisarMusicaPorPlaylist(entrada);
+		}
+		System.out.println("Opção inválida, cancelando operação...");
+		
+	}
     
 }

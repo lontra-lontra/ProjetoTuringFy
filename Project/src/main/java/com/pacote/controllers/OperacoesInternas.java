@@ -7,11 +7,16 @@ import java.util.stream.Collectors;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import com.neovisionaries.i18n.CountryCode;
 
+import se.michaelthelin.spotify.model_objects.specification.Album;
+import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.User;
+import se.michaelthelin.spotify.requests.data.artists.GetArtistsTopTracksRequest;
 
 public class OperacoesInternas {
 	
@@ -27,7 +32,7 @@ public class OperacoesInternas {
 	public void imprimeListaDeMusicas(List<Track> listaDeMusicas) {		
 		List<AudioFeatures> listaDeFt = editor.getAudioFeatures(conversor.getAttributeArray(listaDeMusicas, "id"));
 		for (int i = 0; i < listaDeMusicas.size(); i ++) {
-			System.out.println( (i + 1) + ". Musica: " + listaDeMusicas.get(i).getName() + ". Primeiro Artista: " + listaDeMusicas.get(i).getArtists()[0]);
+			System.out.println( (i + 1) + ". Musica: " + listaDeMusicas.get(i).getName() + ". Primeiro Artista: " + listaDeMusicas.get(i).getArtists()[0].getName());
 			System.out.println("Álbum: " + listaDeMusicas.get(i).getAlbum().getName() + ". Duração: " + listaDeMusicas.get(i).getDurationMs() + " ms.");
 			System.out.println("Acousticness: " + listaDeFt.get(i).getAcousticness() + ". Danceability: " + listaDeFt.get(i).getDanceability());
 			System.out.println("Energy: " + listaDeFt.get(i).getEnergy() + ". Instrumentalness: " + listaDeFt.get(i).getInstrumentalness());
@@ -46,7 +51,6 @@ public class OperacoesInternas {
 		for(i = 0; i < n && j != 0; i++) {
 			indices[i] = j - 1;
 			j = sc.nextInt();
-			System.out.println("indice lido: " + indices[i]);
 		}
 		if(indices.length > i)
 			indices[i] = -2;
@@ -62,7 +66,7 @@ public class OperacoesInternas {
 		return selecionada;
 	}
 
-	private void imprimePlaylists(List<Playlist> possiveis) {
+	void imprimePlaylists(List<Playlist> possiveis) {
 		int i = 1;
 		System.out.println("Playlists Encontradas: ");
 		for(Playlist lista : possiveis) {
@@ -73,8 +77,15 @@ public class OperacoesInternas {
 
 	public List<Track> selecionaMusicas(List<Track> lista, String nomeMusica, Scanner sc) {
 		List<Track> soEscolhidas = new ArrayList<>();
-		this.imprimeListaDeMusicas(lista.stream().filter(musica -> musica.getName().contains(nomeMusica)).collect(Collectors.toList()));
-		int tam = lista.stream().filter(musica -> musica.getName().contains(nomeMusica)).collect(Collectors.toList()).size();
+		int tam = 0;
+		if(nomeMusica != null) {
+			this.imprimeListaDeMusicas(lista.stream().filter(musica -> musica.getName().contains(nomeMusica)).collect(Collectors.toList()));
+			tam = lista.stream().filter(musica -> musica.getName().contains(nomeMusica)).collect(Collectors.toList()).size();
+		}
+		else {
+			this.imprimeListaDeMusicas(lista);
+			tam = lista.size();
+		}
 		int[] indicesDesejados = new int[tam];
 		indicesDesejados = this.escolheIndicesDeMusica(tam, indicesDesejados, sc);
 		soEscolhidas = this.separaMusicasDeLista(lista, indicesDesejados);		
@@ -93,9 +104,14 @@ public class OperacoesInternas {
 		editor.adicionaMusica(listaDoUsuario, conversor.getAttributeArray(musicasParaAdicionar, "uri"));		
 	}
 
-	public void imprimePlaylistsDoUsuario() {
-		List<Playlist> listasDoUsuario = conversor.getFromDifferentType(BuscadorDoSpotify.getListOfUsersPlaylists(user.getId()));
-		this.imprimePlaylists(listasDoUsuario);		
+	public boolean imprimePlaylistsDoUsuario() {
+		PlaylistSimplified[] listaTemp = BuscadorDoSpotify.getListOfUsersPlaylists(user.getId());
+		if(listaTemp == null) {
+			return false;
+		}
+		List<Playlist> listasDoUsuario = conversor.getFromDifferentType(listaTemp);
+		this.imprimePlaylists(listasDoUsuario);	
+		return true;
 	}
 
 	public void alteraNomeDePlaylist(Playlist listaDoUsuario, String nextLine) {
@@ -119,6 +135,31 @@ public class OperacoesInternas {
 			editor.removeMusica(playlistDesejada, musicaURI);
 		} 
 		
+	}
+
+	public void imprimeListaDeAlbuns(List<Album> itens_pesquisados) {
+		int i = 1;
+		for(Album alb : itens_pesquisados) {
+			System.out.println(i + ". Album: " + alb.getName() + ". Músicas: " + alb.getTracks().getItems().length);
+			System.out.println("Primeiro Artista: " + alb.getArtists()[0].getName());
+		}
+	}
+
+	public void imprimeListaDeArtistas(Artist[] itens_pesquisados) {
+		int i = 1;
+		for(Artist artista: itens_pesquisados) {
+			System.out.println(i + ". Artista: " + artista.getName() + ". Seguidores: " + artista.getFollowers());
+		}
+		
+	}
+
+	public List<Track> getArtistsMusics (Artist artist) {
+		return BuscadorDoSpotify.getArtistTopTracks(artist);
+		
+	}
+
+	public List<Album> getArtistsAlbuns(Artist artist) {
+		return conversor.getFromDifferentType(BuscadorDoSpotify.getArtistAlbuns(artist));
 	}
 
 
