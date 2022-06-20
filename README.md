@@ -16,8 +16,8 @@
                 1. Repita os passos 1. e 2. do item anterior.
                 2. Abra a pasta "Interface Web" no terminal.
                 3. Execute os comandos `npm install` e `npm start`
-                - Caso apareça a mensagem de erro: 'react-scripts' is not recognized as an internal or external command
-                Rodar: `npm install react-scripts –save`
+                    - Caso apareça a mensagem de erro: 'react-scripts' is not recognized as an internal 
+                    or external command Rodar: `npm install react-scripts –save`
                 4. Após um certo tempo, a página localhost:3000 vai abrir, aperte o botão conectar.
                 5. Faça login na conta teste.
                 6. Navegue normalmente pelo sistema.
