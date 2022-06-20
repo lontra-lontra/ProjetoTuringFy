@@ -10,6 +10,13 @@ export const CorpoTodo = styled.div`
     width: 100vw;
     height: 100vh;
 `
+
+
+export const corpo = styled.div`
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+`
 export const header = styled.header`
     width: 100%;
     height: 17vh;
@@ -19,13 +26,6 @@ export const header = styled.header`
     justify-content:baseline;
     align-items: center;
 `
-
-export const corpo = styled.div`
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-`
-
 export const TituloTuring = styled.p`
     color: white;  
     font-size: 4rem;
@@ -133,7 +133,7 @@ export const BotaoBuscar = styled.button`
     height: 4vh;
     background-color:black;
     color:white;
-    font-size: 40px;    
+    font-size: 3rem;    
     font-family: 'Nunito Sans', sans-serif;    
     border-radius:15px;
     align-items: center;

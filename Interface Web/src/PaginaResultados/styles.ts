@@ -5,6 +5,18 @@ export const CorpoPagina = styled.div`
     width: 100vw;
     height: 100vh;
     background-color: #1B1B1B;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+`
+
+
+
+export const TextoResultados = styled.p`
+color:white;
+font-family: 'Nunito Sans', sans-serif;
+font-size: 3rem;
+margin-left: 4.8rem;
 `
 
 export const Header = styled.header`
@@ -14,38 +26,25 @@ export const Header = styled.header`
     display: flex;
     flex-direction:row ;
     justify-content:baseline;
+    align-items: center;
 `
-
-export const TextoResultados = styled.p`
-color:white;
-font-family: 'Nunito Sans', sans-serif;
-font-size: 48px;
-`
-
 export const TituloTuring = styled.p`
     color: white;  
-    font-size: 64px;
-    margin-left: 56px;
-    margin-top: 32px;
+    font-size: 4rem;
+    margin-left: 4rem;
 `
 
 export const TituloFy = styled.span`
     color: #0CC629;   
-    font-size: 64px;
+    font-size: 4rem;
     margin-left: 0;
-    margin-top: 32px;
 `
 
 export const Slogan = styled.p`
-    color: white;   
-    font-size: 48px;
-    margin-left: 17%;
-    margin-top: 54px;
+    color: white;
+    position: absolute;
+    margin-left: 35%;
+    font-size: 3em;
 `
 
-export const CorpoResultados = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background-color: #1B1B1B;
-`
 

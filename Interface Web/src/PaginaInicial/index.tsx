@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import * as S from "./styles";
-import Filtro from "../Imagens/Filtro.svg"
 import { useNavigate } from "react-router-dom";
-
 function PaginaInicial() {
 
     let navega = useNavigate();
