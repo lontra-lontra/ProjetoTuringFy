@@ -23,6 +23,7 @@ export const header = styled.header`
 export const corpo = styled.div`
     display: flex;
     flex-direction: row;
+    height: 100%;
 `
 
 export const TituloTuring = styled.p`
@@ -47,12 +48,11 @@ export const Slogan = styled.p`
 export const ColunaEsquerda = styled.div`
     align-items: center;
     width: 20%;
-    height:fit-content;
     background-color: #0F0F0F;
     display: flex;
     flex-direction: column;
     justify-content:space-around;
-    min-height:83vh;
+    height:100%;
 `
 
 export const SuasPlaylists = styled.div`
@@ -67,7 +67,7 @@ export const SuasPlaylistsNomes = styled.button`
     font-family: 'Nunito Sans', sans-serif;
     padding: 0.6rem 1.2rem;
     color: white;
-    font-size: 2.2rem;
+    font-size: 1.5vw;
     background-color:#0F0F0F;
     border-radius: 24px;
     border: 1px solid white;   
