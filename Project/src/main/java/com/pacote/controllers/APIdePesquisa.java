@@ -17,16 +17,15 @@ public class APIdePesquisa {
 	@GetMapping("pesquisa")
 	
 	public MusicaParaEnviar[] informacao( @RequestParam(name="pesquisa", required=false, defaultValue="musica") String pesquisa) {
-		Track[] info =  BuscadorDoSpotify.pesquisaMusicas(pesquisa);
+		Track[] info = new Track[20];
+		info = Comunicador.pesquisaMusicas(pesquisa);
 		//MusicaParaEnviar[] MusicasParaEnviar = new MusicaParaEnviar [10];
 		//tipo_de_info um = new tipo_de_info();
 		//tipo_de_info dois = new tipo_de_info();
 		MusicaParaEnviar[] vec = new MusicaParaEnviar[5];
-		for (int i = 0; i < 5;i++)
-		{
+		for (int i = 0; i < 5;i++) {
 			vec[i] = new MusicaParaEnviar(info[i]);
-			if(info != null)
-			{
+			if(info != null){
 				//vec[i].nome = info[i].getName();
 			}
 		}
@@ -36,15 +35,14 @@ public class APIdePesquisa {
 	
 	@GetMapping("album")
 	public AlbumParaEnviar[] InfoAlbum( @RequestParam(name="pesquisa", required=false, defaultValue="musica") String pesquisa) {
-		ConversorDeTipo conversor = new ConversorDeTipo();
-		List<Album> info =  conversor.getFromDifferentType(BuscadorDoSpotify.pesquisaAlbuns(pesquisa));
+		Album[] info = Comunicador.pesquisaAlbum(pesquisa);
 		//MusicaParaEnviar[] MusicasParaEnviar = new MusicaParaEnviar [10];
 		//tipo_de_info um = new tipo_de_info();
 		//tipo_de_info dois = new tipo_de_info();
 		AlbumParaEnviar[] vec = new AlbumParaEnviar[5];
 		for (int i = 0; i < 5;i++)
 		{
-			vec[i] = new AlbumParaEnviar(info.get(i));
+			vec[i] = new AlbumParaEnviar(info[i]);
 			if(info != null)
 			{
 				//vec[i].nome = info.get(i).getName();

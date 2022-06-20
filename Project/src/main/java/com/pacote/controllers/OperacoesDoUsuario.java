@@ -20,13 +20,17 @@ public class OperacoesDoUsuario {
     public void pesquisarMusicaPorNome(Scanner sc){
         String nomeMusica = this.nomeDesejado("Música", sc);
         Track[] itens_pesquisados = BuscadorDoSpotify.pesquisaMusicas(nomeMusica);
+        System.out.println("Track size: " + itens_pesquisados.length);
     	System.out.println(" ");
         if(itens_pesquisados.length == 0) {
         	System.out.println("Nenhum resultado encontrado, cancelando operação.");
         	return;
         }
         List<Track> listaDeBusca = Arrays.asList(itens_pesquisados);
-        executor.imprimeListaDeMusicas(listaDeBusca.stream().filter(musica -> (musica.getName().contains(nomeMusica))).collect(Collectors.toList()));
+        System.out.println("Array size: " + listaDeBusca.size());
+        List<Track> listaPesquisa = listaDeBusca.stream().filter(musica -> (musica.getName().contains(nomeMusica))).collect(Collectors.toList());
+        System.out.println("Filtrada : " + listaPesquisa.size());
+        executor.imprimeListaDeMusicas(listaPesquisa);
         this.decisorAposBuscaDeMusicas(sc, listaDeBusca, nomeMusica);
     	return;
     }
