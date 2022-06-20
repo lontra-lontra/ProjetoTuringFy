@@ -27,3 +27,6 @@
         - Classes para implementação da tabela de músicas, a qual pode ser reorganizada de acordo com os atributos de AudioFeatures;
         - Cada uma delas contém um Comparator<Track> para cada feature e possui um único método para executar um sort de uma List<Track>        
         implementado na Classe OperacoesDoUsuario;
+
+**Observações**
+* Em decorrência de problemas na utilização do Git, uma branch main foi deletada e acabamos perdendo  commits de alguns alunos. Além disso, adotamos como estratégia de projeto, nessa segunda parte do projeto, seguir o estilo de "live coding". Ou seja, programamos em conjunto e e realizando commits em blocos, o que justifica a concentração de commits na conta de poucos alunos do grupo.
