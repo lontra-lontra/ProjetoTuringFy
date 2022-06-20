@@ -7,6 +7,8 @@ export const CorpoTodo = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: baseline;
+    width: 100vw;
+    height: 100vh;
 `
 export const header = styled.header`
     width: 100%;
@@ -15,6 +17,7 @@ export const header = styled.header`
     display: flex;
     flex-direction:row ;
     justify-content:baseline;
+    align-items: center;
 `
 
 export const corpo = styled.div`
@@ -24,23 +27,21 @@ export const corpo = styled.div`
 
 export const TituloTuring = styled.p`
     color: white;  
-    font-size: 64px;
-    margin-left: 56px;
-    margin-top: 32px;
+    font-size: 4rem;
+    margin-left: 4rem;
 `
 
 export const TituloFy = styled.span`
     color: #0CC629;   
-    font-size: 64px;
+    font-size: 4rem;
     margin-left: 0;
-    margin-top: 32px;
 `
 
 export const Slogan = styled.p`
-    color: white;   
-    font-size: 48px;
-    margin-left: 17%;
-    margin-top: 54px;
+    color: white;
+    position: absolute;
+    margin-left: 35%;
+    font-size: 3em;
 `
 
 export const ColunaEsquerda = styled.div`
@@ -57,16 +58,16 @@ export const ColunaEsquerda = styled.div`
 export const SuasPlaylists = styled.div`
     font-weight: bold;
     color: white;
-    font-size: 48px;
-    margin-top: 20px;
+    font-size: 2.8em;
+    margin-top: 2rem,;
     font-family: 'Nunito Sans', sans-serif;
 `
 
 export const SuasPlaylistsNomes = styled.button`
     font-family: 'Nunito Sans', sans-serif;
-    padding: 6px 12px;
+    padding: 0.6rem 1.2rem;
     color: white;
-    font-size: 36px;
+    font-size: 2.2rem;
     background-color:#0F0F0F;
     border-radius: 24px;
     border: 1px solid white;   
@@ -86,23 +87,23 @@ export const BlocoDeBusca = styled.div`
 `
 
 export const Buscar = styled.h2`
-    font-size: 56px;
+    font-size: 5rem;
     font-family: 'Nunito Sans', sans-serif;
-    margin-left: 48px;
+    margin-left: 4.8rem;
     height: min-content;
-    margin-bottom: 8px;
+    margin-bottom: 0.8rem;
 `
 
 export const DescricaoBusca = styled.p`
     margin-top: 0px;
-    margin-left: 48px;
-    font-size: 24px;
+    margin-left: 4.8rem;
+    font-size: 2.4rem;
     font-family: 'Nunito Sans', sans-serif;     
 `
 export const BarraBuscaEFiltro = styled.div`
     display: flex;
-    margin-left: 48px;
-    gap:16px;
+    margin-left: 4.8rem;
+    gap:1.6em;
 `
 export const BotaoFiltro = styled.button`
     background-color: #1B1B1B;
@@ -120,13 +121,17 @@ export const BarraBusca = styled.input`
     color: white;
     padding-left: 24px;
 `
+export const BotoesBuscaETexto = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+`
 
 export const BotaoBuscar = styled.button`
     display: flex;
-    width: 160px;
-    height: 48px;
-    background-color:#0CC629;
-    opacity: 0.7;
+    width: 12vw;
+    height: 4vh;
+    background-color:black;
     color:white;
     font-size: 40px;    
     font-family: 'Nunito Sans', sans-serif;    
@@ -134,6 +139,19 @@ export const BotaoBuscar = styled.button`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    margin-top: 16px;
-    margin-left: 48px;
+    margin-top: 1.2rem;
+    margin-left: 4rem;
+    font-style: bold;
+    padding: 1.2rem;
+`
+export const BotoesBusca = styled.div`
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+
+`
+
+export const TextoBuscar = styled.p`
+    font-size: 3.2rem;
+    margin-left: 4.8rem;
 `

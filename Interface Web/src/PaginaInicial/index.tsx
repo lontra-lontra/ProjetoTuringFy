@@ -37,9 +37,16 @@ return(
                      onChange={(e) => {setTextoPesquisa(e.target.value);}}>
 
                      </S.BarraBusca>
-                    <S.BotaoFiltro><img src={Filtro}/></S.BotaoFiltro>
                 </S.BarraBuscaEFiltro>
-                <S.BotaoBuscar onClick={navegaResultados}>Buscar</S.BotaoBuscar>
+                <S.BotoesBuscaETexto>
+                    <S.TextoBuscar>Buscar Por:</S.TextoBuscar>
+                    <S.BotoesBusca>
+                        <S.BotaoBuscar onClick={navegaResultados}>Artista</S.BotaoBuscar>
+                        <S.BotaoBuscar onClick={navegaResultados}>Album</S.BotaoBuscar>
+                        <S.BotaoBuscar onClick={navegaResultados}>Musica</S.BotaoBuscar>
+                        <S.BotaoBuscar onClick={navegaResultados}>Playlist</S.BotaoBuscar>
+                    </S.BotoesBusca>
+                </S.BotoesBuscaETexto>
             </S.BlocoDeBusca>
         </S.corpo>
     </S.CorpoTodo>
