@@ -31,6 +31,9 @@
         - OperacoesInternas: Classe que conecta os métodos da OperacoesDoUsuario com os métodos presentes em outras classes;
         - ConversorDeTipo: Classe Adaptadora entre os métodos nativos da library Spotify-Web-Api e os formatos usados no sistema;
         - XXXXController: Classes que definem o comportamento das páginas web inseridas diretamente no sistema;
+        - Comunicador: Classe com elementos similares a Classe ComunicadorDoSpotify e BuscadorDoSpotify, para melhor execução da interface WEB;
+        - APIdePesquisa: Classe com métodos de comunicação com a página WEB usando React; 
+        - XXXXParaEnviar: Classes com métodos auxiliares para transferência de dados para a página WEB;
 
     - com.pacote.customComparator
         - Classes para implementação da tabela de músicas, a qual pode ser reorganizada de acordo com os atributos de AudioFeatures;
