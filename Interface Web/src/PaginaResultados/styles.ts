@@ -47,4 +47,8 @@ export const Slogan = styled.p`
     font-size: 3em;
 `
 
-
+export const ItemResultados = styled.li`
+    color: white;
+    font-size: 2rem;
+    font-family: 'Nunito Sans', sans-serif;
+`

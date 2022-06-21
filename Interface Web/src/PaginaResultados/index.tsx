@@ -1,11 +1,21 @@
 
 import axios from "axios";
 import React, { useState } from "react";
-import ComponenteResultados from "../ComponenteResultados";
+import { useLocation } from "react-router-dom";
 import * as S from "./styles";
 
 
-function PaginaResultados(){
+const PaginaResultados = () => {
+    
+    const location = useLocation();
+    const state = location.state as any
+    const [musicasBusca, setMusicasBusca] = useState({musicas:[]})
+    
+    axios.get('http://localhost:8080/api/pesquisa', { params: { pesquisa: state.textoBusca} } ).then (res => {
+        console.log()
+        setMusicasBusca({musicas: res.data});
+    });
+
 
     return(
         <>
@@ -15,7 +25,11 @@ function PaginaResultados(){
                 <S.Slogan>O seu super gerenciador musical</S.Slogan>
             </S.Header>
             <S.TextoResultados>Resultados</S.TextoResultados>
-            <ComponenteResultados TextoBusca="love"></ComponenteResultados>
+
+            <p>Resultados para:{state.textoBusca}</p>
+            <ul>
+                {musicasBusca.musicas.map(musica => <S.ItemResultados>{musica["nome"]}</S.ItemResultados>)}
+            </ul>
         </S.CorpoPagina>
 
         </>
