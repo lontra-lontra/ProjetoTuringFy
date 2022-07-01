@@ -19,8 +19,12 @@
                     - Caso apareça a mensagem de erro: 'react-scripts' is not recognized as an internal 
                     or external command Rodar: `npm install react-scripts –save`
                 4. Após um certo tempo, a página localhost:3000 vai abrir, aperte o botão conectar.
-                5. Faça login na conta teste.
-                6. Navegue normalmente pelo sistema.
+                5. Na página nova, clique na URL e dê enter.
+                6. Faça login na conta teste.
+                7. Retorne à página do Turingfy, e clique Página Inicial.
+                8. Navegue normalmente pelo sistema.
+
+                Obs: Atualmente, apenas a busca está operando na Interface WEB, e para utilizá-la, é necessário inserir o texto de busca na caixa de pesquisa e apertar qualquer botão de filtro. Todos os botões levarão ao resultado de busca, que é apenas a busca por nome.
 
     - com.pacote.controllers
         - Classes de Execução dos Procedimentos do projeto.
