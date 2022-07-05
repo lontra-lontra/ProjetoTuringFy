@@ -87,7 +87,7 @@ export const BlocoDeBusca = styled.div`
 `
 
 export const Buscar = styled.h2`
-    font-size: 5rem;
+    font-size: 4rem;
     font-family: 'Nunito Sans', sans-serif;
     margin-left: 4.8rem;
     height: min-content;
@@ -112,8 +112,8 @@ export const BotaoFiltro = styled.button`
 `
 export const BarraBusca = styled.input`
 
-    width: 943px;
-    height: 67px;
+    width: 60vw;
+    height: 5rem;
     background: #0F0F0F;
     border-radius: 37px;
     font-size: 32px;

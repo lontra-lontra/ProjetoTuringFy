@@ -26,7 +26,7 @@ const PaginaResultados = () => {
             </S.Header>
             <S.TextoResultados>Resultados</S.TextoResultados>
 
-            <p>Resultados para:{state.textoBusca}</p>
+            <S.ResultadosPara>Resultados para:  {state.textoBusca}</S.ResultadosPara>
             <ul>
                 {musicasBusca.musicas.map(musica => <S.ItemResultados>{musica["nome"]}</S.ItemResultados>)}
             </ul>

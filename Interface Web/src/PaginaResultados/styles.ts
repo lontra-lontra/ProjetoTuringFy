@@ -52,3 +52,11 @@ export const ItemResultados = styled.li`
     font-size: 2rem;
     font-family: 'Nunito Sans', sans-serif;
 `
+
+export const ResultadosPara = styled.p`
+    color: white;
+    font-size: 2rem;
+    font-family: 'Nunito Sans', sans-serif;
+    margin-left: 4.8rem;
+`
+
