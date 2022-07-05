@@ -7,11 +7,16 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 import se.michaelthelin.spotify.model_objects.credentials.AuthorizationCodeCredentials;
 
 import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
+
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
+import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForSeveralTracksRequest;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 import se.michaelthelin.spotify.model_objects.specification.Album;
+import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
@@ -41,6 +46,30 @@ private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
   .build();
 private static final ClientCredentialsRequest RequestDasNossasCredenciais = spotifyApi.clientCredentials()
   .build();
+
+public static Track[] pesquisaXMusicas(String textoDePesquisa,int X) {
+	  try {
+	    final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
+	    spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+	  } catch (IOException | SpotifyWebApiException | ParseException e) {
+	   System.out.println("Error: " + e.getMessage());
+	  }
+	  
+	   final SearchTracksRequest RequestDasMusicasPesquisadas = spotifyApi.searchTracks(textoDePesquisa)
+	         .limit(X)
+	   .build();
+	  
+	  
+	  try {
+	      final Paging<Track> MusicasPesquisadas = RequestDasMusicasPesquisadas.execute();
+
+	      System.out.println("Total: " + MusicasPesquisadas.getTotal());
+	      return MusicasPesquisadas.getItems();
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	      System.out.println("Error: " + e.getMessage());
+	    }
+	  	return null;
+	}
 
 
 public static Track[] pesquisaMusicas(String textoDePesquisa) {
@@ -178,5 +207,20 @@ public static Album[] pesquisaAlbum(String pesquisa) {
 	return null;
 }
 
+
+
+public static List<AudioFeatures> getAudioFeatures(String[] ids) {
+	GetAudioFeaturesForSeveralTracksRequest getAudioFeaturesForSeveralTracksRequest = ComunicadorDoSpotify.getSpotifyapi()
+		    .getAudioFeaturesForSeveralTracks(ids)
+		    .build();
+	AudioFeatures[] audioFeatures = null;
+	 try {
+	      audioFeatures = getAudioFeaturesForSeveralTracksRequest.execute();
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	      System.out.println("Não foi possível retornar a feature: " + e.getMessage());
+	    }
+	
+	return Arrays.asList(audioFeatures);
+}
 
 }

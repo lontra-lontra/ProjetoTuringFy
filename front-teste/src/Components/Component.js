@@ -19,8 +19,7 @@ export default class Component extends React.Component {
     {
         return(
             <ul>
-                {this.state.musicas.map(musica => <li>{musica.nome}</li>)}
-                |  
+                {this.state.musicas.map(musica => <li>{musica.nome}</li>)} 
             </ul>
         );
     }
