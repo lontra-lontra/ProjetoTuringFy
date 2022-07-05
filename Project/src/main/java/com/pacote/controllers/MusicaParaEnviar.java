@@ -1,23 +1,12 @@
 package com.pacote.controllers;
 import se.michaelthelin.spotify.model_objects.specification.Track;
-
-
-import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
 public class MusicaParaEnviar {
 
-	public String nome;
-	public String autor;
-	public String album;
-	public String id;
+	private String nome;
+	private String autor;
+	private String album;
+	private String id;
 
-	public float dancabilidade;
-	public float energia;
-	public float andamento;
-	public float forca;
-	public float fala;
-	public float instrumental;
-	public float aovivo;
-	public float acustico;
 	public float[] parametros = new float[8]; 
 	public String getNome() {
 		return nome;
@@ -33,6 +22,18 @@ public class MusicaParaEnviar {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getAutor() {
+		return autor;
+	}
+
+	public String getAlbum() {
+		return album;
+	}
+
+	public String getId() {
+		return id;
 	}
 	
 

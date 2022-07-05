@@ -10,14 +10,21 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
+import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
+import se.michaelthelin.spotify.requests.data.search.simplified.SearchArtistsRequest;
+import se.michaelthelin.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForSeveralTracksRequest;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 import se.michaelthelin.spotify.model_objects.specification.Album;
+import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
+import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
+import se.michaelthelin.spotify.model_objects.specification.Playlist;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
 import org.apache.hc.core5.http.ParseException;
@@ -96,72 +103,50 @@ public static Track[] pesquisaMusicas(String textoDePesquisa) {
   	return null;
 }
 
-//public static AlbumSimplified[] pesquisaAlbuns(String nomeDoAlbum) {
-//
-//  try {
-//    final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
-//    spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
-//  } catch (IOException | SpotifyWebApiException | ParseException e) {
-//    System.out.println("Error: " + e.getMessage());
-//  }
-//
-//  SearchAlbumsRequest RequestDosAlbunsPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchAlbums(nomeDoAlbum)
-//   .build();
-//  try {
-//      final Paging<AlbumSimplified> AlbunsPesquisados = RequestDosAlbunsPesquisados.execute();
-//
-//      System.out.println("Total: " + AlbunsPesquisados.getTotal());
-//      return AlbunsPesquisados.getItems();
-//    } catch (IOException | SpotifyWebApiException | ParseException e) {
-//      System.out.println("Error: " + e.getMessage());
-//    }
-//    return null;  
-//}
-//
-//public static Artist[] pesquisaArtistas(String nomeDoArtista) {
-//
-//  try {
-//    final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
-//    spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
-//  } catch (IOException | SpotifyWebApiException | ParseException e) {
-//    System.out.println("Error: " + e.getMessage());
-//  }
-//
-//  SearchArtistsRequest RequestDosArtistasPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchArtists(nomeDoArtista)
-//    .build();
-//   try {
-//       final Paging<Artist> ArtistasPesquisados = RequestDosArtistasPesquisados.execute();
-//
-//       System.out.println("Total: " + ArtistasPesquisados.getTotal());
-//       return ArtistasPesquisados.getItems();
-//     } catch (IOException | SpotifyWebApiException | ParseException e) {
-//       System.out.println("Error: " + e.getMessage());
-//     }
-//     return null;
-// }
-//
-// public static PlaylistSimplified[] pesquisaPlaylists(String nomeDaPlaylist) {
-//
-//  try {
-//    final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
-//    spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
-//  } catch (IOException | SpotifyWebApiException | ParseException e) {
-//    System.out.println("Error: " + e.getMessage());
-//  }
-//
-//  SearchPlaylistsRequest RequestDasPlaylistsPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchPlaylists(nomeDaPlaylist)
-//      .limit(100)
-//      .build();
-//  try {
-//      final Paging<PlaylistSimplified> PlaylistsPesquisadas = RequestDasPlaylistsPesquisadas.execute();
-//
-//      System.out.println("Total: " + PlaylistsPesquisadas.getTotal());
-//      return PlaylistsPesquisadas.getItems();
-//    } catch (IOException | SpotifyWebApiException | ParseException e) {
-//      System.out.println("Error: " + e.getMessage());
-//    }
-//    return null;
-//}
+
+public static Artist[] pesquisaArtistas(String nomeDoArtista) {
+
+  try {
+    final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
+    spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+  } catch (IOException | SpotifyWebApiException | ParseException e) {
+    System.out.println("Error: " + e.getMessage());
+  }
+
+  SearchArtistsRequest RequestDosArtistasPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchArtists(nomeDoArtista)
+    .build();
+   try {
+       final Paging<Artist> ArtistasPesquisados = RequestDosArtistasPesquisados.execute();
+
+       System.out.println("Total: " + ArtistasPesquisados.getTotal());
+       return ArtistasPesquisados.getItems();
+     } catch (IOException | SpotifyWebApiException | ParseException e) {
+       System.out.println("Error: " + e.getMessage());
+     }
+     return null;
+ }
+
+ public static Playlist[] pesquisaPlaylists(String nomeDaPlaylist) {
+	 ConversorDeTipo conversor = new ConversorDeTipo();
+  try {
+    final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
+    spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+  } catch (IOException | SpotifyWebApiException | ParseException e) {
+    System.out.println("Error: " + e.getMessage());
+  }
+
+  SearchPlaylistsRequest RequestDasPlaylistsPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchPlaylists(nomeDaPlaylist)
+      .limit(20)
+      .build();
+  try {
+      final Paging<PlaylistSimplified> PlaylistsPesquisadas = RequestDasPlaylistsPesquisadas.execute();
+      Playlist[] playlistConvertida = new Playlist[PlaylistsPesquisadas.getItems().length];
+      return conversor.getFromDifferentType(PlaylistsPesquisadas.getItems()).toArray(playlistConvertida);
+    } catch (IOException | SpotifyWebApiException | ParseException e) {
+      System.out.println("Error: " + e.getMessage());
+    }
+    return null;
+}
 
 private static final AuthorizationCodeUriRequest requestDoLinkParaAutorização = spotifyApi.authorizationCodeUri()
 //      .state("x4xkmn9pu3j6ukrs8n")
@@ -202,9 +187,27 @@ public static void main(String[] args) {
 
 
 
-public static Album[] pesquisaAlbum(String pesquisa) {
-	// TODO Auto-generated method stub
-	return null;
+public static Album[] pesquisaAlbum(String pesquisa) {	
+	  ConversorDeTipo conversor = new ConversorDeTipo();
+	  try {
+	    final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
+	    spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+	  } catch (IOException | SpotifyWebApiException | ParseException e) {
+	    System.out.println("Error: " + e.getMessage());
+	  }
+	
+	  SearchAlbumsRequest RequestDosAlbunsPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchAlbums(pesquisa)
+	   .build();
+	  try {
+	      final Paging<AlbumSimplified> albunsPesquisados = RequestDosAlbunsPesquisados.execute();
+	
+	      System.out.println("Total: " + albunsPesquisados.getTotal());
+	      Album[] albunsConvertidos = new Album[albunsPesquisados.getItems().length];
+ 	      return conversor.getFromDifferentType(albunsPesquisados.getItems()).toArray(albunsConvertidos);
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	      System.out.println("Error: " + e.getMessage());
+	    }
+	    return null;
 }
 
 
