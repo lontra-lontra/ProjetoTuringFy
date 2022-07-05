@@ -7,11 +7,16 @@ import se.michaelthelin.spotify.SpotifyHttpManager;
 import se.michaelthelin.spotify.enums.AuthorizationScope;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
 import se.michaelthelin.spotify.model_objects.credentials.AuthorizationCodeCredentials;
+import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
 
 import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
 
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
+import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForSeveralTracksRequest;
+
 import org.apache.hc.core5.http.ParseException;
 import java.io.IOException;
 
@@ -29,6 +34,8 @@ private static String codigoDeAutorização = "";
 public static void setCodigoDeAutorização(String codigoDeAutorização) {
 	ComunicadorDoSpotify.codigoDeAutorização = codigoDeAutorização;
 }
+
+
 
 private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
   .setClientId(clientId)
