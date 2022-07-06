@@ -26,6 +26,5 @@ public class APIMusicasPlaylist {
 			}
 			return userListsToApi;
 		}
-
 	}
 }

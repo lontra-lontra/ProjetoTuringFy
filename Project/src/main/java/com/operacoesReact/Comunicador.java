@@ -12,6 +12,7 @@ import java.util.List;
 
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
 import se.michaelthelin.spotify.requests.data.artists.GetArtistsTopTracksRequest;
+import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
@@ -19,6 +20,7 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchArtistsReq
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForSeveralTracksRequest;
+import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
@@ -30,6 +32,7 @@ import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.User;
 
 import org.apache.hc.core5.http.ParseException;
 
@@ -45,6 +48,54 @@ private static final String clientId = "996174542561436ead6fda89541d0083";
 private static final String clientSecret = "cffbb71c871d4a2088f069137c43064f";
 private static final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/red");
 private static String codigoDeAutorização = "";
+
+
+public static Playlist[] getCurrentUsersPlaylist() {
+	ConversorDeTipo conversor = new ConversorDeTipo();
+	GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = spotifyApi.getListOfCurrentUsersPlaylists()
+		    .limit(20)
+		    .build();
+		    try {
+		      final Paging<PlaylistSimplified> playlistSimplifiedPaging = getListOfCurrentUsersPlaylistsRequest.execute();
+		      Playlist[] bibliotecaDePlaylists = new Playlist[playlistSimplifiedPaging.getItems().length];
+		      return conversor.getFromDifferentType(playlistSimplifiedPaging.getItems()).toArray(bibliotecaDePlaylists);
+		    } catch (IOException | SpotifyWebApiException | ParseException e) {
+		      System.out.println("Error: " + e.getMessage());
+		    }
+		    
+		 return null;
+	}
+
+
+
+
+
+public static void createUsersPlaylist(String playlistName, String userID) {
+	CreatePlaylistRequest createPlaylistRequest = ComunicadorDoSpotify.getSpotifyapi().createPlaylist(userID, playlistName).build();
+	 try {
+	      createPlaylistRequest.execute();
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	      System.out.println("Error: " + e.getMessage());
+	    }	
+}
+
+
+public static User getCurrentUsersProfile() {
+	 GetCurrentUsersProfileRequest getCurrentUsersProfileRequest = ComunicadorDoSpotify.getSpotifyapi().getCurrentUsersProfile()
+			    .build();
+	 User user = null;
+	  try {
+	      user = getCurrentUsersProfileRequest.execute();
+
+	      System.out.println("Display name: " + user.getDisplayName());
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	      System.out.println("Error: " + e.getMessage());
+	    }
+	  return user;
+}
+
+
+
 
 
 
@@ -233,21 +284,6 @@ public static List<AudioFeatures> getAudioFeatures(String[] ids) {
 }
 
 
-public static Playlist[] getCurrentUsersPlaylist() {
-	ConversorDeTipo conversor = new ConversorDeTipo();
-	GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = spotifyApi.getListOfCurrentUsersPlaylists()
-		    .limit(20)
-		    .build();
-		    try {
-		      final Paging<PlaylistSimplified> playlistSimplifiedPaging = getListOfCurrentUsersPlaylistsRequest.execute();
-		      Playlist[] bibliotecaDePlaylists = new Playlist[playlistSimplifiedPaging.getItems().length];
-		      return conversor.getFromDifferentType(playlistSimplifiedPaging.getItems()).toArray(bibliotecaDePlaylists);
-		    } catch (IOException | SpotifyWebApiException | ParseException e) {
-		      System.out.println("Error: " + e.getMessage());
-		    }
-		    
-		 return null;
-	}
 
 public static Track[] getAlbunsTracks(String albumID) {
 	ConversorDeTipo conversor = new ConversorDeTipo();

@@ -5,19 +5,24 @@ import axios from 'axios';
 import RangeSlider from './component/multiRangeSlider/RangeSlider';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-function nada ()
+function addmusica (id)
 {
-
+  console.log(id);
+  axios.get('http://localhost:8080/api/criaPlaylist', {params: {nome: "teste"}})
+  .then(function (response) {
+    //console.log(response.data[0]);
+  })
 }
 function valuetext(value) {
-  return `${value}°C`;
+  return `${value}`;
 }
+
 export default function Pesquisa()
 {
     const [rangeparam0, setRangeparam0] = React.useState([0, 100]);
     const [rangeparam1, setRangeparam1] = React.useState([0, 100]);
-    const [rangeparam2, setRangeparam2] = React.useState([0, 100]);
-    const [rangeparam3, setRangeparam3] = React.useState([0, 100]);
+    const [rangeparam2, setRangeparam2] = React.useState([0, 200]);
+    const [rangeparam3, setRangeparam3] = React.useState([-50, 50]);
     const [rangeparam4, setRangeparam4] = React.useState([0, 100]);
     const [rangeparam5, setRangeparam5] = React.useState([0, 100]);
     const [rangeparam6, setRangeparam6] = React.useState([0, 100]);
@@ -86,7 +91,7 @@ export default function Pesquisa()
     
     return (
         <>
-        <button onClick={FazPesquisa}> oi </button>
+        <button onClick={FazPesquisa}> pesquisar  </button>
         <input ref={barraDePesquisa} type="text"/>
         <ListaDeMusica  range={[
           rangeparam0,
@@ -96,11 +101,12 @@ export default function Pesquisa()
           rangeparam4,
           rangeparam5,
           rangeparam6,
-          rangeparam7,]} musicas={resultado} />
+          rangeparam7,]} musicas={resultado} addmusica={addmusica} />
          
         
         
     <Box sx={{ width: 300 }}>
+      Dancabilidade:
       <Slider
         getAriaLabel={() => 'Temperature range'}
         value={rangeparam0}
@@ -108,8 +114,7 @@ export default function Pesquisa()
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
       />
-    </Box>
-    <Box sx={{ width: 300 }}>
+      Energia:
       <Slider
         getAriaLabel={() => 'Temperature range'}
         value={rangeparam1}
@@ -117,20 +122,28 @@ export default function Pesquisa()
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
       />
+      Tempo:
             <Slider
         getAriaLabel={() => 'Temperature range'}
         value={rangeparam2}
         onChange={handleChangep2}
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
+        min={0}
+        max={200}
       />
+      Intesidade:
             <Slider
+            
         getAriaLabel={() => 'Temperature range'}
         value={rangeparam3}
         onChange={handleChangep3}
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
+        min={-50}
+        max={50}
       />
+      Fala:
             <Slider
         getAriaLabel={() => 'Temperature range'}
         value={rangeparam4}
@@ -138,6 +151,7 @@ export default function Pesquisa()
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
       />
+      Instrumentalidade:
       <Slider
         getAriaLabel={() => 'Temperature range'}
         value={rangeparam5}
@@ -145,6 +159,7 @@ export default function Pesquisa()
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
       />
+      Acusticidade:
                   <Slider
         getAriaLabel={() => 'Temperature range'}
         value={rangeparam6}
@@ -152,6 +167,7 @@ export default function Pesquisa()
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
       />
+      "liveness:"
                   <Slider
         getAriaLabel={() => 'Temperature range'}
         value={rangeparam7}

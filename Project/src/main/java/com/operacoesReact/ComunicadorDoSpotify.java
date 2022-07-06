@@ -1,4 +1,4 @@
-package com.pacote.operacoesTerminal;
+package com.operacoesReact;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeRefreshRequest;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeRequest;
 

@@ -1,6 +1,6 @@
 import { buildTimeValue } from "@testing-library/user-event/dist/utils";
 import React from "react";
-export default function Musica({musica})
+export default function Musica({musica,addmusica})
 {
     if(musica.respeitaParametro0 || true )
     {
@@ -8,23 +8,25 @@ export default function Musica({musica})
         <div>
             {musica.nome}
             ======
-            P0:
+            ---Dancabilidade:
             {musica.parametros[0]}
-            P1:
+            ---Energia:
             {musica.parametros[1]}
-            P2:
+            ---Tempo:
             {musica.parametros[2]}
-            P3:
+            ---Intensidade:
             {musica.parametros[3]}
-            P4:
+            ---Fala:
             {musica.parametros[4]}
-            P5:
+            ---Instrumentalidade:
             {musica.parametros[5]}
-            P6:
+            --Acusticidade:
             {musica.parametros[4]}
-            P7:
+            ---"Liveness":
             {musica.parametros[5]}
+             <button onClick={function(){addmusica(musica.id)}}> adicionar musica </button>
         </div>
+
     )
     }
     else

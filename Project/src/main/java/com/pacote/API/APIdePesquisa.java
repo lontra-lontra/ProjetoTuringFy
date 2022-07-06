@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.User;
 import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
@@ -43,7 +44,47 @@ public class APIdePesquisa {
 		setMusicaParaEnviarAudioFeatures(quantidade, musicaParaEnviar, ids);
 		return musicaParaEnviar;	
 	}
-
+	
+	@GetMapping("criaPlaylist")
+	public void criaPlaylist(@RequestParam(name="nome", required=false, defaultValue="playlist") String nome)
+	{
+			User usuario = Comunicador.getCurrentUsersProfile();
+			String id = usuario.getId();
+			Comunicador.createUsersPlaylist(nome, id);
+	}
+	
+	@GetMapping("pegaPlaylistsDoCliente")
+	public PlaylistParaEnviar[] playlistsdousuario()
+	{
+		List <Playlist> playlists;
+		System.out.println("pegando id{");
+		User usuario = Comunicador.getCurrentUsersProfile();
+		String id = usuario.getId();
+		System.out.println("}pegando id");
+		
+		
+		System.out.println("pegando as playlists{");
+		//playlists  = Comunicador.getCurrentUsersPlaylist();
+		System.out.println("}pegando as playlists");
+		
+		int quantidade;
+		/*if (playlists == null)
+		{
+			System.out.println("nao tem playlists");
+			User usuario = Comunicador.getCurrentUsersProfile();
+			String id = usuario.getId();
+			Comunicador.createUsersPlaylist("play0", id);
+		}
+		quantidade = playlists.length;
+		PlaylistParaEnviar[] playlistsParaEnviar = new PlaylistParaEnviar[quantidade];
+		for (int i = 0; i < quantidade; i++){			
+			if(playlists[i] != null) {
+				playlistsParaEnviar[i] = new PlaylistParaEnviar(playlists[i]);
+			}
+		}
+		System.out.println(playlistsParaEnviar[0].getNome())*/
+		return null;
+	}
 
 	private void setMusicaParaEnviarAudioFeatures(int quantidade, MusicaParaEnviar[] musicaParaEnviar, String[] ids) {
 		List<AudioFeatures> featuresBrutas;
@@ -109,7 +150,6 @@ public class APIdePesquisa {
 		}
 		
 		return vec;	
-
 	}
 }
 
