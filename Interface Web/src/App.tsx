@@ -8,6 +8,9 @@ import Login from './PaginaLogin';
 import PaginaResultadosArtista from './PaginaResultadosArtista';
 import PaginaResultadosAlbum from './PaginaResultadosAlbum';
 import PaginaResultadosPlaylist from './PaginaResultadosPlaylist';
+import PaginaMusicasArtista from './PaginaMusicasArtista';
+import PaginaMusicasPlaylist from './PaginaMusicasPlaylist';
+import PaginaMusicasAlbum from './PaginaMusicasAlbum';
 
 
 function App() {
@@ -21,6 +24,11 @@ function App() {
         <Route path="ResultadosArtista" element = {<PaginaResultadosArtista/>}/>
         <Route path="ResultadosPlaylist" element = {<PaginaResultadosPlaylist/>}/>
         <Route path="ResultadosAlbum" element = {<PaginaResultadosAlbum/>}/>
+        <Route path="MusicasAlbum" element = {<PaginaMusicasAlbum/>}/>
+        <Route path="MusicasAlbum" element = {<PaginaMusicasPlaylist/>}/>
+        <Route path="MusicasAlbum" element = {<PaginaMusicasArtista/>}/>
+
+
 
         </Routes>
       </div>
