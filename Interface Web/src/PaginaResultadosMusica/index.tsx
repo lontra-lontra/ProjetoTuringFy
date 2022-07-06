@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import * as S from "./styles";
-
+import playIcon from "../Imagens/playIcon.png"
 
 const PaginaResultadosMusica = () => {
     
@@ -27,8 +27,7 @@ const PaginaResultadosMusica = () => {
             <S.TextoResultados>Resultados</S.TextoResultados>
 
             <S.ResultadosPara>Resultados para:  {state.textoBusca}</S.ResultadosPara>
-
-                {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}      <S.BotaoMusica>+</S.BotaoMusica></S.ItemResultados></>)}
+                {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}  <S.BotaoMusica><img src={require('../Imagens/Play.png')} width = "40px" height="40px" alt=""></img></S.BotaoMusica>   <S.BotaoMusica>+</S.BotaoMusica></S.ItemResultados></>)}
 
         </S.CorpoPagina>
 
