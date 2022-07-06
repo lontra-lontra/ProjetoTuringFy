@@ -1,5 +1,7 @@
 package com.pacote.API;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import com.operacoesReact.Comunicador;
 import com.pacote.itemParaEnviar.AlbumParaEnviar;
 import com.pacote.itemParaEnviar.ArtistaParaEnviar;
@@ -147,6 +149,23 @@ public class APIdePesquisa {
 	public void adicionaAPlaylist(@RequestParam(name="MusicaURI", required=false, defaultValue=" ")String[] uris, @RequestParam(name="PlaylistID", required = false, defaultValue=" ")String playlistId) {
 		Playlist lista = Comunicador.getPlaylist(playlistId);
 		Comunicador.adicionaMusica(lista, uris);
+	}
+	
+	@GetMapping("removeMusicaDaPlaylist")
+	public void removeDaPlaylist(@RequestParam(name="MusicaID", required=false, defaultValue=" ")String[] IDs, @RequestParam(name="PlaylistID", required = false, defaultValue=" ")String playlistId) {
+		Playlist lista = Comunicador.getPlaylist(playlistId);
+		for(String id : IDs) {
+				String p1 = "[{\"uri\":\"";
+				String p2 = "\"}]";
+				Track musica = Comunicador.getTrack(id);
+				JsonArray  musicaURI = JsonParser.parseString(p1.concat(musica.getUri().concat(p2))).getAsJsonArray();
+				Comunicador.removeMusicaDePlaylist(lista, musicaURI);
+		} 		
+	}
+	
+	@GetMapping("deletaPlaylist")
+	public void deletaPlaylistDoUsuario(@RequestParam(name="PlaylistID", required=false, defaultValue=" ")String playlistID) {
+		Comunicador.removeUsersPlaylist(playlistID);
 	}
 }
 

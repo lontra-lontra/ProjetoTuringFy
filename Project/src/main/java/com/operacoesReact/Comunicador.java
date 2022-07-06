@@ -13,16 +13,19 @@ import java.util.List;
 
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
 import se.michaelthelin.spotify.requests.data.artists.GetArtistsTopTracksRequest;
+import se.michaelthelin.spotify.requests.data.follow.UnfollowPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.AddItemsToPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
+import se.michaelthelin.spotify.requests.data.playlists.RemoveItemsFromPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchArtistsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForSeveralTracksRequest;
+import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
@@ -39,6 +42,7 @@ import se.michaelthelin.spotify.model_objects.specification.User;
 
 import org.apache.hc.core5.http.ParseException;
 
+import com.google.gson.JsonArray;
 import com.neovisionaries.i18n.CountryCode;
 import com.pacote.operacoesTerminal.ComunicadorDoSpotify;
 
@@ -372,5 +376,42 @@ public static Playlist getPlaylist(String playlistId) {
 	      System.out.println("Error: " + e.getMessage());
 	    }
 	return null;
+}
+
+public static Track getTrack(String id) {
+	GetTrackRequest getTrackRequest = spotifyApi.getTrack(id)
+    .build();
+	
+	 try {
+	      final Track track = getTrackRequest.execute();
+	      return track;
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	      System.out.println("Error: " + e.getMessage());
+	    }
+	return null;
+}
+
+
+public static void removeMusicaDePlaylist(Playlist lista, JsonArray musicaURI) {
+	RemoveItemsFromPlaylistRequest removeItemsFromPlaylistRequest = ComunicadorDoSpotify.getSpotifyapi()
+		    .removeItemsFromPlaylist(lista.getId(), musicaURI)
+		    .build();
+	
+	try {
+	      removeItemsFromPlaylistRequest.execute();
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	      System.out.println("Não foi possível remover a música: " + e);
+	    }
+}
+
+public static void removeUsersPlaylist(String playlistID){
+	try {
+	    UnfollowPlaylistRequest.Builder construtor = new UnfollowPlaylistRequest.Builder(ComunicadorDoSpotify.getSpotifyapi().getAccessToken());
+	    construtor.playlist_id(playlistID);
+	    UnfollowPlaylistRequest removePlaylist = construtor.build();
+	    removePlaylist.execute();		    
+	  } catch (IOException | SpotifyWebApiException | ParseException e) {
+	   System.out.println("Error: " + e.getMessage());
+	  }		
 }
 }
