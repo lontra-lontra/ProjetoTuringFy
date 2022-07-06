@@ -5,12 +5,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./styles";
 
 
-const PaginaResultadosAlbum = () => {
+const PaginaMusicasAlbum = () => {
     
-    let navega = useNavigate();
-    const navegaMusicasAlbum = () =>{
-        navega("/MusicasAlbum")
-    }
     const location = useLocation();
     const state = location.state as any
     const [musicasBusca, setMusicasBusca] = useState({musicas:[]})
@@ -28,11 +24,9 @@ const PaginaResultadosAlbum = () => {
                 <S.TituloTuring>Turing</S.TituloTuring><S.TituloFy>fy</S.TituloFy>
                 <S.Slogan>O seu super gerenciador musical</S.Slogan>
             </S.Header>
-            <S.TextoResultados>Resultados</S.TextoResultados>
+            <S.TextoResultados>Musicas no Album</S.TextoResultados>
 
-            <S.ResultadosPara>Resultados para:  {state.textoBusca}</S.ResultadosPara>
-
-                {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}      <S.BotaoMusica onClick={navegaMusicasAlbum}>+</S.BotaoMusica></S.ItemResultados></>)}
+            <S.ItemResultados>Musica do Album     <S.BotaoMusica>+</S.BotaoMusica></S.ItemResultados>
 
         </S.CorpoPagina>
 
@@ -40,5 +34,5 @@ const PaginaResultadosAlbum = () => {
     )
 }
 
-export default PaginaResultadosAlbum
+export default PaginaMusicasAlbum
 ;

@@ -1,12 +1,16 @@
 
 import axios from "axios";
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./styles";
 
 
 const PaginaResultadosPlaylist = () => {
-    
+
+    let navega = useNavigate();
+    const navegaMusicasArtista = () =>{
+        navega("/MusicasArtista")
+    }
     const location = useLocation();
     const state = location.state as any
     const [musicasBusca, setMusicasBusca] = useState({musicas:[]})
@@ -28,7 +32,7 @@ const PaginaResultadosPlaylist = () => {
 
             <S.ResultadosPara>Resultados para:  {state.textoBusca}</S.ResultadosPara>
 
-                {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}      <S.BotaoMusica>+</S.BotaoMusica></S.ItemResultados></>)}
+                {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}      <S.BotaoMusica onClick={navegaMusicasArtista}>+</S.BotaoMusica></S.ItemResultados></>)}
 
         </S.CorpoPagina>
 
