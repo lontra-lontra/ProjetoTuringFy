@@ -2,7 +2,7 @@ import { buildTimeValue } from "@testing-library/user-event/dist/utils";
 import React from "react";
 export default function Musica({musica})
 {
-    if(musica.ParametroOk[0])
+    if(musica.respeitaParametro0 || true )
     {
     return (
         <div>

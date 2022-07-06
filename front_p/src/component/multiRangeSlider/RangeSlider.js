@@ -11,7 +11,7 @@ export default function RangeSlider(props) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    props.reacao(value,props.tipo);
+    //props.reacao(value,props.tipo);
   };
 
   return (
