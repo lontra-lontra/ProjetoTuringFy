@@ -8,10 +8,22 @@ export default function Musica({musica})
         <div>
             {musica.nome}
             ======
-            DANCABILIDADE:
+            P0:
             {musica.parametros[0]}
-            ENERGIA:
+            P1:
             {musica.parametros[1]}
+            P2:
+            {musica.parametros[2]}
+            P3:
+            {musica.parametros[3]}
+            P4:
+            {musica.parametros[4]}
+            P5:
+            {musica.parametros[5]}
+            P6:
+            {musica.parametros[4]}
+            P7:
+            {musica.parametros[5]}
         </div>
     )
     }

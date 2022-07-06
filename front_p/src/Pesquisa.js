@@ -14,8 +14,15 @@ function valuetext(value) {
 }
 export default function Pesquisa()
 {
-    const [rangeparam0, setRangeparam0] = React.useState([20, 37]);
-    const [rangeparam1, setRangeparam1] = React.useState([20, 37]);
+    const [rangeparam0, setRangeparam0] = React.useState([0, 100]);
+    const [rangeparam1, setRangeparam1] = React.useState([0, 100]);
+    const [rangeparam2, setRangeparam2] = React.useState([0, 100]);
+    const [rangeparam3, setRangeparam3] = React.useState([0, 100]);
+    const [rangeparam4, setRangeparam4] = React.useState([0, 100]);
+    const [rangeparam5, setRangeparam5] = React.useState([0, 100]);
+    const [rangeparam6, setRangeparam6] = React.useState([0, 100]);
+    const [rangeparam7, setRangeparam7] = React.useState([0, 100]);
+
     const [ultimoparam, setUltimoparam] = React.useState(0);
     const [resultado,setResultado] = useState([])
     const [ranges,setRanges] = useState([0,100])
@@ -28,6 +35,28 @@ export default function Pesquisa()
   const handleChangep1 = (event, newValue) => {
     setUltimoparam(1)
     setRangeparam1(newValue);
+  };
+  const handleChangep2 = (event, newValue) => {
+    setUltimoparam(2)
+    setRangeparam2(newValue);
+  };
+  const handleChangep3 = (event, newValue) => {
+    setUltimoparam(3)
+    setRangeparam3(newValue);
+  };    const handleChangep4 = (event, newValue) => {
+    setUltimoparam(4)
+    setRangeparam4(newValue);
+  };
+  const handleChangep5 = (event, newValue) => {
+    setUltimoparam(5)
+    setRangeparam5(newValue);
+  };
+    const handleChangep6 = (event, newValue) => {
+    setUltimoparam(6)
+    setRangeparam6(newValue);
+  };    const handleChangep7 = (event, newValue) => {
+    setUltimoparam(7)
+    setRangeparam7(newValue);
   };
     const barraDePesquisa = useRef()
     useEffect(() => {
@@ -42,7 +71,7 @@ export default function Pesquisa()
           return prevResultado.sort(function(a, b){return a.parametros[ultimoparam] - b.parametros[ultimoparam]});
           //return [];
       })
-    },[rangeparam0,rangeparam1]) 
+    },[rangeparam0,rangeparam1,rangeparam2,rangeparam3,rangeparam4,rangeparam5,rangeparam6,rangeparam7]) 
 
     function FazPesquisa()
     {
@@ -59,7 +88,15 @@ export default function Pesquisa()
         <>
         <button onClick={FazPesquisa}> oi </button>
         <input ref={barraDePesquisa} type="text"/>
-        <ListaDeMusica  range={[rangeparam0,rangeparam1]} musicas={resultado} />
+        <ListaDeMusica  range={[
+          rangeparam0,
+          rangeparam1,
+          rangeparam2,
+          rangeparam3,
+          rangeparam4,
+          rangeparam5,
+          rangeparam6,
+          rangeparam7,]} musicas={resultado} />
          
         
         
@@ -77,6 +114,48 @@ export default function Pesquisa()
         getAriaLabel={() => 'Temperature range'}
         value={rangeparam1}
         onChange={handleChangep1}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+            <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam2}
+        onChange={handleChangep2}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+            <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam3}
+        onChange={handleChangep3}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+            <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam4}
+        onChange={handleChangep4}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+      <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam5}
+        onChange={handleChangep5}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+                  <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam6}
+        onChange={handleChangep6}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+                  <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam7}
+        onChange={handleChangep7}
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
       />
