@@ -8,9 +8,21 @@ import Slider from '@mui/material/Slider';
 function addmusica (id)
 {
   console.log(id);
+
+}
+function criaplaylist (id)
+{
+  console.log(id);
   axios.get('http://localhost:8080/api/criaPlaylist', {params: {nome: "teste"}})
   .then(function (response) {
     //console.log(response.data[0]);
+  })
+}
+function pegaplaylists()
+{
+    axios.get('http://localhost:8080/api/pegaPlaylistsDoCliente', {params: {nome: "teste"}})
+  .then(function (response) {
+    console.log(response.data);
   })
 }
 function valuetext(value) {
@@ -92,6 +104,8 @@ export default function Pesquisa()
     return (
         <>
         <button onClick={FazPesquisa}> pesquisar  </button>
+        <button onClick={pegaplaylists}> pega playlist </button>
+        <button onClick={criaplaylist}> cria playlist </button>
         <input ref={barraDePesquisa} type="text"/>
         <ListaDeMusica  range={[
           rangeparam0,

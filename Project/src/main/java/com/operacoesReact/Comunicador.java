@@ -3,6 +3,7 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.SpotifyHttpManager;
+import se.michaelthelin.spotify.enums.AuthorizationScope;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
 import se.michaelthelin.spotify.model_objects.credentials.AuthorizationCodeCredentials;
 
@@ -14,6 +15,7 @@ import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
 import se.michaelthelin.spotify.requests.data.artists.GetArtistsTopTracksRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
+import se.michaelthelin.spotify.requests.data.playlists.GetListOfUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchArtistsRequest;
@@ -50,19 +52,28 @@ private static final URI redirectUri = SpotifyHttpManager.makeUri("http://localh
 private static String codigoDeAutorização = "";
 
 
+
 public static Playlist[] getCurrentUsersPlaylist() {
-	ConversorDeTipo conversor = new ConversorDeTipo();
-	GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = spotifyApi.getListOfCurrentUsersPlaylists()
-		    .limit(20)
-		    .build();
-		    try {
-		      final Paging<PlaylistSimplified> playlistSimplifiedPaging = getListOfCurrentUsersPlaylistsRequest.execute();
-		      Playlist[] bibliotecaDePlaylists = new Playlist[playlistSimplifiedPaging.getItems().length];
-		      return conversor.getFromDifferentType(playlistSimplifiedPaging.getItems()).toArray(bibliotecaDePlaylists);
-		    } catch (IOException | SpotifyWebApiException | ParseException e) {
-		      System.out.println("Error: " + e.getMessage());
-		    }
-		    
+	User usuario = Comunicador.getCurrentUsersProfile();
+	String userId = usuario.getId();
+	
+	
+	 GetListOfUsersPlaylistsRequest getListOfUsersPlaylistsRequest = ComunicadorDoSpotify.getSpotifyapi()
+			    .getListOfUsersPlaylists(userId)
+			    .limit(20)
+			    .build();
+	 
+	 Paging<PlaylistSimplified> playlistSimplifiedPaging = null;
+	 ConversorDeTipo conversor = new  ConversorDeTipo();
+	 try {
+	      playlistSimplifiedPaging = getListOfUsersPlaylistsRequest.execute();
+	      Playlist[] listasDoUsuario = new Playlist[playlistSimplifiedPaging.getItems().length];
+	      return conversor.getFromDifferentType(playlistSimplifiedPaging.getItems()).toArray(listasDoUsuario);
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	    	if(!e.getMessage().equals("Invalid limit"))
+	    		System.out.println("Error: " + e.getMessage());
+	    	
+	    }
 		 return null;
 	}
 
@@ -210,7 +221,9 @@ public static Artist[] pesquisaArtistas(String nomeDoArtista, int limite) {
 private static final AuthorizationCodeUriRequest requestDoLinkParaAutorização = spotifyApi.authorizationCodeUri()
 //      .state("x4xkmn9pu3j6ukrs8n")
 //      .scope("user-read-birthdate,user-read-email")
+.scope(AuthorizationScope.values())
 //      .show_dialog(true)
+.show_dialog(true)
 .build();
 
 public static URI geraLink() {
