@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const CorpoPagina = styled.div`
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     background-color: #1B1B1B;
     display: flex;
     flex-direction: column;
@@ -47,10 +47,12 @@ export const Slogan = styled.p`
     font-size: 3em;
 `
 
-export const ItemResultados = styled.li`
+export const ItemResultados = styled.p`
     color: white;
     font-size: 2rem;
     font-family: 'Nunito Sans', sans-serif;
+    margin-left: 4.8rem;
+    font-size: 2.5rem;
 `
 
 export const ResultadosPara = styled.p`
@@ -60,3 +62,11 @@ export const ResultadosPara = styled.p`
     margin-left: 4.8rem;
 `
 
+export const BotaoMusica = styled.button`
+    color: white;
+    font-size: 2rem;
+    font-family: 'Nunito Sans', sans-serif;
+    border-radius: 100%;
+    background-color: #1B1B1B;
+    border: #1B1B1B;
+`

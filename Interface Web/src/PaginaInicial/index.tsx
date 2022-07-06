@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import * as S from "./styles";
-import {Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function PaginaInicial() {
 
     const [textoPesquisa, setTextoPesquisa] = useState("")
 
     let navega = useNavigate();
-    const navegaResultados = () =>{
-        navega("/Resultados", {state:{textoBusca: textoPesquisa}})
+    const navegaResultadosMusica = () =>{
+        navega("/ResultadosMusica", {state:{textoBusca: textoPesquisa}})
+    }
+    const navegaResultadosArtista = () =>{
+        navega("/ResultadosArtista", {state:{textoBusca: textoPesquisa}})
+    }
+    const navegaResultadosPlaylist = () =>{
+        navega("/ResultadosPlaylist", {state:{textoBusca: textoPesquisa}})
+    }
+    const navegaResultadosAlbum = () =>{
+        navega("/ResultadosAlbum", {state:{textoBusca: textoPesquisa}})
     }
 
 return(
@@ -40,10 +49,10 @@ return(
                 <S.BotoesBuscaETexto>
                     <S.TextoBuscar>Buscar Por:</S.TextoBuscar>
                     <S.BotoesBusca>
-                        <S.BotaoBuscar onClick={()=>{navegaResultados()}}>Artista</S.BotaoBuscar>
-                        <S.BotaoBuscar onClick={()=>{navegaResultados()}}>Album</S.BotaoBuscar>
-                        <S.BotaoBuscar onClick={()=>{navegaResultados()}}>Musica</S.BotaoBuscar>
-                        <S.BotaoBuscar onClick={()=>{navegaResultados()}}>Playlist</S.BotaoBuscar>
+                        <S.BotaoBuscar onClick={()=>{navegaResultadosMusica()}}>Musica</S.BotaoBuscar>
+                        <S.BotaoBuscar onClick={()=>{navegaResultadosPlaylist()}}>Playlist</S.BotaoBuscar>
+                        <S.BotaoBuscar onClick={()=>{navegaResultadosAlbum()}}>Album</S.BotaoBuscar>
+                        <S.BotaoBuscar onClick={()=>{navegaResultadosArtista()}}>Artista</S.BotaoBuscar>
                     </S.BotoesBusca>
                 </S.BotoesBuscaETexto>
             </S.BlocoDeBusca>

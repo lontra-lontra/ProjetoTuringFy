@@ -3,8 +3,11 @@ import logo from './logo.svg';
 import './App.css';
 import PaginaInicial from './PaginaInicial';
 import { BrowserRouter, BrowserRouter as Router,Route,Routes } from 'react-router-dom';
-import PaginaResultados from './PaginaResultados';
+import PaginaResultadosMusica from './PaginaResultadosMusica';
 import Login from './PaginaLogin';
+import PaginaResultadosArtista from './PaginaResultadosArtista';
+import PaginaResultadosAlbum from './PaginaResultadosAlbum';
+import PaginaResultadosPlaylist from './PaginaResultadosPlaylist';
 
 
 function App() {
@@ -14,8 +17,11 @@ function App() {
         <Routes>
         <Route path='/' element={<Login/>}/>
         <Route path='/PaginaInicial' element={<PaginaInicial/>}/>
-        <Route path='/' element={<PaginaInicial/>}/>
-        <Route path="Resultados" element = {<PaginaResultados/>}/>
+        <Route path="ResultadosMusica" element = {<PaginaResultadosMusica/>}/>
+        <Route path="ResultadosArtista" element = {<PaginaResultadosArtista/>}/>
+        <Route path="ResultadosPlaylist" element = {<PaginaResultadosPlaylist/>}/>
+        <Route path="ResultadosAlbum" element = {<PaginaResultadosAlbum/>}/>
+
         </Routes>
       </div>
     </BrowserRouter>
