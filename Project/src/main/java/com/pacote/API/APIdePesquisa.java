@@ -5,28 +5,20 @@ import com.pacote.itemParaEnviar.AlbumParaEnviar;
 import com.pacote.itemParaEnviar.ArtistaParaEnviar;
 import com.pacote.itemParaEnviar.MusicaParaEnviar;
 import com.pacote.itemParaEnviar.PlaylistParaEnviar;
-import com.pacote.operacoesTerminal.ComunicadorDoSpotify;
-import com.operacoesReact.ConversorDeTipo;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.io.IOException;
 import java.util.List;
 
-import org.apache.hc.core5.http.ParseException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.User;
-import se.michaelthelin.spotify.requests.data.playlists.GetListOfUsersPlaylistsRequest;
-import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
-import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
-import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 
 @CrossOrigin(origins = "http://localhost:3000/")
 @RestController
@@ -149,6 +141,12 @@ public class APIdePesquisa {
 		}
 		
 		return vec;	
+	}
+	
+	@GetMapping("adicionaMusicaNaPlaylist")
+	public void adicionaAPlaylist(@RequestParam(name="MusicaURI", required=false, defaultValue=" ")String[] uris, @RequestParam(name="PlaylistID", required = false, defaultValue=" ")String playlistId) {
+		Playlist lista = Comunicador.getPlaylist(playlistId);
+		Comunicador.adicionaMusica(lista, uris);
 	}
 }
 

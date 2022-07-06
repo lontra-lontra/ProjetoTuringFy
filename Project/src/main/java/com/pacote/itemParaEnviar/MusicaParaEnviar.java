@@ -7,6 +7,7 @@ public class MusicaParaEnviar {
 	private String album;
 	private String id;
 	private String URL;
+	private String uri;
 
 	public float[] parametros = new float[8]; 
 	public String getNome() {
@@ -19,6 +20,7 @@ public class MusicaParaEnviar {
 		this.autor = track.getArtists()[0].getId();
 		this.album = track.getAlbum().getId();
 		this.URL = track.getPreviewUrl();
+		this.uri = track.getUri();
 	}
 
 	public void setNome(String nome) {
@@ -39,6 +41,10 @@ public class MusicaParaEnviar {
 
 	public String getURL() {
 		return URL;
+	}
+
+	public String getUri() {
+		return uri;
 	}
 	
 

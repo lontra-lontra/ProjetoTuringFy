@@ -13,6 +13,7 @@ import java.util.List;
 
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
 import se.michaelthelin.spotify.requests.data.artists.GetArtistsTopTracksRequest;
+import se.michaelthelin.spotify.requests.data.playlists.AddItemsToPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfUsersPlaylistsRequest;
@@ -345,4 +346,31 @@ public static Track[] getArtistsTracks(String artistID) {
 	    }
 	 return null;
 	  }
+
+public static void adicionaMusica(Playlist lista, String[] musicas) {
+	AddItemsToPlaylistRequest addItemsToPlaylistRequest = ComunicadorDoSpotify.getSpotifyapi()
+		    .addItemsToPlaylist(lista.getId(), musicas).build();
+	
+	 try {
+	      addItemsToPlaylistRequest.execute();
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+		  System.out.println("Não foi possível adicionar a música: " + e);		    }
+}
+
+
+
+
+
+public static Playlist getPlaylist(String playlistId) {
+	
+	GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist(playlistId)
+    .build();
+	 try {
+	      final Playlist playlist = getPlaylistRequest.execute();
+	      return playlist;
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	      System.out.println("Error: " + e.getMessage());
+	    }
+	return null;
+}
 }
