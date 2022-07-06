@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import com.pacote.controllers.EditorDePlaylists;
+import com.pacote.operacoesTerminal.EditorDePlaylists;
 
 import se.michaelthelin.spotify.enums.Modality;
 import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;

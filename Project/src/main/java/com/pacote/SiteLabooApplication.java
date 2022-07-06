@@ -2,8 +2,9 @@ package com.pacote;
 import java.util.Scanner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.pacote.controllers.OperacoesDoUsuario;
-import com.pacote.controllers.OperacoesInternas;
+
+import com.pacote.operacoesTerminal.OperacoesDoUsuario;
+import com.pacote.operacoesTerminal.OperacoesInternas;
 
 
 @SpringBootApplication

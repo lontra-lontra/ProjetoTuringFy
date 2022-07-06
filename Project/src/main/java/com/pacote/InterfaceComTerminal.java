@@ -1,7 +1,7 @@
 package com.pacote;
-import com.pacote.controllers.OperacoesDoUsuario;
-
 import java.util.Scanner;
+
+import com.pacote.operacoesTerminal.OperacoesDoUsuario;
 
 public class InterfaceComTerminal {
 

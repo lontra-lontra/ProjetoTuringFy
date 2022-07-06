@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pacote.operacoesTerminal.ComunicadorDoSpotify;
+
 @Controller
 public class PaginaDeRedirecionamentoController {
 	
