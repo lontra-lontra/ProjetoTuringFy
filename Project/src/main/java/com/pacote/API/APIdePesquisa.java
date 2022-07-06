@@ -146,9 +146,15 @@ public class APIdePesquisa {
 	}
 	
 	@GetMapping("adicionaMusicaNaPlaylist")
-	public void adicionaAPlaylist(@RequestParam(name="MusicaURI", required=false, defaultValue=" ")String[] uris, @RequestParam(name="PlaylistID", required = false, defaultValue=" ")String playlistId) {
+	public void adicionaAPlaylist(@RequestParam(name="MusicaID", required=false, defaultValue=" ")String[] ids, @RequestParam(name="PlaylistID", required = false, defaultValue=" ")String playlistId) {
 		Playlist lista = Comunicador.getPlaylist(playlistId);
-		Comunicador.adicionaMusica(lista, uris);
+		for(String id : ids) {
+			Track track = Comunicador.getTrack(id);
+			String[] uris = new String[1];
+			uris[0] = track.getUri();
+			Comunicador.adicionaMusica(lista, uris);
+		}
+		
 	}
 	
 	@GetMapping("removeMusicaDaPlaylist")
