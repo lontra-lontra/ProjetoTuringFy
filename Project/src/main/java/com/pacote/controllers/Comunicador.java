@@ -10,11 +10,14 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
+import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
+import se.michaelthelin.spotify.requests.data.playlists.GetListOfUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchArtistsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForSeveralTracksRequest;
+import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
@@ -26,6 +29,7 @@ import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.User;
 
 import org.apache.hc.core5.http.ParseException;
 
@@ -228,4 +232,21 @@ public static List<AudioFeatures> getAudioFeatures(String[] ids) {
 	return Arrays.asList(audioFeatures);
 }
 
+
+public static Playlist[] getCurrentUsersPlaylist(String userToken) {
+	ConversorDeTipo conversor = new ConversorDeTipo();
+	spotifyApi.setAccessToken(userToken);
+	GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = spotifyApi.getListOfCurrentUsersPlaylists()
+		    .limit(20)
+		    .build();
+		    try {
+		      final Paging<PlaylistSimplified> playlistSimplifiedPaging = getListOfCurrentUsersPlaylistsRequest.execute();
+		      Playlist[] bibliotecaDePlaylists = new Playlist[playlistSimplifiedPaging.getItems().length];
+		      return conversor.getFromDifferentType(playlistSimplifiedPaging.getItems()).toArray(bibliotecaDePlaylists);
+		    } catch (IOException | SpotifyWebApiException | ParseException e) {
+		      System.out.println("Error: " + e.getMessage());
+		    }
+		    
+		 return null;
+	}
 }

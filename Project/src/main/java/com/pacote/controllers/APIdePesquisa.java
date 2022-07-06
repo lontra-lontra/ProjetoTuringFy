@@ -1,5 +1,6 @@
 package com.pacote.controllers;
 
+import com.pacote.controllers.PlaylistParaEnviar;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -103,6 +104,23 @@ public class APIdePesquisa {
 		}
 		
 		return vec;	
-	}	
+
+	}
+	
+	@GetMapping("getUsersPlaylists")
+	public PlaylistParaEnviar[] userPlaylists(@RequestParam(name="token", required=true, defaultValue=" ") String userToken){
+		int quantidade = 20;
+		Playlist[] userLists = new Playlist[quantidade];
+		userLists = Comunicador.getCurrentUsersPlaylist(userToken);
+		quantidade = userLists.length;
+		PlaylistParaEnviar[] userListsToApi = new PlaylistParaEnviar[quantidade];
+		for(int i = 0; i < quantidade; i ++) {
+			if(userLists[i] != null) {
+				userListsToApi[i] = new PlaylistParaEnviar(userLists[i]);				
+			}
+		}
+		return userListsToApi;
+		
+}
 }
 
