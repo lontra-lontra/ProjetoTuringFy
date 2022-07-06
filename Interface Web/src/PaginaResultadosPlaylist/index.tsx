@@ -9,7 +9,7 @@ const PaginaResultadosPlaylist = () => {
 
     let navega = useNavigate();
     const navegaMusicasArtista = () =>{
-        navega("/MusicasArtista")
+        navega("/MusicasPlaylist")
     }
     const location = useLocation();
     const state = location.state as any

@@ -25,8 +25,8 @@ function App() {
         <Route path="ResultadosPlaylist" element = {<PaginaResultadosPlaylist/>}/>
         <Route path="ResultadosAlbum" element = {<PaginaResultadosAlbum/>}/>
         <Route path="MusicasAlbum" element = {<PaginaMusicasAlbum/>}/>
-        <Route path="MusicasAlbum" element = {<PaginaMusicasPlaylist/>}/>
-        <Route path="MusicasAlbum" element = {<PaginaMusicasArtista/>}/>
+        <Route path="MusicasPlaylist" element = {<PaginaMusicasPlaylist/>}/>
+        <Route path="MusicasArtista" element = {<PaginaMusicasArtista/>}/>
 
 
 

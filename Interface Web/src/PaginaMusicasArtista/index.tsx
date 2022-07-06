@@ -11,12 +11,7 @@ const PaginaMusicasArtista = () => {
     const state = location.state as any
     const [musicasBusca, setMusicasBusca] = useState({musicas:[]})
     
-    axios.get('http://localhost:8080/api/album', { params: { pesquisa: state.textoBusca} } ).then (res => {
-        console.log()
-        setMusicasBusca({musicas: res.data});
-    });
-
-    
+       
     return(
         <>
         <S.CorpoPagina>

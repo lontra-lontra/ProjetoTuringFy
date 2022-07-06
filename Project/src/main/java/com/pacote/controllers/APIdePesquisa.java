@@ -83,7 +83,7 @@ public class APIdePesquisa {
 		quantidade = info.length;
 		ArtistaParaEnviar[] vec = new ArtistaParaEnviar[quantidade];
 		for (int i = 0; i < vec.length; i++){			
-			if(info != null) {
+			if(info[i] != null) {
 				vec[i] = new ArtistaParaEnviar(info[i]);
 			}
 		}
@@ -98,7 +98,7 @@ public class APIdePesquisa {
 		quantidade = info.length;
 		PlaylistParaEnviar[] vec = new PlaylistParaEnviar[quantidade];
 		for (int i = 0; i < vec.length; i++){			
-			if(info != null) {
+			if(info[i] != null) {
 				vec[i] = new PlaylistParaEnviar(info[i]);
 			}
 		}
