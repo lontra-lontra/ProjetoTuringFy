@@ -1,13 +1,11 @@
 package com.pacote.operacoesTerminal;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import org.apache.hc.core5.http.ParseException;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
@@ -15,7 +13,6 @@ import com.operacoesReact.ConversorDeTipo;
 import com.pacote.customComparator.CustomComparatorAscending;
 import com.pacote.customComparator.CustomComparatorDescending;
 
-import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
@@ -24,7 +21,6 @@ import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.User;
-import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistCoverImageRequest;
 
 public class OperacoesInternas {
 	

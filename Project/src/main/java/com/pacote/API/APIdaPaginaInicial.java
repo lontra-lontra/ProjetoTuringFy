@@ -14,7 +14,7 @@ public class APIdaPaginaInicial {
 	public PlaylistParaEnviar[] userPlaylists(@RequestParam(name="token", required=false, defaultValue=" ") String userToken){
 		int quantidade = 20;
 		Playlist[] userLists = new Playlist[quantidade];
-		userLists = Comunicador.getCurrentUsersPlaylist(userToken);
+		userLists = Comunicador.getCurrentUsersPlaylist();
 		quantidade = userLists.length;
 		PlaylistParaEnviar[] userListsToApi = new PlaylistParaEnviar[quantidade];
 		for(int i = 0; i < quantidade; i ++) {

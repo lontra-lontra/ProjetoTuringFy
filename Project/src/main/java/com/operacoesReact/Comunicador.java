@@ -11,14 +11,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
+import se.michaelthelin.spotify.requests.data.artists.GetArtistsTopTracksRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
-import se.michaelthelin.spotify.requests.data.playlists.GetListOfUsersPlaylistsRequest;
+import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchArtistsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForSeveralTracksRequest;
-import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
@@ -30,10 +30,10 @@ import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
-import se.michaelthelin.spotify.model_objects.specification.User;
 
 import org.apache.hc.core5.http.ParseException;
 
+import com.neovisionaries.i18n.CountryCode;
 import com.pacote.operacoesTerminal.ComunicadorDoSpotify;
 
 import java.io.IOException;
@@ -164,8 +164,6 @@ private static final AuthorizationCodeUriRequest requestDoLinkParaAutorização 
 
 public static URI geraLink() {
 final URI linkParaAutorização = requestDoLinkParaAutorização.execute();
-
-System.out.println("URI: " + linkParaAutorização.toString());
 return linkParaAutorização;
 }
 
@@ -182,7 +180,6 @@ try {
   spotifyApi.setAccessToken(authorizationCodeCredentials.getAccessToken());
   spotifyApi.setRefreshToken(authorizationCodeCredentials.getRefreshToken());
 
-  System.out.println("Expires in: " + authorizationCodeCredentials.getExpiresIn());
 } catch (IOException | SpotifyWebApiException | ParseException e) {
   System.out.println("Error: " + e.getMessage());
 }
@@ -236,9 +233,8 @@ public static List<AudioFeatures> getAudioFeatures(String[] ids) {
 }
 
 
-public static Playlist[] getCurrentUsersPlaylist(String userToken) {
+public static Playlist[] getCurrentUsersPlaylist() {
 	ConversorDeTipo conversor = new ConversorDeTipo();
-	spotifyApi.setAccessToken(userToken);
 	GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = spotifyApi.getListOfCurrentUsersPlaylists()
 		    .limit(20)
 		    .build();
@@ -269,4 +265,35 @@ public static Track[] getAlbunsTracks(String albumID) {
 	 return null;
 	 
 }
+
+
+public static Track[] getPlaylistsTracks(String playlistID) {
+	ConversorDeTipo conversor = new ConversorDeTipo();
+	GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist(playlistID)
+    .build();
+	
+	 try {
+	      final Playlist playlist = getPlaylistRequest.execute();
+	      Track[] listaDeMusicas = new Track [playlist.getTracks().getItems().length];
+	      return conversor.getFromDifferentType(playlist.getTracks().getItems()).toArray(listaDeMusicas);
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	      System.out.println("Error: " + e.getMessage());
+	    }
+	return null;
+}
+
+public static Track[] getArtistsTracks(String artistID) {
+	
+	GetArtistsTopTracksRequest getArtistsTopTracksRequest = spotifyApi
+		    .getArtistsTopTracks(artistID, CountryCode.BR)
+		    .build();	
+	 try {
+	      final Track[] tracks = getArtistsTopTracksRequest.execute();
+	      return tracks;
+
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	      System.out.println("Error: " + e.getMessage());
+	    }
+	 return null;
+	  }
 }
