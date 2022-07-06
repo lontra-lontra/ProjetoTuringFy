@@ -61,8 +61,11 @@ public class APIdePesquisa {
 	
 	@GetMapping("album")
 	public AlbumParaEnviar[] infoAlbum( @RequestParam(name="pesquisa", required=false, defaultValue="musica") String pesquisa) {
-		Album[] info = Comunicador.pesquisaAlbum(pesquisa);
-		AlbumParaEnviar[] vec = new AlbumParaEnviar[info.length];
+		int quantidade = 12;
+		Album[] info = new Album[quantidade];
+		info = Comunicador.pesquisaAlbum(pesquisa, quantidade);
+		quantidade = info.length;
+		AlbumParaEnviar[] vec = new AlbumParaEnviar[quantidade];
 		for (int i = 0; i < vec.length;i++){
 			if(info[i] != null){
 				vec[i] = new AlbumParaEnviar(info[i]);
@@ -73,8 +76,11 @@ public class APIdePesquisa {
 	
 	@GetMapping("artista")
 	public ArtistaParaEnviar[] infoArtista(@RequestParam(name="pesquisa", required=false, defaultValue="musica") String pesquisa) {
-		Artist[] info = Comunicador.pesquisaArtistas(pesquisa);
-		ArtistaParaEnviar[] vec = new ArtistaParaEnviar[info.length];
+		int quantidade = 12;	
+		Artist[] info = new Artist[quantidade];
+		info = Comunicador.pesquisaArtistas(pesquisa, quantidade);
+		quantidade = info.length;
+		ArtistaParaEnviar[] vec = new ArtistaParaEnviar[quantidade];
 		for (int i = 0; i < vec.length; i++){			
 			if(info != null) {
 				vec[i] = new ArtistaParaEnviar(info[i]);
@@ -85,8 +91,11 @@ public class APIdePesquisa {
 	
 	@GetMapping("playlist")
 	public PlaylistParaEnviar[] infoPlaylist(@RequestParam(name="pesquisa", required=false, defaultValue="musica") String pesquisa) {
-		Playlist[] info = Comunicador.pesquisaPlaylists(pesquisa);
-		PlaylistParaEnviar[] vec = new PlaylistParaEnviar[info.length];
+		int quantidade = 12;
+		Playlist[] info = new Playlist[12];
+		info = Comunicador.pesquisaPlaylists(pesquisa, quantidade);
+		quantidade = info.length;
+		PlaylistParaEnviar[] vec = new PlaylistParaEnviar[quantidade];
 		for (int i = 0; i < vec.length; i++){			
 			if(info != null) {
 				vec[i] = new PlaylistParaEnviar(info[i]);

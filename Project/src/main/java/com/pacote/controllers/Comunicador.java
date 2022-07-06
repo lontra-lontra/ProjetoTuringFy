@@ -34,9 +34,9 @@ import java.io.IOException;
 
 
 public class Comunicador {
-private static final String clientId = "5b1ca7af0e4d44349dc5e7691cb31f9e";
-private static final String clientSecret = "a97ac799a878484998b7876f28ec46b9";
-private static final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/red");
+private static final String clientId = "996174542561436ead6fda89541d0083";
+private static final String clientSecret = "cffbb71c871d4a2088f069137c43064f";
+private static final URI redirectUri = SpotifyHttpManager.makeUri("https://localhost:3000/PaginaInicial");
 private static String codigoDeAutorização = "";
 
 
@@ -104,7 +104,7 @@ public static Track[] pesquisaMusicas(String textoDePesquisa) {
 }
 
 
-public static Artist[] pesquisaArtistas(String nomeDoArtista) {
+public static Artist[] pesquisaArtistas(String nomeDoArtista, int limite) {
 
   try {
     final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
@@ -114,7 +114,8 @@ public static Artist[] pesquisaArtistas(String nomeDoArtista) {
   }
 
   SearchArtistsRequest RequestDosArtistasPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchArtists(nomeDoArtista)
-    .build();
+		  .limit(limite)
+		  .build();
    try {
        final Paging<Artist> ArtistasPesquisados = RequestDosArtistasPesquisados.execute();
 
@@ -126,7 +127,7 @@ public static Artist[] pesquisaArtistas(String nomeDoArtista) {
      return null;
  }
 
- public static Playlist[] pesquisaPlaylists(String nomeDaPlaylist) {
+ public static Playlist[] pesquisaPlaylists(String nomeDaPlaylist, int limite) {
 	 ConversorDeTipo conversor = new ConversorDeTipo();
   try {
     final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
@@ -136,7 +137,7 @@ public static Artist[] pesquisaArtistas(String nomeDoArtista) {
   }
 
   SearchPlaylistsRequest RequestDasPlaylistsPesquisadas = ComunicadorDoSpotify.getSpotifyapi().searchPlaylists(nomeDaPlaylist)
-      .limit(20)
+      .limit(limite)
       .build();
   try {
       final Paging<PlaylistSimplified> PlaylistsPesquisadas = RequestDasPlaylistsPesquisadas.execute();
@@ -187,7 +188,7 @@ public static void main(String[] args) {
 
 
 
-public static Album[] pesquisaAlbum(String pesquisa) {	
+public static Album[] pesquisaAlbum(String pesquisa, int limite) {	
 	  ConversorDeTipo conversor = new ConversorDeTipo();
 	  try {
 	    final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
@@ -197,6 +198,7 @@ public static Album[] pesquisaAlbum(String pesquisa) {
 	  }
 	
 	  SearchAlbumsRequest RequestDosAlbunsPesquisados = ComunicadorDoSpotify.getSpotifyapi().searchAlbums(pesquisa)
+	   .limit(limite)
 	   .build();
 	  try {
 	      final Paging<AlbumSimplified> albunsPesquisados = RequestDosAlbunsPesquisados.execute();
