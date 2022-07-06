@@ -7,8 +7,11 @@ export default function Musica({musica})
     return (
         <div>
             {musica.nome}
-            ENERGIA:
+            ======
+            DANCABILIDADE:
             {musica.parametros[0]}
+            ENERGIA:
+            {musica.parametros[1]}
         </div>
     )
     }

@@ -14,14 +14,20 @@ function valuetext(value) {
 }
 export default function Pesquisa()
 {
-    const [value, setValue] = React.useState([20, 37]);
-    const [x,setx] = useState([])
+    const [rangeparam0, setRangeparam0] = React.useState([20, 37]);
+    const [rangeparam1, setRangeparam1] = React.useState([20, 37]);
+    const [ultimoparam, setUltimoparam] = React.useState(0);
     const [resultado,setResultado] = useState([])
     const [ranges,setRanges] = useState([0,100])
 
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleChangep0 = (event, newValue) => {
+    setUltimoparam(0)
+    setRangeparam0(newValue);
+  };
+  const handleChangep1 = (event, newValue) => {
+    setUltimoparam(1)
+    setRangeparam1(newValue);
   };
     const barraDePesquisa = useRef()
     useEffect(() => {
@@ -33,17 +39,17 @@ export default function Pesquisa()
             return []
           }
           
-          return prevResultado.sort(function(a, b){return a.parametros[0] - b.parametros[0]});
+          return prevResultado.sort(function(a, b){return a.parametros[ultimoparam] - b.parametros[ultimoparam]});
           //return [];
       })
-    },[value]) 
+    },[rangeparam0,rangeparam1]) 
 
     function FazPesquisa()
     {
-        const palvaraPesquisada = barraDePesquisa.current.value;
-        console.log(palvaraPesquisada)
+        const palavraPesquisada = barraDePesquisa.current.value;
+        console.log(palavraPesquisada)
         
-        axios.get('http://localhost:8080/api/pesquisa', {params: { pesquisa: palvaraPesquisada}})
+        axios.get('http://localhost:8080/api/pesquisa', {params: { pesquisa: palavraPesquisada}})
   .then(function (response) {
     setResultado(response.data)
   })
@@ -53,16 +59,24 @@ export default function Pesquisa()
         <>
         <button onClick={FazPesquisa}> oi </button>
         <input ref={barraDePesquisa} type="text"/>
-        <ListaDeMusica  range={value} musicas={resultado} />
+        <ListaDeMusica  range={[rangeparam0,rangeparam1]} musicas={resultado} />
          
         
         
-
     <Box sx={{ width: 300 }}>
       <Slider
         getAriaLabel={() => 'Temperature range'}
-        value={value}
-        onChange={handleChange}
+        value={rangeparam0}
+        onChange={handleChangep0}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+    </Box>
+    <Box sx={{ width: 300 }}>
+      <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam1}
+        onChange={handleChangep1}
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
       />
