@@ -36,7 +36,7 @@ import java.io.IOException;
 public class Comunicador {
 private static final String clientId = "996174542561436ead6fda89541d0083";
 private static final String clientSecret = "cffbb71c871d4a2088f069137c43064f";
-private static final URI redirectUri = SpotifyHttpManager.makeUri("https://localhost:3000/PaginaInicial");
+private static final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/red");
 private static String codigoDeAutorização = "";
 
 
