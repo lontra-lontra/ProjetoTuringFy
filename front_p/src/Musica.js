@@ -1,6 +1,6 @@
 import { buildTimeValue } from "@testing-library/user-event/dist/utils";
 import React from "react";
-export default function Musica({musica,addmusica})
+export default function Musica({musica,funcaoDoBotao,fraseNoBotao})
 {
     if(musica.respeitaParametro0 || true )
     {
@@ -24,7 +24,7 @@ export default function Musica({musica,addmusica})
             {musica.parametros[4]}
             ---"Liveness":
             {musica.parametros[5]}
-             <button onClick={function(){addmusica(musica.id)}}> adicionar musica </button>
+             <button onClick={function(){funcaoDoBotao([musica.id,musica.uri])}}> {fraseNoBotao } </button>
         </div>
 
     )

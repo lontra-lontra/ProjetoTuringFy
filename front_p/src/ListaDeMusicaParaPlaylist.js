@@ -1,6 +1,6 @@
 import React from "react"
 import Musica from "./Musica"
-export default function ListaDeMusica({musicas,range,addmusica})
+export default function ListaDeMusicaParaPlaylist({musicas,range,tiramusica,fraseNoBotao})
 {
     var musicasX = [];
     var size = musicas.lenght
@@ -26,7 +26,7 @@ export default function ListaDeMusica({musicas,range,addmusica})
     console.log(filtered);
     return (
         filtered.map(musica => {
-            return <Musica key={musica.id} musica={musica} funcaoDoBotao={addmusica} fraseNoBotao = {"addicionar Musica"} />
+            return <Musica key={musica.id} musica={musica} funcaoDoBotao={tiramusica} fraseNoBotao = {"tira musica"}/>
         })
     )
 }
