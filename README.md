@@ -34,7 +34,7 @@
         - OperacoesDoUsuario: Classe que implementa os métodos chamados na Main, as ações do usuário no sistema;
         - OperacoesInternas: Classe que conecta os métodos da OperacoesDoUsuario com os métodos presentes em outras classes;
 
-    - com.pacote.operacoesReact
+    - com.operacoesReact
         - Classes Com Especifidades Para Comunicação com a Interface Web;
         - Comunicador: Versão alterada do ComunicadorDoSpotify, definida para suprir a Interface Web;
 
