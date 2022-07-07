@@ -25,7 +25,7 @@
                     - Criar e Deletar Playlists
                     - Remover e Adicionar Musicas a Playlist
                 - Obs: Ajuste o zoom da página, até ela ficar adequada à visualização.
-                - Obs: localhost:3000/PaginaVePlaylist não está acessível da Página Principal e deve ser acessada para      
+                - Obs: [PaginaVePlaylist](http://localhost:3000/PaginaVePlaylist) não está acessível da Página Principal e deve ser acessada para      
                        visualizar as playlists.
 
     - com.pacote.controllers
