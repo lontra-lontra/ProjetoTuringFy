@@ -16,7 +16,7 @@
                     - dummy2spotifylaboo@gmail.com / Dummy123#
                 8. Aperte o link para voltar ao Turingfy.
                 9. Navegue normalmente pelo sistema.
-                Obs: Funcionalidades Implementadas
+                - Obs: Funcionalidades Implementadas
                     - Preview de música
                     - Pesquisa de playlists, albums, músicas e artistas 
                     - Visualização de músicas de Artista, Playlist(Públicas e Privadas) e Álbum
@@ -24,8 +24,8 @@
                     - Filtragem de Músicas em Pesquisa Avançada
                     - Criar e Deletar Playlists
                     - Remover e Adicionar Musicas a Playlist
-                Obs: Ajuste o zoom da página, até ela ficar adequada à visualização.
-                Obs: Na Aba de Visualizar Playlists, para visualizar uma playlist diferente, recarregue a página primeiro.
+                - Obs: Ajuste o zoom da página, até ela ficar adequada à visualização.
+                - Obs: Na Aba de Visualizar Playlists, para visualizar uma playlist diferente, recarregue a página primeiro.
 
     - com.pacote.controllers
         - XXXXController: Classes que definem o comportamento das páginas web inseridas diretamente no sistema;
