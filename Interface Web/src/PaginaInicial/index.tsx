@@ -19,6 +19,9 @@ function PaginaInicial() {
     const navegaResultadosAlbum = () =>{
         navega("/ResultadosAlbum", {state:{textoBusca: textoPesquisa}})
     }
+    const navegaResultadosAvancada = () =>{
+        navega("/PaginaPesquisaFiltro")
+    }
 
 return(
     <>
@@ -55,6 +58,7 @@ return(
                         <S.BotaoBuscar onClick={()=>{navegaResultadosArtista()}}>Artista</S.BotaoBuscar>
                     </S.BotoesBusca>
                 </S.BotoesBuscaETexto>
+                <S.BotaoBuscarAvancado onClick={()=>{navegaResultadosAvancada()}}>Pesquisa Avancada</S.BotaoBuscarAvancado>
             </S.BlocoDeBusca>
         </S.corpo>
     </S.CorpoTodo>

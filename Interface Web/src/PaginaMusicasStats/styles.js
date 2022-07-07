@@ -6,11 +6,11 @@ export const CorpoPagina = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: start;
-    overflow: scroll;
 `
 
 export const Tudo = styled.div`
-    position:fixed;
+    min-height: 100vh;
+    min-width: 100vh;
     width: 100%;
     height: 100%;
     background-color: #1B1B1B;
@@ -127,5 +127,95 @@ export const divCorpoParametros = styled.div`
 export const divPesquisaEParametros = styled.div`
   display: flex;
   flex-direction:row;
+  gap: 10vw;
+`
+
+export const ItemMusica = styled.div`
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: center;
+  height: 15vh;
+`
+
+export const TextoParametrosMusica = styled.p`
+  color:white;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 1rem;
+  margin-left: 1rem;
+`
+
+export const TextoNomeMusica = styled.p`
+  color:white;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 2rem;
+  margin-left: 1rem;
+  width: fit-content;
+`
+
+export const divPesquisaEResultados = styled.div`
+  display: flex;
+  flex-direction:column;
+  justify-content: flex-start;
+  align-items: flex-start;
+`
+export const ColunaTabela = styled.tr`
+  padding: 100px;
+`
+export const TabelaHead = styled.thead`
+
+`
+
+export const itemHead = styled.th`
+  color: white;
+  font-size: 1.7rem;
+  font-family: 'Nunito Sans', sans-serif;
+  margin-right: 1rem;
+  border: 1px;
+  padding: 20px;
+  width: 1vw;
+`
+
+export const styledTd = styled.td`
+  color: white;
+  font-size: 1.5rem;
+  font-family: 'Nunito Sans', sans-serif;
+  margin-right: 1rem;
+  border: 1px;
+  padding: 20px;
+`
+export const tableRow = styled.tr`
+  color: white;
+  font-size: 1.5rem;
+  font-family: 'Nunito Sans', sans-serif;
+  margin-right: 1rem;
+  border: 1px;
+  padding: 50px;
+`
+
+
+export const BotaoAdicionar = styled.button`
+    color: white;
+    font-size: 2rem;
+    font-family: 'Nunito Sans', sans-serif;
+    border-radius: 100%;
+    background-color: #1B1B1B;
+    border: #1B1B1B;
+    cursor: pointer;
+`
+
+export const styledTdNome = styled.td`
+  color: white;
+  font-size: 2rem;
+  font-family: 'Nunito Sans', sans-serif;
+  margin-right: 1rem;
+  border: 1px;
+  padding: 20px;
+`
+
+export const divGrande = styled.div`
+  display: flex;
+  flex-direction:row;
+  align-items: center;
   gap: 10vw;
 `
