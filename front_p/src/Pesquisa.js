@@ -1,16 +1,12 @@
 
-
-      import React,{useState,useRef,useEffect} from 'react'
+import React,{useState,useRef,useEffect} from 'react'
 
 import ListaDeMusica from './ListaDeMusica'
 import ListaDePlaylists from './ListaDePlaylists';
 import ListaDeMusicaParaPlaylist from './ListaDeMusicaParaPlaylist';
 import axios from 'axios';
-import RangeSlider from './component/multiRangeSlider/RangeSlider';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-
-
 
 
 function valuetext(value) {
@@ -114,8 +110,9 @@ function tiramusica (id_e_uri)
   console.log("musica na playlist:")
   console.log(id_da_playlist);
   console.log(id_da_musica);
-  axios.get('http://localhost:8080/api/adicionaMusicaNaPlaylist', {params: {MusicaID: id_da_musica, PlaylistID: id_da_playlist }})
+  axios.get('http://localhost:8080/api/removeMusicaDaPlaylist', {params: {MusicaID: id_da_musica, PlaylistID: id_da_playlist }})
   .then(function (response) {
+    window.location.reload()
     console.log(response.data);
   })
 }
