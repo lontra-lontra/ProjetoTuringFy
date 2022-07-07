@@ -148,16 +148,19 @@ public class BuscadorDoSpotify {
 		 }
 		 
 		 public static User getCurrentUsersProfile() {
+			 System.out.println("chegou1");
 			 GetCurrentUsersProfileRequest getCurrentUsersProfileRequest = ComunicadorDoSpotify.getSpotifyapi().getCurrentUsersProfile()
 					    .build();
+			 System.out.println("chegou2");
 			 User user = null;
 			  try {
 			      user = getCurrentUsersProfileRequest.execute();
-
 			      System.out.println("Display name: " + user.getDisplayName());
 			    } catch (IOException | SpotifyWebApiException | ParseException e) {
 			      System.out.println("Error: " + e.getMessage());
 			    }
+
+			  System.out.println("chegou3");
 			  return user;
 		 }
 
