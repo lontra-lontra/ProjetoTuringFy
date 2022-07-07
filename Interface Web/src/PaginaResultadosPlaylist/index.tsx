@@ -8,14 +8,11 @@ import * as S from "./styles";
 const PaginaResultadosPlaylist = () => {
 
     let navega = useNavigate();
-    const navegaMusicasArtista = () =>{
-        navega("/MusicasPlaylist")
-    }
     const location = useLocation();
     const state = location.state as any
     const [musicasBusca, setMusicasBusca] = useState({musicas:[]})
     
-    axios.get('http://localhost:8080/api/playlist', { params: { pesquisa: state.textoBusca} } ).then (res => {
+    axios.get('http://localhost:8080/api/artista', { params: { pesquisa: state.textoBusca} } ).then (res => {
         console.log()
         setMusicasBusca({musicas: res.data});
     });
@@ -32,10 +29,9 @@ const PaginaResultadosPlaylist = () => {
 
             <S.ResultadosPara>Resultados para:  {state.textoBusca}</S.ResultadosPara>
 
-                {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}      <S.BotaoMusica onClick={navegaMusicasArtista}>+</S.BotaoMusica></S.ItemResultados></>)}
+            {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}      <S.BotaoMusica onClick={()=>navega("/MusicasPlaylist",{state:{idMusica: musica["id"]}})}>+</S.BotaoMusica></S.ItemResultados></>)}
 
         </S.CorpoPagina>
-
         </>
     )
 }
