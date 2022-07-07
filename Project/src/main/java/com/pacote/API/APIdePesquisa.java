@@ -58,24 +58,15 @@ public class APIdePesquisa {
 	public PlaylistParaEnviar[] playlistsdousuario()
 	{
 		Playlist[] playlists;
-		System.out.println("pegando id{");
-				
-		System.out.println("pegando as playlists{");
 		playlists  = Comunicador.getCurrentUsersPlaylist();
-		System.out.println("}pegando as playlists");
-		
 		int quantidade;
-		
 		quantidade = playlists.length;
 		PlaylistParaEnviar[] playlistsParaEnviar = new PlaylistParaEnviar[quantidade];
-		
 		for (int i = 0; i < quantidade; i++){			
 			if(playlists[i] != null) {
 				playlistsParaEnviar[i] = new PlaylistParaEnviar(playlists[i]);
 			}
 		}
-		
-		System.out.println(playlistsParaEnviar[0].getNome());
 		return playlistsParaEnviar;
 	}
 
@@ -83,9 +74,7 @@ public class APIdePesquisa {
 		List<AudioFeatures> featuresBrutas;
 		AudioFeatures features;
 		featuresBrutas = Comunicador.getAudioFeatures(ids);
-		
 		for (int i = 0; i < quantidade;i++) {
-
 				features = featuresBrutas.get(i);				
 				musicaParaEnviar[i].parametros[0] = features.getDanceability();
 				musicaParaEnviar[i].parametros[1] = features.getEnergy();
@@ -146,21 +135,22 @@ public class APIdePesquisa {
 	}
 	
 	@GetMapping("adicionaMusicaNaPlaylist")
-	public void adicionaAPlaylist(@RequestParam(name="MusicaURI", required=false, defaultValue=" ")String[] uris, @RequestParam(name="PlaylistID", required = false, defaultValue=" ")String playlistId) {
+	public void adicionaAPlaylist(@RequestParam(name="MusicaID", required=false, defaultValue=" ")String ID, @RequestParam(name="PlaylistID", required = false, defaultValue=" ")String playlistId) {
 		Playlist lista = Comunicador.getPlaylist(playlistId);
-		Comunicador.adicionaMusica(lista, uris);
+			Track track = Comunicador.getTrack(ID);
+			String[] uris = new String[1];
+			uris[0] = track.getUri();
+			Comunicador.adicionaMusica(lista, uris);		
 	}
 	
 	@GetMapping("removeMusicaDaPlaylist")
-	public void removeDaPlaylist(@RequestParam(name="MusicaID", required=false, defaultValue=" ")String[] IDs, @RequestParam(name="PlaylistID", required = false, defaultValue=" ")String playlistId) {
+	public void removeDaPlaylist(@RequestParam(name="MusicaID", required=false, defaultValue=" ")String ID, @RequestParam(name="PlaylistID", required = false, defaultValue=" ")String playlistId) {
 		Playlist lista = Comunicador.getPlaylist(playlistId);
-		for(String id : IDs) {
 				String p1 = "[{\"uri\":\"";
 				String p2 = "\"}]";
-				Track musica = Comunicador.getTrack(id);
+				Track musica = Comunicador.getTrack(ID);
 				JsonArray  musicaURI = JsonParser.parseString(p1.concat(musica.getUri().concat(p2))).getAsJsonArray();
-				Comunicador.removeMusicaDePlaylist(lista, musicaURI);
-		} 		
+				Comunicador.removeMusicaDePlaylist(lista, musicaURI);	
 	}
 	
 	@GetMapping("deletaPlaylist")
