@@ -18,7 +18,6 @@ export default function Pesquisa()
 {
     React.useEffect(() => {
     pegaplaylists()
-    console.log("ooooooi")
   }, []);
     
 
@@ -36,8 +35,7 @@ export default function Pesquisa()
     const [ranges,setRanges] = useState([0,100])
     const [playlistsDoCliente,setPlaylistsDoCliente] = useState([]);
 
-        const barraDePesquisa = useRef()
-    const barraDoNomeDaPlaylist =useRef()
+    const barraDePesquisa = useRef()
     const seletorDePlaylist =useRef()
 
   const handleChangep0 = (event, newValue) => {
@@ -87,26 +85,15 @@ export default function Pesquisa()
 
     function FazPesquisa()
     {
-        const palavraPesquisada = barraDePesquisa.current.value;
-        console.log(palavraPesquisada)
-        
-        axios.get('http://localhost:8080/api/pesquisa', {params: { pesquisa: palavraPesquisada}})
+        const idDaPlaylist = seletorDePlaylist.current.value;
+        // -----------------------------------------------------TODO
+        axios.get('http://localhost:8080/api/MusicasPlaylist', {params: { PlaylistID: dDaPlaylist}})
   .then(function (response) {
     setResultado(response.data)
   })
          pegaplaylists()
     }
-    function criaplaylist (id)
-{
-  console.log(id);
-  const nomeDaPlaylist = barraDoNomeDaPlaylist.current.value;
-  axios.get('http://localhost:8080/api/criaPlaylist', {params: {nome: nomeDaPlaylist}})
-  .then(function (response) {
-window.location.reload()
-    //console.log(response.data[0]);
-  })
 
-}
 
 
 function pegaplaylists()
@@ -117,7 +104,7 @@ function pegaplaylists()
     setPlaylistsDoCliente(response.data)
   })
 }
-function addmusica (id_e_uri)
+function tiramusica (id_e_uri)
 {
   const id_da_musica = id_e_uri[0];
   const id_da_playlist = seletorDePlaylist.current.value;
@@ -144,27 +131,9 @@ function addmusica (id_e_uri)
 
 
         <div>
-        <button onClick={FazPesquisa}> pesquisar  </button>
+        <button onClick={FazPesquisa}> ver musicas </button>
         <input ref={barraDePesquisa} type="text"/>
         </div>
-
-        <div>
-        <button onClick={criaplaylist}> cria playlist </button>
-        <input ref={barraDoNomeDaPlaylist} type="text"/>
-        </div>  
-
-        <ListaDeMusica  range={[
-          rangeparam0,
-          rangeparam1,
-          rangeparam2,
-          rangeparam3,
-          rangeparam4,
-          rangeparam5,
-          rangeparam6,
-          rangeparam7,]} musicas={resultado} addmusica={addmusica} />
-         
-        
-        
     <Box sx={{ width: 300 }}>
       Dancabilidade:
       <Slider
@@ -228,7 +197,7 @@ function addmusica (id_e_uri)
         getAriaValueText={valuetext}
       />
       "liveness:"
-                  <Slider
+                  <Slider 
         getAriaLabel={() => 'Temperature range'}
         value={rangeparam7}
         onChange={handleChangep7}
@@ -236,48 +205,19 @@ function addmusica (id_e_uri)
         getAriaValueText={valuetext}
       />
     </Box>
-        
+
+      <div >
+        <ListaDeMusicaParaPlaylist  range={[
+          rangeparam0,
+          rangeparam1,
+          rangeparam2,
+          rangeparam3,
+          rangeparam4,
+          rangeparam5,
+          rangeparam6,
+          rangeparam7,]} musicas={resultado} tiramusica={tiramusica}  />
+          </div>
         </>
     );
 }
 
-
-      /*console.log(resultado);
-      const novoR = resultado;
-      const tamanho = resultado.size;
-      console.log("eu sou uma funcao inutil ")
-      for (let i = 0; i < tamanho; i++)
-      {
-            //novoR[i].respeitaParametro0 = (value[0] <= resultado[i].parametros[0]*100) &&(resultado[i].parametros[0]*100 <= value[1]);
-            novoR[i].respeitaParametro0 = {};
-            novoR[i].respeitaParametro0 = true;
-      }
-      novoR.sort(function(a, b){return a.parametros[0] - b.parametros[0]})
-      
-      const n = novoR;
-      this.setResultado(n)
-      setx(n);
-
-
-
-
-
-
-
-
-          function reacao (value,param)
-    {
-      setResultado( prevResultado =>
-      {
-       // const tamanho = resultado.size;
-      for (let i = 0; i < tamanho; i++)
-      {
-            //novoR[i].respeitaParametro0 = (value[0] <= resultado[i].parametros[0]*100) &&(resultado[i].parametros[0]*100 <= value[1]);
-            prevResultado[i].respeitaParametro0 = {};
-            prevResultado[i].respeitaParametro0 = true;
-      }
-        return [prevResultado[0]];
-        //return prevResultado.sort(function(a, b){return a.parametros[0] - b.parametros[0]});
-    })
-  }
-      */

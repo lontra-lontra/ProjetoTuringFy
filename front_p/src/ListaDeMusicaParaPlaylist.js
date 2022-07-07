@@ -1,6 +1,6 @@
 import React from "react"
 import Musica from "./Musica"
-export default function ListaDeMusicaParaPlaylist({musicas,range,tiramusica,fraseNoBotao})
+export default function ListaDeMusicaParaPlaylist({musicas,range,tiramusica})
 {
     var musicasX = [];
     var size = musicas.lenght
