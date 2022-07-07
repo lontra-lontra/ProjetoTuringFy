@@ -132,29 +132,119 @@ function addmusica (id_e_uri)
         <S.TituloTuring>Turing</S.TituloTuring><S.TituloFy>fy</S.TituloFy>
         <S.Slogan>O seu super gerenciador musical</S.Slogan>
     </S.Header>
-    <S.TextoPlaylists>Playlists:</S.TextoPlaylists>
-    <S.divSelecioneAPlaylist>
-        <S.TextoSelecioneAPlaylist>Selecione a playlist:</S.TextoSelecioneAPlaylist>
-    <select ref = {seletorDePlaylist} name="playlists">
-        {playlistsDoCliente.map(playlist => {
-            return (
-          <option  value={playlist.id}>   {playlist.nome} </option>);
-        })}
-    </select>
-    </S.divSelecioneAPlaylist>
-      <S.divPesquisaEParametros>
-        <div>
-        <S.divPesquisar>
-          <S.BotaoPesquisar onClick={FazPesquisa}> Pesquisar  </S.BotaoPesquisar>
-          <S.inputPesquisar ref={barraDePesquisa} type="text"/>
-        </S.divPesquisar>
+    <S.divGrande>
+    <div>
+          <S.TextoPlaylists>Playlists:</S.TextoPlaylists>
+          <S.divSelecioneAPlaylist>
+              <S.TextoSelecioneAPlaylist>Selecione a playlist:</S.TextoSelecioneAPlaylist>
+          <select ref = {seletorDePlaylist} name="playlists">
+              {playlistsDoCliente.map(playlist => {
+                  return (
+                <option  value={playlist.id}>   {playlist.nome} </option>);
+              })}
+          </select>
+          </S.divSelecioneAPlaylist> 
+              <S.divPesquisar>
+                <S.BotaoPesquisar onClick={FazPesquisa}> Pesquisar  </S.BotaoPesquisar>
+                <S.inputPesquisar ref={barraDePesquisa} type="text"/>
+              </S.divPesquisar>
 
-        <S.divPesquisar>
-          <S.BotaoPesquisar onClick={criaplaylist}> Criar playlist </S.BotaoPesquisar>
-          <S.inputPesquisar ref={barraDoNomeDaPlaylist} type="text"/>
-        </S.divPesquisar>  
+              <S.divPesquisar>
+                <S.BotaoPesquisar onClick={criaplaylist}> Criar playlist </S.BotaoPesquisar>
+                <S.inputPesquisar ref={barraDoNomeDaPlaylist} type="text"/>
+              </S.divPesquisar>  
+    </div>
+      <S.divCorpoParametros>
+        <S.TextoParametros>Dancabilidade:</S.TextoParametros>
+        <Slider
+          getAriaLabel={() => 'Temperature range'}
+          value={rangeparam0}
+          onChange={handleChangep0}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+        />
+        <S.TextoParametros>Energia:</S.TextoParametros>
+        <Slider
+          getAriaLabel={() => 'Temperature range'}
+          value={rangeparam1}
+          onChange={handleChangep1}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+        />
+        <S.TextoParametros>Tempo:</S.TextoParametros>
+              <Slider
+          getAriaLabel={() => 'Temperature range'}
+          value={rangeparam2}
+          onChange={handleChangep2}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+          min={0}
+          max={200}
+        />
+        <S.TextoParametros>Intesidade:</S.TextoParametros>
+              <Slider
+              
+          getAriaLabel={() => 'Temperature range'}
+          value={rangeparam3}
+          onChange={handleChangep3}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+          min={-50}
+          max={50}
+        />
+      </S.divCorpoParametros>
+      <S.divCorpoParametros>
+        <S.TextoParametros>Fala:</S.TextoParametros>
+              <Slider
+          getAriaLabel={() => 'Temperature range'}
+          value={rangeparam4}
+          onChange={handleChangep4}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+        />
+        <S.TextoParametros>Instrumentalidade:</S.TextoParametros>
+        <Slider
+          getAriaLabel={() => 'Temperature range'}
+          value={rangeparam5}
+          onChange={handleChangep5}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+        />
+        <S.TextoParametros>Acusticidade:</S.TextoParametros>
+                    <Slider
+          getAriaLabel={() => 'Temperature range'}
+          value={rangeparam6}
+          onChange={handleChangep6}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+        />
+        <S.TextoParametros>"liveness":</S.TextoParametros>
+                    <Slider
+          getAriaLabel={() => 'Temperature range'}
+          value={rangeparam7}
+          onChange={handleChangep7}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+        />
+    </S.divCorpoParametros>
+    </S.divGrande>
+        <table>
+            <S.TabelaHead>
+            <S.ColunaTabela>
+            <S.itemHead>Nome</S.itemHead>
+            <S.itemHead>Dancabilidade</S.itemHead>
+            <S.itemHead>Energia</S.itemHead>
+            <S.itemHead>Tempo</S.itemHead>
+            <S.itemHead>Intensidade</S.itemHead>
+            <S.itemHead>Fala</S.itemHead> 
+            <S.itemHead>Instrumentalidade</S.itemHead>
+            <S.itemHead>Acusticidade</S.itemHead>
+            <S.itemHead>Liveness</S.itemHead>
+            <S.itemHead>Adicionar</S.itemHead>
 
-        <ListaDeMusica  range={[
+            </S.ColunaTabela>
+            </S.TabelaHead>
+            <ListaDeMusica  range={[
           rangeparam0,
           rangeparam1,
           rangeparam2,
@@ -163,125 +253,9 @@ function addmusica (id_e_uri)
           rangeparam5,
           rangeparam6,
           rangeparam7,]} musicas={resultado} addmusica={addmusica} />
-         </div>
-        
-    <S.divCorpoParametros>
-    <Box sx={{ width: 300 }}>
-      <S.TextoParametros>Dancabilidade:</S.TextoParametros>
-      <Slider
-        getAriaLabel={() => 'Temperature range'}
-        value={rangeparam0}
-        onChange={handleChangep0}
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-      />
-      <S.TextoParametros>Energia:</S.TextoParametros>
-      <Slider
-        getAriaLabel={() => 'Temperature range'}
-        value={rangeparam1}
-        onChange={handleChangep1}
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-      />
-      <S.TextoParametros>Tempo:</S.TextoParametros>
-            <Slider
-        getAriaLabel={() => 'Temperature range'}
-        value={rangeparam2}
-        onChange={handleChangep2}
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-        min={0}
-        max={200}
-      />
-      <S.TextoParametros>Intesidade:</S.TextoParametros>
-            <Slider
-            
-        getAriaLabel={() => 'Temperature range'}
-        value={rangeparam3}
-        onChange={handleChangep3}
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-        min={-50}
-        max={50}
-      />
-      <S.TextoParametros>Fala:</S.TextoParametros>
-            <Slider
-        getAriaLabel={() => 'Temperature range'}
-        value={rangeparam4}
-        onChange={handleChangep4}
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-      />
-      <S.TextoParametros>Instrumentalidade:</S.TextoParametros>
-      <Slider
-        getAriaLabel={() => 'Temperature range'}
-        value={rangeparam5}
-        onChange={handleChangep5}
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-      />
-      <S.TextoParametros>Acusticidade:</S.TextoParametros>
-                  <Slider
-        getAriaLabel={() => 'Temperature range'}
-        value={rangeparam6}
-        onChange={handleChangep6}
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-      />
-      <S.TextoParametros>"liveness":</S.TextoParametros>
-                  <Slider
-        getAriaLabel={() => 'Temperature range'}
-        value={rangeparam7}
-        onChange={handleChangep7}
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-      />
-    </Box>
-    </S.divCorpoParametros>
-    </S.divPesquisaEParametros>
+        </table>
     </S.CorpoPagina>
     </S.Tudo>
         </>
     );
 }
-
-
-      /*console.log(resultado);
-      const novoR = resultado;
-      const tamanho = resultado.size;
-      console.log("eu sou uma funcao inutil ")
-      for (let i = 0; i < tamanho; i++)
-      {
-            //novoR[i].respeitaParametro0 = (value[0] <= resultado[i].parametros[0]*100) &&(resultado[i].parametros[0]*100 <= value[1]);
-            novoR[i].respeitaParametro0 = {};
-            novoR[i].respeitaParametro0 = true;
-      }
-      novoR.sort(function(a, b){return a.parametros[0] - b.parametros[0]})
-      
-      const n = novoR;
-      this.setResultado(n)
-      setx(n);
-
-
-
-
-
-
-
-
-          function reacao (value,param)
-    {
-      setResultado( prevResultado =>
-      {
-       // const tamanho = resultado.size;
-      for (let i = 0; i < tamanho; i++)
-      {
-            //novoR[i].respeitaParametro0 = (value[0] <= resultado[i].parametros[0]*100) &&(resultado[i].parametros[0]*100 <= value[1]);
-            prevResultado[i].respeitaParametro0 = {};
-            prevResultado[i].respeitaParametro0 = true;
-      }
-        return [prevResultado[0]];
-        //return prevResultado.sort(function(a, b){return a.parametros[0] - b.parametros[0]});
-    })
-  }
-      */

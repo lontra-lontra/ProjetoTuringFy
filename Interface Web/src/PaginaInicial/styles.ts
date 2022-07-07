@@ -155,3 +155,22 @@ export const TextoBuscar = styled.p`
     font-size: 3.2rem;
     margin-left: 4.8rem;
 `
+export const BotaoBuscarAvancado = styled.button`
+    display: flex;
+    width:fit-content;
+    height: min-content;
+    background-color:black;
+    color:white;
+    font-size: 2.5rem;    
+    font-family: 'Nunito Sans', sans-serif;    
+    border-radius:15px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 1.2rem;
+    margin-left: 4rem;
+    font-style: bold;
+    padding: 1.2rem;
+    border: 1px;
+    color: #0CC629 ;
+`

@@ -1,32 +1,28 @@
 import { buildTimeValue } from "@testing-library/user-event/dist/utils";
 import React from "react";
+import * as S from "./styles";
+
 export default function Musica({musica,funcaoDoBotao,fraseNoBotao})
 {
     if(musica.respeitaParametro0 || true )
     {
     return (
-        <div>
-            {musica.nome}
-            ======
-            ---Dancabilidade:
-            {musica.parametros[0]}
-            ---Energia:
-            {musica.parametros[1]}
-            ---Tempo:
-            {musica.parametros[2]}
-            ---Intensidade:
-            {musica.parametros[3]}
-            ---Fala:
-            {musica.parametros[4]}
-            ---Instrumentalidade:
-            {musica.parametros[5]}
-            --Acusticidade:
-            {musica.parametros[4]}
-            ---"Liveness":
-            {musica.parametros[5]}
-             <button onClick={function(){funcaoDoBotao([musica.id,musica.uri])}}> {fraseNoBotao } </button>
-        </div>
-
+        <>
+            <tbody>
+            <S.tableRow>
+            <S.styledTdNome>{musica.nome}</S.styledTdNome>
+            <S.styledTd>{musica.parametros[0]}</S.styledTd>
+            <S.styledTd>{musica.parametros[1]}</S.styledTd>
+            <S.styledTd>{musica.parametros[2]}</S.styledTd>
+            <S.styledTd>{musica.parametros[3]}</S.styledTd>
+            <S.styledTd>{musica.parametros[4]}</S.styledTd>
+            <S.styledTd>{musica.parametros[5]}</S.styledTd>
+            <S.styledTd>{musica.parametros[6]}</S.styledTd>
+            <S.styledTd>{musica.parametros[7]}</S.styledTd>
+            <S.styledTd><S.BotaoAdicionar onClick={function(){funcaoDoBotao([musica.id,musica.uri])}}> + </S.BotaoAdicionar></S.styledTd>
+            </S.tableRow>
+            </tbody>
+        </>        
     )
     }
     else

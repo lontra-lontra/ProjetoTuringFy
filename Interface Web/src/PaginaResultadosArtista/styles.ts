@@ -69,4 +69,6 @@ export const BotaoMusica = styled.button`
     border-radius: 100%;
     background-color: #1B1B1B;
     border: #1B1B1B;
+    cursor: pointer;
+
 `
