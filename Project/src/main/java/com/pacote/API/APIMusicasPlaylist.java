@@ -2,16 +2,20 @@ package com.pacote.API;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.operacoesReact.Comunicador;
 import com.pacote.itemParaEnviar.MusicaParaEnviar;
 
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
+@CrossOrigin(origins = "http://localhost:3000/")
+@RestController
+@RequestMapping("api/")
+
 public class APIMusicasPlaylist {
-	@CrossOrigin(origins = "http://localhost:3000/")	
-	public class APIdaPaginaInicial {	
 		@GetMapping("MusicasPlaylist")
 		public MusicaParaEnviar[] musicasDeUmaPlaylist(@RequestParam(name="PlaylistID", required=false, defaultValue=" ") String PlaylistID){
 			int quantidade = 20;
@@ -27,4 +31,3 @@ public class APIMusicasPlaylist {
 			return userListsToApi;
 		}
 	}
-}
