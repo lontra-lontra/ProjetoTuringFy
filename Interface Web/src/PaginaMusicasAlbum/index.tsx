@@ -24,9 +24,8 @@ const PaginaMusicasAlbum = () => {
                 <S.TituloTuring>Turing</S.TituloTuring><S.TituloFy>fy</S.TituloFy>
                 <S.Slogan>O seu super gerenciador musical</S.Slogan>
             </S.Header>
-            <S.TextoResultados> ID: {state.idMusica}</S.TextoResultados>
             <S.TextoResultados>Musicas no Album</S.TextoResultados>
-            {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}<S.BotaoMusica>+</S.BotaoMusica></S.ItemResultados></>)}
+            {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}<a href={musica["url"]} target="_blank" rel="noreferrer" ><S.BotaoMusica><img src={require('../Imagens/Play.png')} width = "40px" height="40px" alt=""></img></S.BotaoMusica></a><S.BotaoMusica>+</S.BotaoMusica></S.ItemResultados></>)}
         </S.CorpoPagina>
 
         </>

@@ -8,9 +8,6 @@ import * as S from "./styles";
 const PaginaResultadosArtista = () => {
 
     let navega = useNavigate();
-    const navegaMusicasArtista = () =>{
-        navega("/MusicasArtista")
-    }
     const location = useLocation();
     const state = location.state as any
     const [musicasBusca, setMusicasBusca] = useState({musicas:[]})
@@ -32,10 +29,9 @@ const PaginaResultadosArtista = () => {
 
             <S.ResultadosPara>Resultados para:  {state.textoBusca}</S.ResultadosPara>
 
-                {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}      <S.BotaoMusica onClick={navegaMusicasArtista}>+</S.BotaoMusica></S.ItemResultados></>)}
+            {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}      <S.BotaoMusica onClick={()=>navega("/MusicasArtista",{state:{idMusica: musica["id"]}})}>+</S.BotaoMusica></S.ItemResultados></>)}
 
         </S.CorpoPagina>
-
         </>
     )
 }
