@@ -51,8 +51,8 @@ import java.io.IOException;
 
 
 public class Comunicador {
-private static final String clientId = "996174542561436ead6fda89541d0083";
-private static final String clientSecret = "cffbb71c871d4a2088f069137c43064f";
+private static final String clientId = "75c975de1a3e420485bea4fe855b4cd9";
+private static final String clientSecret = "991299acd91c4f589d459f007b10981e";
 private static final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/red");
 private static String codigoDeAutorização = "";
 
@@ -100,7 +100,7 @@ public static User getCurrentUsersProfile() {
 	 GetCurrentUsersProfileRequest getCurrentUsersProfileRequest = ComunicadorDoSpotify.getSpotifyapi().getCurrentUsersProfile()
 			    .build();
 	 User user = null;
-	  try {
+	 try {
 	      user = getCurrentUsersProfileRequest.execute();
 
 	      System.out.println("Display name: " + user.getDisplayName());
