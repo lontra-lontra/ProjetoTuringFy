@@ -7,7 +7,7 @@
                 1. Abra a pasta "Projeto" no eclipse/programa de sua preferência.
                 2. Execute o arquivo: SiteLabooAplication.java.
                 3. Abra a pasta "Interface Web" no terminal.
-                4. Execute os comandos `npm install` e `npm start`
+                4. Execute os comandos `npm install @mui/material @emotion/react @emotion/styled` e `npm start`
                     - Caso apareça a mensagem de erro: 'react-scripts' is not recognized as an internal 
                     or external command Rodar: `npm install react-scripts –save`
                 5. Após um certo tempo, a página localhost:3000 vai abrir, aperte o botão conectar.
@@ -20,23 +20,39 @@
                     - Pesquisa de playlists, albums, músicas e artistas 
                     - Visualização de músicas de Artista, Playlist(Públicas) e Álbum
                     - Login no Spotify 
+                    - Filtragem de Músicas em Pesquisa Avançada
+                Obs: Ajuste o zoom da página, até ela ficar adequada à visualização.
+
     - com.pacote.controllers
-        - Classes de Execução dos Procedimentos do projeto.
+        - XXXXController: Classes que definem o comportamento das páginas web inseridas diretamente no sistema;
+
+    - com.pacote.operacoesTerminal
+        - Classes Relacionadas A Execução de Comandos Na Interface do terminal
         - ComunicadorDoSpotify: Classe com métodos de autenticação e autorização para coleta e envio de dados na API do ComunicadorDoSpotify;
         - BuscadorDoSpotify: Classe com métodos que recolhem informação do Spotify;
         - EditorDePlaylist: Classe com métodos para criar e deletar playlists, alterar nome, adicionar e remover músicas;
         - OperacoesDoUsuario: Classe que implementa os métodos chamados na Main, as ações do usuário no sistema;
         - OperacoesInternas: Classe que conecta os métodos da OperacoesDoUsuario com os métodos presentes em outras classes;
-        - ConversorDeTipo: Classe Adaptadora entre os métodos nativos da library Spotify-Web-Api e os formatos usados no sistema;
-        - XXXXController: Classes que definem o comportamento das páginas web inseridas diretamente no sistema;
-        - Comunicador: Classe com elementos similares a Classe ComunicadorDoSpotify e BuscadorDoSpotify, para melhor execução da interface WEB;
+
+    - com.pacote.operacoesReact
+        - Classes Com Especifidades Para Comunicação com a Interface Web;
+        - Comunicador: Versão alterada do ComunicadorDoSpotify, definida para suprir a Interface Web;
+
+    - com.pacote.API
+        - Conjunto De Classes que Realizam o Mapeamento da API da Interface WEB;
         - APIdePesquisa: Classe com métodos de comunicação com a página WEB usando React; 
-        - XXXXParaEnviar: Classes com métodos auxiliares para transferência de dados para a página WEB;
+        - APIMusicasAlbum: Classe com o método de exibição de Músicas de um Álbum;
+        - APIMusicasArtista: Classe com o método para exibir Músicas de um Artista;
+        - APIMusicasPlaylist: Classe com o método para exibir Músicas de uma Playlist;
+
+    - com.pacote.itemParaEnviar
+        - Classes com Objetos que associam um item da biblioteca da Web API do Spotify com itens utilizáveis no react;
+        - AlbumParaEnviar;
+        - ArtistaParaEnviar;
+        - MusicaParaEnviar;
+        - PlaylistParaEnviar;
 
     - com.pacote.customComparator
         - Classes para implementação da tabela de músicas, a qual pode ser reorganizada de acordo com os atributos de AudioFeatures;
         - Cada uma delas contém um Comparator<Track> para cada feature e possui um único método para executar um sort de uma List<Track>        
         implementado na Classe OperacoesDoUsuario;
-
-**Observações**
-* Em decorrência de problemas na utilização do Git, uma branch main foi deletada e acabamos perdendo  commits de alguns alunos. Além disso, adotamos como estratégia de projeto, nessa segunda parte do projeto, seguir o estilo de "live coding". Ou seja, programamos em conjunto e e realizando commits em blocos, o que justifica a concentração de commits na conta de poucos alunos do grupo.
