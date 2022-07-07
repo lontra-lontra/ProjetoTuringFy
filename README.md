@@ -3,29 +3,23 @@
     - com.pacote
         - Classes que contêm a main para executar o projeto.
         - 18/06/2022 : Como rodar o projeto:
-            1. Funcionalidades no Terminal:
+            1. Acesso a Interface Web:
                 1. Abra a pasta "Projeto" no eclipse/programa de sua preferência.
                 2. Execute o arquivo: SiteLabooAplication.java.
-                3. Espere aparecer a mensagem de Boot no console. Não responda a mensagem ainda.
-                4. Abra no navegador o endereço: [localhost:8080/aut](http://localhost:8080/aut).
-                5. Clique no link disponível na página.
-                6. Após o redirecionamento, faça login usando a conta de teste: dummy2spotifylaboo@gmail.com / Dummy123#
-                7. Retorne ao Console e insira 1 para iniciar o sistema.
-                8. Navegue livremente no sistema.
-            2. Visualização da página Web [Incompleta]
-                1. Repita os passos 1. e 2. do item anterior.
-                2. Abra a pasta "Interface Web" no terminal.
-                3. Execute os comandos `npm install` e `npm start`
+                3. Abra a pasta "Interface Web" no terminal.
+                4. Execute os comandos `npm install` e `npm start`
                     - Caso apareça a mensagem de erro: 'react-scripts' is not recognized as an internal 
                     or external command Rodar: `npm install react-scripts –save`
-                4. Após um certo tempo, a página localhost:3000 vai abrir, aperte o botão conectar.
-                5. Na página nova, clique na URL e dê enter.
-                6. Faça login na conta teste.
-                7. Retorne à página do Turingfy, e clique Página Inicial.
-                8. Navegue normalmente pelo sistema.
-
-                Obs: Atualmente, apenas a busca está operando na Interface WEB, e para utilizá-la, é necessário inserir o texto de busca na caixa de pesquisa e apertar qualquer botão de filtro. Todos os botões levarão ao resultado de busca, que é apenas a busca por nome.
-
+                5. Após um certo tempo, a página localhost:3000 vai abrir, aperte o botão conectar.
+                6. Na página nova, clique na URL e dê enter.
+                7. Faça login na conta teste.
+                8. Aperte o link para voltar ao Turingfy.
+                9. Navegue normalmente pelo sistema.
+                Obs: Funcionalidades Implementadas
+                    - Preview de música
+                    - Pesquisa de playlists, albums, músicas e artistas 
+                    - Visualização de músicas de Artista, Playlist(Públicas) e Álbum
+                    - Login no Spotify 
     - com.pacote.controllers
         - Classes de Execução dos Procedimentos do projeto.
         - ComunicadorDoSpotify: Classe com métodos de autenticação e autorização para coleta e envio de dados na API do ComunicadorDoSpotify;
