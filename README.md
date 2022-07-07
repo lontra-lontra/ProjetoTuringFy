@@ -9,7 +9,7 @@
                 3. Abra a pasta "Interface Web" no terminal.
                 4. Execute os comandos `npm install @mui/material @emotion/react @emotion/styled` e `npm start`
                     - Caso apareça a mensagem de erro: 'react-scripts' is not recognized as an internal 
-                    or external command Rodar: `npm install react-scripts –save`
+                    or external command, rodar: `npm install react-scripts –save`
                 5. Após um certo tempo, a página localhost:3000 vai abrir, aperte o botão conectar.
                 6. Na página nova, clique na URL e dê enter.
                 7. Faça login na conta teste.
@@ -25,7 +25,8 @@
                     - Criar e Deletar Playlists
                     - Remover e Adicionar Musicas a Playlist
                 - Obs: Ajuste o zoom da página, até ela ficar adequada à visualização.
-                - Obs: Na Aba de Visualizar Playlists, para visualizar uma playlist diferente, recarregue a página primeiro.
+                - Obs: localhost:3000/PaginaVePlaylist não está acessível da Página Principal e deve ser acessada para      
+                       visualizar as playlists.
 
     - com.pacote.controllers
         - XXXXController: Classes que definem o comportamento das páginas web inseridas diretamente no sistema;
