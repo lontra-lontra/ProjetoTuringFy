@@ -12,7 +12,7 @@ import PaginaMusicasArtista from './PaginaMusicasArtista';
 import PaginaMusicasPlaylist from './PaginaMusicasPlaylist';
 import PaginaMusicasAlbum from './PaginaMusicasAlbum';
 import Pesquisa from './PaginaMusicasStats/Pesquisa';
-
+import VePlaylist from './PaginaVePesquisa/Pesquisa';
 
 function App() {
   return (
@@ -29,6 +29,7 @@ function App() {
         <Route path="MusicasPlaylist" element = {<PaginaMusicasPlaylist/>}/>
         <Route path="MusicasArtista" element = {<PaginaMusicasArtista/>}/>
         <Route path="PaginaPesquisaFiltro" element = {<Pesquisa/>}/>
+        <Route path="PaginaVePlaylist" element = {<VePlaylist/>}/>
 
 
         </Routes>

@@ -19,6 +19,7 @@ export default function Musica({musica,funcaoDoBotao,fraseNoBotao})
             <S.styledTd>{musica.parametros[5]}</S.styledTd>
             <S.styledTd>{musica.parametros[6]}</S.styledTd>
             <S.styledTd>{musica.parametros[7]}</S.styledTd>
+            <S.styledTd>   <a href={musica.url} target="_blank" rel="noreferrer" ><S.BotaoAdicionar><img src={require('../Imagens/Play.png')} width = "40px" height="40px" alt=""></img></S.BotaoAdicionar></a> </S.styledTd>
             <S.styledTd><S.BotaoAdicionar onClick={function(){funcaoDoBotao([musica.id,musica.uri])}}> + </S.BotaoAdicionar></S.styledTd>
             </S.tableRow>
             </tbody>

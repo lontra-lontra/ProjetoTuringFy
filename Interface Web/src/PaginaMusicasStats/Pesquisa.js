@@ -240,6 +240,7 @@ function addmusica (id_e_uri)
             <S.itemHead>Instrumentalidade</S.itemHead>
             <S.itemHead>Acusticidade</S.itemHead>
             <S.itemHead>Liveness</S.itemHead>
+            <S.itemHead>Preview</S.itemHead>
             <S.itemHead>Adicionar</S.itemHead>
 
             </S.ColunaTabela>
