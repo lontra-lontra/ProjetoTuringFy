@@ -393,7 +393,7 @@ public static Track getTrack(String id) {
 
 
 public static void removeMusicaDePlaylist(Playlist lista, JsonArray musicaURI) {
-	RemoveItemsFromPlaylistRequest removeItemsFromPlaylistRequest = ComunicadorDoSpotify.getSpotifyapi()
+	RemoveItemsFromPlaylistRequest removeItemsFromPlaylistRequest = spotifyApi
 		    .removeItemsFromPlaylist(lista.getId(), musicaURI)
 		    .build();
 	
@@ -406,7 +406,7 @@ public static void removeMusicaDePlaylist(Playlist lista, JsonArray musicaURI) {
 
 public static void removeUsersPlaylist(String playlistID){
 	try {
-	    UnfollowPlaylistRequest.Builder construtor = new UnfollowPlaylistRequest.Builder(ComunicadorDoSpotify.getSpotifyapi().getAccessToken());
+	    UnfollowPlaylistRequest.Builder construtor = new UnfollowPlaylistRequest.Builder(spotifyApi.getAccessToken());
 	    construtor.playlist_id(playlistID);
 	    UnfollowPlaylistRequest removePlaylist = construtor.build();
 	    removePlaylist.execute();		    
