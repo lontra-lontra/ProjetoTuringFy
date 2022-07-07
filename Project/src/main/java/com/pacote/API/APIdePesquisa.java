@@ -7,6 +7,8 @@ import com.pacote.itemParaEnviar.AlbumParaEnviar;
 import com.pacote.itemParaEnviar.ArtistaParaEnviar;
 import com.pacote.itemParaEnviar.MusicaParaEnviar;
 import com.pacote.itemParaEnviar.PlaylistParaEnviar;
+import com.pacote.operacoesTerminal.EditorDePlaylists;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -70,7 +72,7 @@ public class APIdePesquisa {
 		return playlistsParaEnviar;
 	}
 
-	private void setMusicaParaEnviarAudioFeatures(int quantidade, MusicaParaEnviar[] musicaParaEnviar, String[] ids) {
+	public static void setMusicaParaEnviarAudioFeatures(int quantidade, MusicaParaEnviar[] musicaParaEnviar, String[] ids) {
 		List<AudioFeatures> featuresBrutas;
 		AudioFeatures features;
 		featuresBrutas = Comunicador.getAudioFeatures(ids);
@@ -150,12 +152,14 @@ public class APIdePesquisa {
 				String p2 = "\"}]";
 				Track musica = Comunicador.getTrack(ID);
 				JsonArray  musicaURI = JsonParser.parseString(p1.concat(musica.getUri().concat(p2))).getAsJsonArray();
-				Comunicador.removeMusicaDePlaylist(lista, musicaURI);	
+				EditorDePlaylists editor = new EditorDePlaylists();
+				editor.removeMusica(lista, musicaURI);
 	}
 	
 	@GetMapping("deletaPlaylist")
 	public void deletaPlaylistDoUsuario(@RequestParam(name="PlaylistID", required=false, defaultValue=" ")String playlistID) {
-		Comunicador.removeUsersPlaylist(playlistID);
+		EditorDePlaylists editor = new EditorDePlaylists();
+		editor.deleteUsersPlaylist(playlistID);
 	}
 }
 

@@ -22,11 +22,14 @@ public class APIMusicasArtista {
 			userLists = Comunicador.getArtistsTracks(artistID);
 			quantidade = userLists.length;
 			MusicaParaEnviar[] userListsToApi = new MusicaParaEnviar[quantidade];
-			for(int i = 0; i < quantidade; i ++) {
+			String[] ids = new String[quantidade];
+ 			for(int i = 0; i < quantidade; i ++) {
 				if(userLists[i] != null) {
-					userListsToApi[i] = new MusicaParaEnviar(userLists[i]);				
+					userListsToApi[i] = new MusicaParaEnviar(userLists[i]);
+					ids[i] = userLists[i].getId();
 				}
 			}
+			APIdePesquisa.setMusicaParaEnviarAudioFeatures(quantidade, userListsToApi, ids);
 			return userListsToApi;
 		}	
 	}

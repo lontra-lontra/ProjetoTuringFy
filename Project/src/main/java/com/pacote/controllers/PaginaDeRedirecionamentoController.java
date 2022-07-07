@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.operacoesReact.Comunicador;
 import com.pacote.operacoesTerminal.ComunicadorDoSpotify;
 
 @Controller
@@ -15,7 +16,9 @@ public class PaginaDeRedirecionamentoController {
 	public String greeting(@RequestParam(name="code", required=false, defaultValue="") String code, Model model) {
 		System.out.println(code);
 		ComunicadorDoSpotify.setCodigoDeAutorização(code);
+		Comunicador.setCodigoDeAutorização(code);
 		ComunicadorDoSpotify.pegaAutorizaçãoDeTabela();
+		Comunicador.pegaAutorizaçãoDeTabela();
 		return "paginaDeRedirecionamentoView";	
 	}
 
