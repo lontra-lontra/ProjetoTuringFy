@@ -16,7 +16,6 @@ import se.michaelthelin.spotify.requests.data.artists.GetArtistsTopTracksRequest
 import se.michaelthelin.spotify.requests.data.follow.UnfollowPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.AddItemsToPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
-import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.RemoveItemsFromPlaylistRequest;
@@ -326,6 +325,13 @@ public static Track[] getPlaylistsTracks(String playlistID) {
 	GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist(playlistID)
     .build();
 	
+	  try {
+		    final ClientCredentials nossasCredenciais = RequestDasNossasCredenciais.execute();
+		    spotifyApi.setAccessToken(nossasCredenciais.getAccessToken());
+		  } catch (IOException | SpotifyWebApiException | ParseException e) {
+		    System.out.println("Error: " + e.getMessage());
+		  }
+	  
 	 try {
 	      final Playlist playlist = getPlaylistRequest.execute();
 	      Track[] listaDeMusicas = new Track [playlist.getTracks().getItems().length];
