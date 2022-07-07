@@ -119,12 +119,12 @@ function pegaplaylists()
 }
 function addmusica (id_e_uri)
 {
-  const uri_da_musica = id_e_uri[1];
+  const id_da_musica = id_e_uri[0];
   const id_da_playlist = seletorDePlaylist.current.value;
   console.log("musica na playlist:")
   console.log(id_da_playlist);
-  console.log(uri_da_musica);
-  axios.get('http://localhost:8080/api/adcionaMusicaNaPlaylist', {params: {MusicaURI: [uri_da_musica], PlaylistID: id_da_playlist }})
+  console.log(id_da_musica);
+  axios.get('http://localhost:8080/api/adicionaMusicaNaPlaylist', {params: {MusicaID: id_da_musica, PlaylistID: id_da_playlist }})
   .then(function (response) {
     console.log(response.data);
   })
@@ -137,7 +137,7 @@ function addmusica (id_e_uri)
     <select ref = {seletorDePlaylist} name="playlists">
         {playlistsDoCliente.map(playlist => {
             return (
-            <option  value={playlist.uri}>   {playlist.nome} </option>);
+          <option  value={playlist.id}>   {playlist.nome} </option>);
         })}
     </select>
     </div>
