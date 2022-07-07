@@ -1,7 +1,10 @@
-import React,{useState,useRef,useEffect} from 'react'
+
+
+      import React,{useState,useRef,useEffect} from 'react'
 
 import ListaDeMusica from './ListaDeMusica'
 import ListaDePlaylists from './ListaDePlaylists';
+import ListaDeMusicaParaPlaylist from './ListaDeMusicaParaPlaylist';
 import axios from 'axios';
 import RangeSlider from './component/multiRangeSlider/RangeSlider';
 import Box from '@mui/material/Box';
@@ -87,7 +90,7 @@ export default function Pesquisa()
     {
         const idDaPlaylist = seletorDePlaylist.current.value;
         // -----------------------------------------------------TODO
-        axios.get('http://localhost:8080/api/MusicasPlaylist', {params: { PlaylistID: dDaPlaylist}})
+        axios.get('http://localhost:8080/api/MusicasPlaylist', {params: { PlaylistID: idDaPlaylist}})
   .then(function (response) {
     setResultado(response.data)
   })
