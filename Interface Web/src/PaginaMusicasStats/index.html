@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <body>
+        <button onClick={FazPesquisa}> pesquisar  </button>
+        <button onClick={pegaplaylists}> pega playlist </button>
+        <button onClick={criaplaylist}> cria playlist </button>
+        <input ref={barraDePesquisa} type="text"/>
+        <ListaDeMusica  range={[
+          rangeparam0,
+          rangeparam1,
+          rangeparam2,
+          rangeparam3,
+          rangeparam4,
+          rangeparam5,
+          rangeparam6,
+          rangeparam7,]} musicas={resultado} addmusica={addmusica} />
+         
+        
+        
+    <Box sx={{ width: 300 }}>
+      Dancabilidade:
+      <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam0}
+        onChange={handleChangep0}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+      Energia:
+      <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam1}
+        onChange={handleChangep1}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+      Tempo:
+            <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam2}
+        onChange={handleChangep2}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+        min={0}
+        max={200}
+      />
+      Intesidade:
+            <Slider
+            
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam3}
+        onChange={handleChangep3}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+        min={-50}
+        max={50}
+      />
+      Fala:
+            <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam4}
+        onChange={handleChangep4}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+      Instrumentalidade:
+      <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam5}
+        onChange={handleChangep5}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+      Acusticidade:
+                  <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam6}
+        onChange={handleChangep6}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+      "liveness:"
+                  <Slider
+        getAriaLabel={() => 'Temperature range'}
+        value={rangeparam7}
+        onChange={handleChangep7}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+    </Box>
+        teste:----------------------------------------
+    </body>
+    </html>

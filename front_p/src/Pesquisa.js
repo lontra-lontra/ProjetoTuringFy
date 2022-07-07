@@ -1,13 +1,9 @@
 import React,{useState,useRef,useEffect} from 'react'
-
 import ListaDeMusica from './ListaDeMusica'
 import ListaDePlaylists from './ListaDePlaylists';
 import axios from 'axios';
-import RangeSlider from './component/multiRangeSlider/RangeSlider';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-
-
 
 
 function valuetext(value) {

@@ -11,6 +11,7 @@ import PaginaResultadosPlaylist from './PaginaResultadosPlaylist';
 import PaginaMusicasArtista from './PaginaMusicasArtista';
 import PaginaMusicasPlaylist from './PaginaMusicasPlaylist';
 import PaginaMusicasAlbum from './PaginaMusicasAlbum';
+import Pesquisa from './PaginaMusicasStats/Pesquisa';
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
         <Route path="MusicasAlbum" element = {<PaginaMusicasAlbum/>}/>
         <Route path="MusicasPlaylist" element = {<PaginaMusicasPlaylist/>}/>
         <Route path="MusicasArtista" element = {<PaginaMusicasArtista/>}/>
-
+        <Route path="PaginaPesquisaFiltro" element = {<Pesquisa/>}/>
 
 
         </Routes>
