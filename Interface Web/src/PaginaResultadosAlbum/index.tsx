@@ -8,9 +8,6 @@ import * as S from "./styles";
 const PaginaResultadosAlbum = () => {
     
     let navega = useNavigate();
-    const navegaMusicasAlbum = () =>{
-        navega("/MusicasAlbum")
-    }
     const location = useLocation();
     const state = location.state as any
     const [musicasBusca, setMusicasBusca] = useState({musicas:[]})
@@ -19,7 +16,6 @@ const PaginaResultadosAlbum = () => {
         console.log()
         setMusicasBusca({musicas: res.data});
     });
-
     
     return(
         <>
@@ -28,13 +24,14 @@ const PaginaResultadosAlbum = () => {
                 <S.TituloTuring>Turing</S.TituloTuring><S.TituloFy>fy</S.TituloFy>
                 <S.Slogan>O seu super gerenciador musical</S.Slogan>
             </S.Header>
-            <S.TextoResultados>Resultados</S.TextoResultados>
+            <S.TextoResultados>Resultados</S.TextoResultados>  
+
 
             <S.ResultadosPara>Resultados para:  {state.textoBusca}</S.ResultadosPara>
 
-                {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}      <S.BotaoMusica onClick={navegaMusicasAlbum}>+</S.BotaoMusica></S.ItemResultados></>)}
+                {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}      <S.BotaoMusica onClick={()=>navega("/MusicasAlbum",{state:{idMusica: musica["id"]}})}>+</S.BotaoMusica></S.ItemResultados></>)}
 
-        </S.CorpoPagina>
+        </S.CorpoPagina>                       
 
         </>
     )

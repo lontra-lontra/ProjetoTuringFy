@@ -27,7 +27,7 @@ const PaginaResultadosMusica = () => {
             <S.TextoResultados>Resultados</S.TextoResultados>
 
             <S.ResultadosPara>Resultados para:  {state.textoBusca}</S.ResultadosPara>
-                {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}  <S.BotaoMusica><img src={require('../Imagens/Play.png')} width = "40px" height="40px" alt=""></img></S.BotaoMusica>   <S.BotaoMusica>+</S.BotaoMusica></S.ItemResultados></>)}
+                {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}  <a href={musica["url"]} target="_blank" rel="noreferrer" ><S.BotaoMusica><img src={require('../Imagens/Play.png')} width = "40px" height="40px" alt=""></img></S.BotaoMusica></a>   <S.BotaoMusica>+</S.BotaoMusica></S.ItemResultados></>)}
 
         </S.CorpoPagina>
 

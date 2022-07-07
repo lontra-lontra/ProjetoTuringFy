@@ -11,7 +11,7 @@ const PaginaMusicasAlbum = () => {
     const state = location.state as any
     const [musicasBusca, setMusicasBusca] = useState({musicas:[]})
     
-    axios.get('http://localhost:8080/api/album', { params: { pesquisa: state.textoBusca} } ).then (res => {
+    axios.get('http://localhost:8080/api/MusicasAlbum', { params: { albumID: state.idMusica} } ).then (res => {
         console.log()
         setMusicasBusca({musicas: res.data});
     });
@@ -24,10 +24,9 @@ const PaginaMusicasAlbum = () => {
                 <S.TituloTuring>Turing</S.TituloTuring><S.TituloFy>fy</S.TituloFy>
                 <S.Slogan>O seu super gerenciador musical</S.Slogan>
             </S.Header>
+            <S.TextoResultados> ID: {state.idMusica}</S.TextoResultados>
             <S.TextoResultados>Musicas no Album</S.TextoResultados>
-
-            <S.ItemResultados>Musica do Album     <S.BotaoMusica>+</S.BotaoMusica></S.ItemResultados>
-
+            {musicasBusca.musicas.map(musica => <><S.ItemResultados>{musica["nome"]}<S.BotaoMusica>+</S.BotaoMusica></S.ItemResultados></>)}
         </S.CorpoPagina>
 
         </>
