@@ -13,15 +13,19 @@
                 5. Após um certo tempo, a página localhost:3000 vai abrir, aperte o botão conectar.
                 6. Na página nova, clique na URL e dê enter.
                 7. Faça login na conta teste.
+                    - dummy2spotifylaboo@gmail.com / Dummy123#
                 8. Aperte o link para voltar ao Turingfy.
                 9. Navegue normalmente pelo sistema.
                 Obs: Funcionalidades Implementadas
                     - Preview de música
                     - Pesquisa de playlists, albums, músicas e artistas 
-                    - Visualização de músicas de Artista, Playlist(Públicas) e Álbum
+                    - Visualização de músicas de Artista, Playlist(Públicas e Privadas) e Álbum
                     - Login no Spotify 
                     - Filtragem de Músicas em Pesquisa Avançada
+                    - Criar e Deletar Playlists
+                    - Remover e Adicionar Musicas a Playlist
                 Obs: Ajuste o zoom da página, até ela ficar adequada à visualização.
+                Obs: Na Aba de Visualizar Playlists, para visualizar uma playlist diferente, recarregue a página primeiro.
 
     - com.pacote.controllers
         - XXXXController: Classes que definem o comportamento das páginas web inseridas diretamente no sistema;
