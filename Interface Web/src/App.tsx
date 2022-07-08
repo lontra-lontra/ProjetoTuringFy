@@ -30,8 +30,6 @@ function App() {
         <Route path="MusicasArtista" element = {<PaginaMusicasArtista/>}/>
         <Route path="PaginaPesquisaFiltro" element = {<Pesquisa/>}/>
         <Route path="PaginaVePlaylist" element = {<VePlaylist/>}/>
-
-
         </Routes>
       </div>
     </BrowserRouter>
