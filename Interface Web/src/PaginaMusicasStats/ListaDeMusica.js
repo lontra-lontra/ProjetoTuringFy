@@ -1,6 +1,6 @@
 import React from "react"
 import Musica from "./Musica"
-export default function ListaDeMusica({musicas,range,addmusica})
+export default function ListaDeMusica({musicas,range,addmusica,funcaoDoHover})
 {
     var musicasX = [];
     var size = musicas.lenght
@@ -15,7 +15,10 @@ export default function ListaDeMusica({musicas,range,addmusica})
   &&     (range[4][0] <= element.parametros[4]*100 )&& ( element.parametros[4]*100 <= range[4][1] )
   &&     (range[5][0] <= element.parametros[5]*100 )&& ( element.parametros[5]*100 <= range[5][1] )
   &&     (range[6][0] <= element.parametros[6]*100 )&& ( element.parametros[6]*100 <= range[6][1] )
-  &&     (range[7][0] <= element.parametros[7]*100 )&& ( element.parametros[7]*100 <= range[7][1] ));
+  &&     (range[7][0] <= element.parametros[7]*100 )&& ( element.parametros[7]*100 <= range[7][1] )
+  &&     (range[8][0] <= element.parametros[8] )&& ( element.parametros[8] <= range[8][1] )
+  &&     (range[9][0] <= element.parametros[9] )&& ( element.parametros[9] <= range[9][1] )
+  &&     (range[10][0] <= element.parametros[10] )&& ( element.parametros[10] <= range[10][1] ));
 });
     for(let i = 0;i < size;i++)
     {
@@ -26,7 +29,7 @@ export default function ListaDeMusica({musicas,range,addmusica})
     console.log(filtered);
     return (
         filtered.map(musica => {
-            return <Musica key={musica.id} musica={musica} funcaoDoBotao={addmusica} fraseNoBotao = {"addicionar Musica"} />
+            return <Musica key={musica.id} musica={musica} funcaoDoBotao={addmusica} funcaoDoHover = {funcaoDoHover} />
         })
     )
 }

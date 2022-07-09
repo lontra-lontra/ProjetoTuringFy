@@ -23,7 +23,8 @@ import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
-
+import se.michaelthelin.spotify.model_objects.specification.Image;
+//import se.michaelthelin.spotify.model_objects.specification;
 @CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("api/")
@@ -47,6 +48,70 @@ public class APIdePesquisa {
 		setMusicaParaEnviarAudioFeatures(quantidade, musicaParaEnviar, ids);
 		return musicaParaEnviar;	
 	}
+	
+	
+	@GetMapping("pesquisaImagemDoAlbum")
+	public String pesquisaImagemDoAlbum ( @RequestParam(name="pesquisa", required=false, defaultValue="album") String pesquisa) {
+		Album[] album = new Album[1];
+		album = Comunicador.pesquisaAlbum(pesquisa, 1);
+		Image imagem = album[0].getImages()[0];
+		return imagem.getUrl();
+	}
+	
+	@GetMapping("pesquisaMusicasDoAlbum")
+	public MusicaParaEnviar[] pesquisaMusicasDoAlbum ( @RequestParam(name="pesquisa", required=false, defaultValue="album") String pesquisa) {
+		
+		Album[] album = new Album[1];
+		album = Comunicador.pesquisaAlbum(pesquisa, 1);
+		String albumID = album[0].getId();
+		Image imagem = album[0].getImages()[0];
+		imagem.getUrl();
+		int quantidade = 20;
+		Track[] musicasDoAlbum;
+		musicasDoAlbum = Comunicador.getAlbunsTracks(albumID);
+		quantidade = musicasDoAlbum.length;
+		
+		MusicaParaEnviar[] musicasDoAlbumParaEnviar = new MusicaParaEnviar[quantidade];
+		
+		String[] ids = new String[quantidade];
+			for(int i = 0; i < quantidade; i ++) {
+			if(musicasDoAlbum[i] != null) {
+				musicasDoAlbumParaEnviar[i] = new MusicaParaEnviar(musicasDoAlbum[i]);
+				ids[i] = musicasDoAlbum[i].getId();
+			}
+		}
+		APIdePesquisa.setMusicaParaEnviarAudioFeatures(quantidade, musicasDoAlbumParaEnviar, ids);
+		return musicasDoAlbumParaEnviar;	
+	}
+	
+	@GetMapping("pesquisaMusicasDaPlaylist")
+	public MusicaParaEnviar[] pesquisaMusicasDaPlaylist ( @RequestParam(name="pesquisa", required=false, defaultValue="playlist") String pesquisa) {
+		
+		Playlist[] playlist = new Playlist[1];
+		playlist = Comunicador.pesquisaPlaylists(pesquisa, 1);
+		String playlistID = playlist[0].getId();
+		
+		Track[] musicasDaPlaylist;
+		musicasDaPlaylist = Comunicador.getPlaylistsTracks(playlistID);
+		int quantidade = musicasDaPlaylist.length;
+		
+		MusicaParaEnviar[] musicasDaPlaylistParaEnviar = new MusicaParaEnviar[quantidade];
+		
+		String[] ids = new String[quantidade];
+			for(int i = 0; i < quantidade; i ++) {
+			if(musicasDaPlaylist[i] != null) {
+				musicasDaPlaylistParaEnviar[i] = new MusicaParaEnviar(musicasDaPlaylist[i]);
+				ids[i] = musicasDaPlaylist[i].getId();
+			}
+		}
+		APIdePesquisa.setMusicaParaEnviarAudioFeatures(quantidade, musicasDaPlaylistParaEnviar, ids);
+		return musicasDaPlaylistParaEnviar;	
+	}
+	
+	
+	
+	
+	
 	
 	@GetMapping("criaPlaylist")
 	public void criaPlaylist(@RequestParam(name="nome", required=false, defaultValue="playlist") String nome)
@@ -86,6 +151,10 @@ public class APIdePesquisa {
 				musicaParaEnviar[i].parametros[5] = features.getInstrumentalness();
 				musicaParaEnviar[i].parametros[6] = features.getAcousticness();
 				musicaParaEnviar[i].parametros[7] = features.getLiveness();
+				musicaParaEnviar[i].parametros[8] = features.getKey();
+				
+				musicaParaEnviar[i].parametros[9] = features.getMode().getType();
+				musicaParaEnviar[i].parametros[10] = features.getTimeSignature();
 		}
 	}
 	

@@ -6,17 +6,115 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import * as S from "./styles";
 
-function valuetext(value) {
-  return `${value}`;
-}
 
+const marksTimeS = [
+  {
+    value: 3,
+    label: '3/4',
+  },
+  {
+    value: 4,
+    label: '4/4',
+  },
+  {
+    value: 5,
+    label: '5/4',
+  },
+  {
+    value: 6,
+    label: '6/8',
+  },
+];
+
+
+const marksP = [
+  {
+    value: -1,
+    label: '',
+  },
+  {
+    value: 0,
+    label: 'C',
+  },
+  {
+    value: 1,
+    label: 'C#',
+  },
+  {
+    value: 2,
+    label: 'D',
+  },
+    {
+    value: 3,
+    label: 'D#',
+  },
+  {
+    value: 4,
+    label: 'E',
+  },
+  {
+    value: 5,
+    label: 'F',
+  },
+  {
+    value: 6,
+    label: 'F#',
+  },
+    {
+    value: 7,
+    label: 'G',
+  },
+  {
+    value: 8,
+    label: 'G#',
+  },
+  {
+    value: 9,
+    label: 'A',
+  },
+  {
+    value: 10,
+    label: 'A#',
+  },
+    {
+    value: 11,
+    label: 'B',
+  },
+];
+
+const marksMode =
+[
+  {
+    value: 1,
+    label: 'maior',
+  },
+  {
+    value: '0',
+    label: 'menor',
+  }
+];
+
+function valuetext(value) {
+  return `${value} OI`;
+}
+function valuetextTimeS(value) {
+  if(value == 3)
+    return "3/4"
+  if(value == 4)
+    return "4/4"
+  if(value == 5)
+    return "5/4"
+  if(value == 6)
+    return "6/8"
+}
 export default function Pesquisa()
 {
     React.useEffect(() => {
     pegaplaylists()
   }, []);
-    
-
+    const [descricao,setDescricao] = React.useState("");
+    const [viziblidadeDaImagemDoAlbum, setVizibilidadeDaImagemDoAlbum] = React.useState("hidden");
+    const [urlDaImagemDoAlbum, seturlDaImagemDoAlbum] = React.useState("");
     const [rangeparam0, setRangeparam0] = React.useState([0, 100]);
     const [rangeparam1, setRangeparam1] = React.useState([0, 100]);
     const [rangeparam2, setRangeparam2] = React.useState([0, 200]);
@@ -25,6 +123,9 @@ export default function Pesquisa()
     const [rangeparam5, setRangeparam5] = React.useState([0, 100]);
     const [rangeparam6, setRangeparam6] = React.useState([0, 100]);
     const [rangeparam7, setRangeparam7] = React.useState([0, 100]);
+    const [rangeparam8, setRangeparam8] = React.useState([-1, 11]);
+    const [rangeparam9, setRangeparam9] = React.useState([0, 1]);
+    const [rangeparam10, setRangeparam10] = React.useState([3, 6]);
 
     const [ultimoparam, setUltimoparam] = React.useState(0);
     const [resultado,setResultado] = useState([])
@@ -61,9 +162,23 @@ export default function Pesquisa()
     const handleChangep6 = (event, newValue) => {
     setUltimoparam(6)
     setRangeparam6(newValue);
-  };    const handleChangep7 = (event, newValue) => {
+  };    
+  const handleChangep7 = (event, newValue) => {
     setUltimoparam(7)
     setRangeparam7(newValue);
+  };
+
+   const handleChangep8 = (event, newValue) => {
+    setUltimoparam(8)
+    setRangeparam8(newValue);
+  };
+   const handleChangep9 = (event, newValue) => {
+    setUltimoparam(9)
+    setRangeparam9(newValue);
+  };
+   const handleChangep10 = (event, newValue) => {
+    setUltimoparam(10)
+    setRangeparam10(newValue);
   };
 
     useEffect(() => {
@@ -88,9 +203,59 @@ export default function Pesquisa()
         axios.get('http://localhost:8080/api/pesquisa', {params: { pesquisa: palavraPesquisada}})
   .then(function (response) {
     setResultado(response.data)
+    setVizibilidadeDaImagemDoAlbum ("hidden");
   })
          pegaplaylists()
     }
+
+    function FazPesquisaAlbum()
+    {
+        const palavraPesquisada = barraDePesquisa.current.value;
+        console.log(palavraPesquisada)
+        
+        axios.get('http://localhost:8080/api/pesquisaMusicasDoAlbum', {params: { pesquisa: palavraPesquisada}})
+  .then(function (response) {
+    setResultado(response.data)
+  })
+        axios.get('http://localhost:8080/api/pesquisaImagemDoAlbum', {params: { pesquisa: palavraPesquisada}})
+  .then(function (response) {
+    seturlDaImagemDoAlbum(response.data)
+    setVizibilidadeDaImagemDoAlbum ("visible");
+  })
+         pegaplaylists()
+    }
+
+    function FazPesquisaPlaylist()
+    {
+        const palavraPesquisada = barraDePesquisa.current.value;
+        console.log(palavraPesquisada)
+        axios.get('http://localhost:8080/api/pesquisaMusicasDaPlaylist', {params: { pesquisa: palavraPesquisada}})
+  .then(function (response) {
+    setResultado(response.data)
+  })
+         pegaplaylists()
+         seturlDaImagemDoAlbum (urlDaImagemDoAlbum);
+         setVizibilidadeDaImagemDoAlbum ("hidden");
+    }
+
+    function FazPesquisaArtista()
+    {
+        // solucao esperta 
+        const palavraPesquisada = "this is " + barraDePesquisa.current.value;
+        console.log(palavraPesquisada)
+        
+        axios.get('http://localhost:8080/api/pesquisaMusicasDaPlaylist', {params: { pesquisa: palavraPesquisada}})
+  .then(function (response) {
+    setResultado(response.data)
+  })
+         pegaplaylists()
+        setVizibilidadeDaImagemDoAlbum ("hidden");
+    }
+function funcaoDoHover(descricaoDaMusica)
+{
+  setDescricao(descricaoDaMusica);
+}
+
     function criaplaylist (id)
 {
   console.log(id);
@@ -132,6 +297,11 @@ function addmusica (id_e_uri)
         <S.TituloTuring>Turing</S.TituloTuring><S.TituloFy>fy</S.TituloFy>
         <S.Slogan>O seu super gerenciador musical</S.Slogan>
     </S.Header>
+    <div>
+    <a href="default.asp"><img src={urlDaImagemDoAlbum} alt="album" style={{visibility: viziblidadeDaImagemDoAlbum,width: "200px", height: "200px"}}></img></a>
+    {descricao}
+    </div>
+
     <S.divGrande>
     <div>
           <S.TextoPlaylists>Playlists:</S.TextoPlaylists>
@@ -143,14 +313,22 @@ function addmusica (id_e_uri)
                 <option  value={playlist.id}>   {playlist.nome} </option>);
               })}
           </select>
+
           </S.divSelecioneAPlaylist> 
               <S.divPesquisar>
                 <S.BotaoPesquisar onClick={FazPesquisa}> Pesquisar  </S.BotaoPesquisar>
+                <S.BotaoPesquisar onClick={FazPesquisaAlbum}> Album </S.BotaoPesquisar>
+                <S.BotaoPesquisar onClick={FazPesquisaPlaylist}> Playlist </S.BotaoPesquisar>
+                <S.BotaoPesquisar onClick={FazPesquisaArtista}> Artista </S.BotaoPesquisar>
                 <S.inputPesquisar ref={barraDePesquisa} type="text"/>
+              </S.divPesquisar>
+              <S.divPesquisar>
               </S.divPesquisar>
 
               <S.divPesquisar>
+                <S.BotaoPesquisar style={{visibility: "hidden"}} > ________ </S.BotaoPesquisar>
                 <S.BotaoPesquisar onClick={criaplaylist}> Criar playlist </S.BotaoPesquisar>
+                <S.BotaoPesquisar style={{visibility: "hidden"}} > ________ </S.BotaoPesquisar>
                 <S.inputPesquisar ref={barraDoNomeDaPlaylist} type="text"/>
               </S.divPesquisar>  
     </div>
@@ -179,22 +357,21 @@ function addmusica (id_e_uri)
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
           min={0}
-          max={200}
+          max={500}
         />
+
         <S.TextoParametros>Intesidade:</S.TextoParametros>
               <Slider
               
           getAriaLabel={() => 'Temperature range'}
           value={rangeparam3}
           onChange={handleChangep3}
-          valueLabelDisplay="auto"
+          valueLabelDisplay="off"
           getAriaValueText={valuetext}
           min={-50}
           max={50}
         />
-      </S.divCorpoParametros>
-      <S.divCorpoParametros>
-        <S.TextoParametros>Fala:</S.TextoParametros>
+                <S.TextoParametros>Fala:</S.TextoParametros>
               <Slider
           getAriaLabel={() => 'Temperature range'}
           value={rangeparam4}
@@ -202,7 +379,7 @@ function addmusica (id_e_uri)
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
         />
-        <S.TextoParametros>Instrumentalidade:</S.TextoParametros>
+                <S.TextoParametros>Instrumentalidade:</S.TextoParametros>
         <Slider
           getAriaLabel={() => 'Temperature range'}
           value={rangeparam5}
@@ -210,6 +387,11 @@ function addmusica (id_e_uri)
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
         />
+      </S.divCorpoParametros>
+      
+      <S.divCorpoParametros>
+
+
         <S.TextoParametros>Acusticidade:</S.TextoParametros>
                     <Slider
           getAriaLabel={() => 'Temperature range'}
@@ -218,16 +400,53 @@ function addmusica (id_e_uri)
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
         />
-        <S.TextoParametros>"liveness":</S.TextoParametros>
-                    <Slider
+        <S.TextoParametros>"Liveness":</S.TextoParametros>
+          
+          <Slider
           getAriaLabel={() => 'Temperature range'}
           value={rangeparam7}
           onChange={handleChangep7}
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
         />
+
+        <S.TextoParametros>Tonalidade:</S.TextoParametros>
+        <Slider
+          getAriaLabel={() => 'Temperature range'}
+          value={rangeparam8}
+          onChange={handleChangep8}
+          valueLabelDisplay="off"
+          min={-1}
+          max={11}
+          marks={marksP}
+          getAriaValueText={null}
+        />
+        <Slider
+          getAriaLabel={() => 'Temperature range'}
+          value={rangeparam9}
+          onChange={handleChangep9}
+          valueLabelDisplay="off"
+          min={0}
+          max={1}
+          marks={marksMode}
+          getAriaValueText={null}
+        />
+        <S.TextoParametros>Batida:</S.TextoParametros>
+        <Slider
+          getAriaLabel={() => 'Temperature range'}
+          value={rangeparam10}
+          onChange={handleChangep10}
+          min={3}
+          max={6}
+          marks={marksTimeS}
+          valueLabelDisplay="off"
+          getAriaValueText={null}
+        />
+
     </S.divCorpoParametros>
+
     </S.divGrande>
+
         <table>
             <S.TabelaHead>
             <S.ColunaTabela>
@@ -253,7 +472,11 @@ function addmusica (id_e_uri)
           rangeparam4,
           rangeparam5,
           rangeparam6,
-          rangeparam7,]} musicas={resultado} addmusica={addmusica} />
+          rangeparam7,
+          rangeparam8,
+          rangeparam9,
+          rangeparam10,
+          ]} musicas={resultado} addmusica={addmusica} funcaoDoHover={funcaoDoHover}/>
         </table>
     </S.CorpoPagina>
     </S.Tudo>

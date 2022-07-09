@@ -2,7 +2,7 @@ import { buildTimeValue } from "@testing-library/user-event/dist/utils";
 import React from "react";
 import * as S from "./styles";
 
-export default function Musica({musica,funcaoDoBotao,fraseNoBotao})
+export default function Musica({musica,funcaoDoBotao,funcaoDoHover})
 {
     if(musica.respeitaParametro0 || true )
     {
@@ -10,7 +10,7 @@ export default function Musica({musica,funcaoDoBotao,fraseNoBotao})
         <>
             <tbody>
             <S.tableRow>
-            <S.styledTdNome>{musica.nome}</S.styledTdNome>
+            <S.styledTdNome > <div title = {musica.nome+" Album:"+musica.albumName + " Artista:"+musica.autorName}> {musica.nome} </div></S.styledTdNome>
             <S.styledTd>{musica.parametros[0]}</S.styledTd>
             <S.styledTd>{musica.parametros[1]}</S.styledTd>
             <S.styledTd>{musica.parametros[2]}</S.styledTd>

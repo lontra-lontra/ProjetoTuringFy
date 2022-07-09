@@ -62,7 +62,7 @@ return(
                     </S.BotoesBusca>
                 </S.BotoesBuscaETexto>
                 <S.BotaoBuscarAvancado onClick={()=>{navegaResultadosAvancada()}}>Pesquisa Avancada</S.BotaoBuscarAvancado>
-                <S.BotaoBuscarAvancado onClick={()=>{navegaResultadosAvancada()}}>Ver suas playlists</S.BotaoBuscarAvancado>
+                <S.BotaoBuscarAvancado onClick={()=>{navegaPlaylists()}}>Ver suas playlists</S.BotaoBuscarAvancado>
             </S.BlocoDeBusca>
         </S.corpo>
     </S.CorpoTodo>
