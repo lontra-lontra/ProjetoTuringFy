@@ -13,7 +13,6 @@ import PaginaMusicasPlaylist from './PaginaMusicasPlaylist';
 import PaginaMusicasAlbum from './PaginaMusicasAlbum';
 import Pesquisa from './PaginaMusicasStats/Pesquisa';
 import VePlaylist from './PaginaVePesquisa/Pesquisa';
-import AlbumStats from './PaginaAlbumStats/AlbumStats';
 function App() {
   return (
     <BrowserRouter>
